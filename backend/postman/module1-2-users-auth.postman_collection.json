@@ -1,0 +1,159 @@
+{
+  "info": {
+    "name": "Zomato Clone — Module 1 & 2 (Users + Auth)",
+    "_postman_id": "zomato-module-1-2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "BASE_URL", "value": "http://localhost:5000" },
+    { "key": "TOKEN",    "value": "" }
+  ],
+  "item": [
+    {
+      "name": "MODULE 1 — Users",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "url": "{{BASE_URL}}/api/users/register",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"customer\"\n}"
+            }
+          }
+        },
+        {
+          "name": "GET All Users",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/api/users"
+          }
+        },
+        {
+          "name": "GET User By ID",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/api/users/:id",
+            "url": {
+              "raw": "{{BASE_URL}}/api/users/USER_ID_HERE",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "users", "USER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "UPDATE User",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{BASE_URL}}/api/users/USER_ID_HERE",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "users", "USER_ID_HERE"]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Updated\"\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{BASE_URL}}/api/users/USER_ID_HERE",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "users", "USER_ID_HERE"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "MODULE 2 — Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.token) { pm.collectionVariables.set('TOKEN', res.token); }"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": "{{BASE_URL}}/api/auth/login",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "url": "{{BASE_URL}}/api/auth/logout",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{TOKEN}}" }
+            ]
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PUT",
+            "url": "{{BASE_URL}}/api/auth/change-password",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"password123\",\n  \"newPassword\": \"newpassword456\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "url": "{{BASE_URL}}/api/auth/forgot-password",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{BASE_URL}}/api/auth/reset-password/RESET_TOKEN_FROM_EMAIL",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "auth", "reset-password", "RESET_TOKEN_FROM_EMAIL"]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"newPassword\": \"resetpassword789\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

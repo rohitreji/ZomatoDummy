@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>The Gourmet Kitchen - Menu</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb3b1",
+                        "inverse-primary": "#ffb3b1",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#005227",
+                        "on-tertiary-container": "#f6fff3",
+                        "surface-tint": "#bb162c",
+                        "secondary": "#5d5f5f",
+                        "surface-container": "#f0eded",
+                        "surface-dim": "#dcd9d9",
+                        "on-surface": "#1b1b1b",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "secondary-container": "#dfe0e0",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#eae7e7",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#006b34",
+                        "on-error": "#ffffff",
+                        "primary-container": "#db313f",
+                        "tertiary-container": "#29844a",
+                        "on-surface-variant": "#5b403f",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#ffdad8",
+                        "inverse-surface": "#313030",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-secondary-container": "#616363",
+                        "on-background": "#1b1b1b",
+                        "surface-container-low": "#f6f3f2",
+                        "on-tertiary-fixed": "#00210c",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-fixed": "#e2e2e2",
+                        "background": "#fcf9f8",
+                        "on-secondary-fixed-variant": "#454747",
+                        "on-primary-fixed-variant": "#92001c",
+                        "tertiary-fixed-dim": "#80da96",
+                        "on-primary-fixed": "#410007",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "outline-variant": "#e4bebc",
+                        "outline": "#8f6f6e",
+                        "on-primary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "inverse-on-surface": "#f3f0ef",
+                        "tertiary-fixed": "#9bf6b0",
+                        "primary": "#b7122a",
+                        "on-primary-container": "#fffbff",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "sm": "16px",
+                        "md": "24px",
+                        "xs": "8px",
+                        "base": "4px",
+                        "gutter": "16px",
+                        "lg": "32px",
+                        "xl": "48px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-sm": ["12px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .glass-effect { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .item-stepper-active { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface overflow-x-hidden pb-32">
+<!-- Hero Section -->
+<header class="relative w-full h-[397px] md:h-[486px]">
+<div class="w-full h-full relative">
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-surface z-10"></div>
+<img class="w-full h-full object-cover" data-alt="A luxurious interior of a modern fine-dining restaurant called The Gourmet Kitchen. The space features elegant marble tables, velvet-upholstered chairs in muted tones, and warm, sophisticated ambient lighting from designer pendant lamps. Large windows offer a glimpse of a bustling city at dusk. The overall aesthetic is professional, high-end, and inviting, with a focus on premium materials and architectural clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJmg1LS3HCcvZ4AMJh82_1zlqUtjAbA5VBHUx53x749qBy8AN6yB8tk4wfUTa6JIKyyGXH2gDMyZMki9z_sBFxbJVIZQmhQn9G1ZNJFAp7UIx85jTWzCUh8w1hhlQHo9gkJNNVGOXHOtD3rzXvrsoZ8AQOZRh7avNXUs2Dd4aMUm1gx4Up6ATlkjs5svonfcqaP4v1cI7IJvhtSe83uwtTOBRMEVKkHPDoLzfMla97tBq95lF105W5y2T0aC2fD3ncEkN47SFNcvjA"/>
+</div>
+<!-- Top Controls -->
+<div class="absolute top-0 left-0 w-full z-20 px-container-margin pt-12 md:pt-10 flex justify-between items-center max-w-[1200px] mx-auto">
+<button class="w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-md rounded-full text-white active:scale-90 transition-transform" onclick="window.history.back()">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex gap-xs">
+<button class="w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-md rounded-full text-white active:scale-90 transition-transform">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-md rounded-full text-white active:scale-90 transition-transform">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+<!-- Info Card -->
+<div class="absolute bottom-[-60px] left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-2xl z-30">
+<div class="bg-surface-container-lowest rounded-[24px] p-md shadow-[0px_10px_30px_rgba(0,0,0,0.05)] border border-outline-variant/20">
+<div class="flex justify-between items-start mb-xs">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface mb-base">The Gourmet Kitchen</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center">
+<span class="material-symbols-outlined text-[18px] mr-1">location_on</span>
+                            42 Culinary Avenue, Central Plaza
+                        </p>
+</div>
+<div class="bg-tertiary-container text-on-tertiary-container px-xs py-1 rounded-lg flex items-center gap-1">
+<span class="font-label-md text-label-md">4.8</span>
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="flex items-center gap-md mt-sm border-t border-outline-variant/10 pt-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">schedule</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">25-35 min</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Free delivery</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="mt-[80px] px-container-margin max-w-[1200px] mx-auto">
+<!-- Category Tabs -->
+<nav class="sticky top-0 bg-surface/80 backdrop-blur-md z-40 py-sm mb-md -mx-container-margin px-container-margin no-scrollbar overflow-x-auto flex gap-xs">
+<button class="bg-primary text-on-primary px-sm py-xs rounded-full font-label-md whitespace-nowrap">Recommended</button>
+<button class="bg-surface-container-high text-on-surface px-sm py-xs rounded-full font-label-md whitespace-nowrap hover:bg-surface-dim transition-colors">Main Course</button>
+<button class="bg-surface-container-high text-on-surface px-sm py-xs rounded-full font-label-md whitespace-nowrap hover:bg-surface-dim transition-colors">Starters</button>
+<button class="bg-surface-container-high text-on-surface px-sm py-xs rounded-full font-label-md whitespace-nowrap hover:bg-surface-dim transition-colors">Beverages</button>
+<button class="bg-surface-container-high text-on-surface px-sm py-xs rounded-full font-label-md whitespace-nowrap hover:bg-surface-dim transition-colors">Desserts</button>
+</nav>
+<!-- Menu Sections -->
+<div class="space-y-xl">
+<!-- Section: Recommended -->
+<section id="recommended">
+<div class="flex items-center gap-xs mb-md">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+<h2 class="font-headline-sm text-headline-sm">Recommended</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Item 1 -->
+<div class="bg-surface-container-lowest p-sm rounded-[24px] shadow-[0px_10px_30px_rgba(0,0,0,0.05)] border border-outline-variant/10 flex gap-sm">
+<div class="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="A gourmet pan-seared sea bass fillet presented on a bed of citrus-infused quinoa and vibrant green asparagus spears. The dish is drizzled with a rich lemon-butter reduction and garnished with micro-herbs. Shot in a bright, airy style with high contrast, highlighting the textures of the crispy skin and fresh vegetables. Part of a luxury food menu." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj5GlgUnJ2vYNgZy542Q-mpiB6buqMsvgkLQ8tn3edPY0AEt4etv8kIi_hDZZBCQ376bIxT3xOm3Dn7DFuFCagQvkHMHwwrEJNsLWgUSrH8mvYBOUZNXayxArojf0_zGkBK3nCSuTPkxTTFhZV_1PmL0uXPnMg4aQCtFjUE7MihCz9wskYco_K6bbbygRWkaieh7ptdxqo-5otRsz7ldLLVr5gNkYEG-OqKytLq7vVyVgFq5TFIp5thVyov4oMfq7HAdDHa99A9tZE"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface mb-base">Pan-Seared Sea Bass</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Citrus-infused quinoa, asparagus spears, and lemon-butter reduction.</p>
+<span class="font-headline-sm text-headline-sm text-primary block mt-base">$28.00</span>
+</div>
+<div class="flex justify-end">
+<div class="item-container relative h-10 w-28">
+<button class="add-btn absolute inset-0 bg-primary text-on-primary rounded-xl font-label-md flex items-center justify-center gap-base active:scale-95 transition-all" onclick="handleInitialAdd(this)">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                                        Add
+                                    </button>
+<div class="stepper-ui hidden absolute inset-0 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-between px-2">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-black/5 rounded-lg" onclick="updateQty(this, -1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="qty-text font-label-md">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-black/5 rounded-lg" onclick="updateQty(this, 1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-lowest p-sm rounded-[24px] shadow-[0px_10px_30px_rgba(0,0,0,0.05)] border border-outline-variant/10 flex gap-sm">
+<div class="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A premium Wagyu beef burger on a toasted brioche bun. The burger features melted gruyere cheese, caramelized onions, truffle aioli, and crisp rocket leaves. Accompanied by a side of golden-brown thick-cut fries. The lighting is warm and dramatic, emphasizing the juicy meat and melted cheese. Studio food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6smVs7Z2KqtZG-1LJ9hbrtDPCV3S_ONxUmspzL4pTnL01-XOv0catSWjqlKNrJ2pCQ5U5WJOO6C97JapobCZ5ldwqBFQxPLf2BEJQKvgtV9qHn_y_DdQJ-UuJ5aBNWatq4zuP-m5D_Qjx19m8vBnC6c883agfjR2rxwmYBJO2wjNDCft_m-YrYgEGV62mTuPDP43PNGz8_Q1_-9sVYZEBKhLc6wQJyK7-ZN6VkxXo9Xlu5AoDh6IuIa3ZRTXO6JAjAZ7zP_D0r6eT"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface mb-base">Signature Wagyu Burger</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Truffle aioli, caramelized onions, gruyere, and brioche bun.</p>
+<span class="font-headline-sm text-headline-sm text-primary block mt-base">$24.00</span>
+</div>
+<div class="flex justify-end">
+<div class="item-container relative h-10 w-28">
+<button class="add-btn absolute inset-0 bg-primary text-on-primary rounded-xl font-label-md flex items-center justify-center gap-base active:scale-95 transition-all" onclick="handleInitialAdd(this)">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                                        Add
+                                    </button>
+<div class="stepper-ui hidden absolute inset-0 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-between px-2">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-black/5 rounded-lg" onclick="updateQty(this, -1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="qty-text font-label-md">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-black/5 rounded-lg" onclick="updateQty(this, 1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Main Course -->
+<section id="main-course">
+<h2 class="font-headline-sm text-headline-sm mb-md">Main Course</h2>
+<div class="space-y-sm">
+<!-- List Item 1 -->
+<div class="flex items-center gap-md border-b border-outline-variant/10 pb-md">
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-on-surface">Wild Mushroom Risotto</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Arborio rice, porcini mushrooms, parmesan crisps, and truffle oil.</p>
+<span class="font-label-md text-label-md text-primary mt-xs block">$22.00</span>
+</div>
+<div class="w-20 h-20 md:w-24 md:h-24 bg-surface-container rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A creamy wild mushroom risotto served in a shallow dark ceramic bowl. Garnished with golden-brown sautéed porcini slices, thin parmesan crisps, and a drizzle of truffle oil. Minimalist and elegant plating with high-key lighting to accentuate the texture of the rice. Modern food styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSHtc2yvLfUXpxNFEOqpEnUnJpl6EammO88yEcIWxvrF4zPvtWNuk1-CIwbIaHxJPr4IMOOYqwYKb65atnEUN5VQSaUktWLNNrHLNjDBzRGUs8dwg9pAFko-C4F3qpNATjkyzgQdkHTiiePROQ6CAn97-TJZhxZShlpNXCYYws6zPysK48kW_FO2EvAYA7PqUSIwhSDgwIWRXB2cVMRMbE4QhnRdEVBEALRgc7Z5hs6YskkwC1RPsZDL06PbZ1y1ow3ORPSd-2QTBy"/>
+</div>
+<div class="item-container relative h-10 w-28 flex-shrink-0">
+<button class="add-btn absolute inset-0 bg-primary text-on-primary rounded-xl font-label-md flex items-center justify-center gap-base active:scale-95 transition-all" onclick="handleInitialAdd(this)">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                                Add
+                            </button>
+<div class="stepper-ui hidden absolute inset-0 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-between px-2">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-black/5 rounded-lg" onclick="updateQty(this, -1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="qty-text font-label-md">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-black/5 rounded-lg" onclick="updateQty(this, 1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="flex items-center gap-md border-b border-outline-variant/10 pb-md">
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-on-surface">Herb-Crusted Lamb Rack</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Rosemary and garlic crust, served with mint pea purée and fondant potatoes.</p>
+<span class="font-label-md text-label-md text-primary mt-xs block">$34.00</span>
+</div>
+<div class="w-20 h-20 md:w-24 md:h-24 bg-surface-container rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Exquisitely cooked herb-crusted lamb rack on a bed of bright green pea purée with small golden potatoes. The crust is made of fresh herbs and garlic. Fine-dining aesthetic with soft-focus background and vibrant colors, focusing on the succulent pink center of the lamb." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeD8fbBMezuoIfVvXRE7WoatNS4qpujt8fpq0HRnmj1vIgL4_gF0Zo_9g-8CJH5z2TGwQbYjujct3nygYH9NwGAqCHaTPOgBm5giycy_lqXE2rq2S3gt1o8knPZIhijlZl2dac99ZIf4LOKeV9hxdfRQ0jG0XDdsQ4yimgSB4i-7nWQ9e0mt4qi8BEzPOWUVGiq_P8l4NUnYVIx1xBoG-3507xnVs43mdHtp6G8PsBPJZuROYPbjAQDv4yFWLayKxRq2tfo809I3dp"/>
+</div>
+<div class="item-container relative h-10 w-28 flex-shrink-0">
+<button class="add-btn absolute inset-0 bg-primary text-on-primary rounded-xl font-label-md flex items-center justify-center gap-base active:scale-95 transition-all" onclick="handleInitialAdd(this)">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                                Add
+                            </button>
+<div class="stepper-ui hidden absolute inset-0 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-between px-2">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-black/5 rounded-lg" onclick="updateQty(this, -1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="qty-text font-label-md">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-black/5 rounded-lg" onclick="updateQty(this, 1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Floating View Cart Pill -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-lg z-50 transition-all duration-300 transform translate-y-20 opacity-0" id="cart-pill">
+<button class="w-full bg-primary text-on-primary h-14 rounded-full shadow-[0px_10px_30px_rgba(183,18,42,0.3)] flex items-center justify-between px-6 active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-xs">
+<span class="bg-white text-primary w-6 h-6 rounded-full font-label-sm flex items-center justify-center" id="cart-count">1</span>
+<span class="font-label-md text-label-md">View Cart</span>
+</div>
+<span class="font-headline-sm text-headline-sm" id="cart-price">$28.00</span>
+</button>
+</div>
+<!-- Bottom Navigation Bar (Glassmorphism) -->
+<footer class="fixed bottom-0 left-0 w-full z-[60] flex justify-around items-center px-4 py-3 pb-safe bg-white/80 dark:bg-black/80 backdrop-blur-xl border-t border-outline-variant/30 shadow-[0px_-10px_30px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-primary-fixed/20 rounded-xl px-4 py-1 hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<span class="font-label-sm text-label-sm">Dining</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="live_tv">live_tv</span>
+<span class="font-label-sm text-label-sm">Live</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</footer>
+<script>
+        let cart = {
+            count: 0,
+            total: 0
+        };
+
+        function handleInitialAdd(btn) {
+            const container = btn.closest('.item-container');
+            const stepper = container.querySelector('.stepper-ui');
+            const qtyText = stepper.querySelector('.qty-text');
+            
+            btn.classList.add('hidden');
+            stepper.classList.remove('hidden');
+            stepper.classList.add('flex');
+            
+            updateCart(1, 28); // Mocking price for now
+        }
+
+        function updateQty(btn, delta) {
+            const stepper = btn.closest('.stepper-ui');
+            const qtyText = stepper.querySelector('.qty-text');
+            const container = btn.closest('.item-container');
+            const addBtn = container.querySelector('.add-btn');
+            
+            let currentQty = parseInt(qtyText.textContent);
+            let newQty = currentQty + delta;
+            
+            if (newQty <= 0) {
+                stepper.classList.add('hidden');
+                stepper.classList.remove('flex');
+                addBtn.classList.remove('hidden');
+                updateCart(-1, 28);
+            } else {
+                qtyText.textContent = newQty;
+                updateCart(delta, 28);
+            }
+        }
+
+        function updateCart(deltaCount, price) {
+            cart.count += deltaCount;
+            cart.total += deltaCount * price;
+            
+            const pill = document.getElementById('cart-pill');
+            const countLabel = document.getElementById('cart-count');
+            const priceLabel = document.getElementById('cart-price');
+            
+            if (cart.count > 0) {
+                pill.classList.remove('translate-y-20', 'opacity-0');
+                pill.classList.add('translate-y-0', 'opacity-100');
+                countLabel.textContent = cart.count;
+                priceLabel.textContent = `$${cart.total.toFixed(2)}`;
+            } else {
+                pill.classList.add('translate-y-20', 'opacity-0');
+                pill.classList.remove('translate-y-0', 'opacity-100');
+            }
+        }
+
+        // Simple scroll behavior for category sticky header
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 200) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

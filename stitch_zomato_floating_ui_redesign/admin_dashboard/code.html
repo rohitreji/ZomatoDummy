@@ -1,0 +1,496 @@
+<!DOCTYPE html><html lang="en" class="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f8efed",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#f5ecea",
+                    "surface-container-high": "#efe6e4",
+                    "primary-fixed": "#ffdad8",
+                    "surface-dim": "#e1d8d6",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#f4be4e",
+                    "on-primary-container": "#fffbff",
+                    "on-secondary-container": "#722104",
+                    "surface-container-low": "#fbf2f0",
+                    "primary-container": "#db313f",
+                    "on-secondary-fixed": "#3a0b00",
+                    "surface-variant": "#e9e1df",
+                    "on-background": "#1e1b1a",
+                    "tertiary-fixed": "#ffdea4",
+                    "tertiary-container": "#976d00",
+                    "secondary-container": "#fd8863",
+                    "outline": "#8f6f6e",
+                    "secondary": "#9f4122",
+                    "primary-fixed-dim": "#ffb3b1",
+                    "inverse-surface": "#342f2e",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#261900",
+                    "on-secondary-fixed-variant": "#7f2a0d",
+                    "on-surface-variant": "#5b403f",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary": "#785600",
+                    "surface": "#fff8f6",
+                    "surface-bright": "#fff8f6",
+                    "outline-variant": "#e4bebc",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#e9e1df",
+                    "on-primary-fixed": "#410007",
+                    "on-primary-fixed-variant": "#92001c",
+                    "background": "#fff8f6",
+                    "secondary-fixed-dim": "#ffb59e",
+                    "on-secondary": "#ffffff",
+                    "primary": "#b7122a",
+                    "secondary-fixed": "#ffdbd0",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1e1b1a",
+                    "on-tertiary-fixed-variant": "#5d4200",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#bb162c",
+                    "inverse-primary": "#ffb3b1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "sm": "8px",
+                    "base": "8px",
+                    "xxl": "48px",
+                    "gutter": "16px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter", "sans-serif"],
+                    "label-lg": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="text-on-surface">
+<!-- Dashboard Layout Wrapper -->
+<div class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="w-72 bg-surface-container-lowest border-r border-outline-variant hidden md:flex flex-col sticky top-0 h-screen">
+<!-- Brand Anchor -->
+<div class="px-xl py-xl">
+<span class="font-display-md text-display-md font-extrabold text-primary">QuickBite</span>
+</div>
+<!-- Nav Links -->
+<nav class="flex-1 px-md space-y-xs">
+<a href="#" class="flex items-center gap-md px-md py-sm rounded-xl sidebar-active group transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;" data-original-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a href="#" class="flex items-center gap-md px-md py-sm rounded-xl text-on-surface-variant hover:bg-surface-container-low group transition-all">
+<span class="material-symbols-outlined" data-original-icon="receipt_long">receipt_long</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a href="#" class="flex items-center gap-md px-md py-sm rounded-xl text-on-surface-variant hover:bg-surface-container-low group transition-all">
+<span class="material-symbols-outlined" data-original-icon="restaurant">restaurant</span>
+<span class="font-label-lg text-label-lg">Restaurants</span>
+</a>
+<a href="#" class="flex items-center gap-md px-md py-sm rounded-xl text-on-surface-variant hover:bg-surface-container-low group transition-all">
+<span class="material-symbols-outlined" data-original-icon="menu_book">menu_book</span>
+<span class="font-label-lg text-label-lg">Menu</span>
+</a>
+<a href="#" class="flex items-center gap-md px-md py-sm rounded-xl text-on-surface-variant hover:bg-surface-container-low group transition-all">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-lg text-label-lg">Analytics</span>
+</a>
+<a href="#" class="flex items-center gap-md px-md py-sm rounded-xl text-on-surface-variant hover:bg-surface-container-low group transition-all">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-lg text-label-lg">Customers</span>
+</a>
+</nav>
+<!-- Bottom Sidebar Actions -->
+<div class="p-md mt-auto space-y-xs">
+<a href="#" class="flex items-center gap-md px-md py-sm rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+<div class="flex items-center gap-md px-md py-md mt-md bg-surface-container-high rounded-2xl">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div class="overflow-hidden">
+<p class="font-label-lg text-label-lg truncate">Admin User</p>
+<p class="text-xs text-on-surface-variant truncate">admin@quickbite.com</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Top App Bar (Shared Component Strategy) -->
+<header class="h-20 bg-surface flex items-center justify-between px-xxl sticky top-0 z-30">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Dashboard Overview</h1>
+<p class="text-label-md text-on-surface-variant">Welcome back, here's what's happening today.</p>
+</div>
+<div class="flex items-center gap-lg">
+<!-- Search Bar (Shared Component Prop) -->
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input type="text" placeholder="Search orders, clients..." class="pl-xxl pr-md py-sm bg-surface-container-low border-none rounded-full w-64 focus:ring-2 focus:ring-primary transition-all">
+</div>
+<div class="flex items-center gap-md">
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined" data-original-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined" data-original-icon="help_outline">help_outline</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="p-xxl space-y-xl max-w-[1600px] mx-auto w-full">
+<!-- High-Level Analytics Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+<!-- Revenue Widget-->
+<div class="bg-surface-container-lowest p-lg rounded-[2rem] soft-shadow border border-outline-variant/30 flex flex-col justify-between h-48 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-original-icon="payments">payments</span>
+</div>
+<span class="text-xs font-bold text-green-600 bg-green-50 px-sm py-1 rounded-full">+12.5%</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">Total Revenue</p>
+<h2 class="text-headline-lg font-display-md text-headline-lg">$128,430.00</h2>
+</div>
+</div>
+<!-- Total Orders Widget -->
+<div class="bg-surface-container-lowest p-lg rounded-[2rem] soft-shadow border border-outline-variant/30 flex flex-col justify-between h-48 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/5 rounded-full blur-2xl group-hover:bg-secondary/10 transition-colors"></div>
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-2xl bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-original-icon="shopping_cart">shopping_cart</span>
+</div>
+<span class="text-xs font-bold text-green-600 bg-green-50 px-sm py-1 rounded-full">+8.2%</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">Total Orders</p>
+<h2 class="text-headline-lg font-display-md text-headline-lg">14,208</h2>
+</div>
+</div>
+<!-- Active Customers Widget -->
+<div class="bg-surface-container-lowest p-lg rounded-[2rem] soft-shadow border border-outline-variant/30 flex flex-col justify-between h-48 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/5 rounded-full blur-2xl group-hover:bg-tertiary/10 transition-colors"></div>
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-original-icon="person_add">person_add</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant bg-surface-container px-sm py-1 rounded-full">Stable</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">Active Customers</p>
+<h2 class="text-headline-lg font-display-md text-headline-lg">2,840</h2>
+</div>
+</div>
+<!-- Performance Widget (Mini Chart) -->
+<div class="bg-surface-container-lowest p-lg rounded-[2rem] soft-shadow border border-outline-variant/30 flex flex-col justify-between h-48 relative overflow-hidden">
+<div class="flex justify-between items-center mb-md">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">Daily Goal</p>
+<span class="text-primary font-bold">84%</span>
+</div>
+<div class="flex-1 flex items-end justify-between gap-2 px-1">
+<div class="w-full bg-primary-fixed rounded-t-lg chart-bar h-[40%]"></div>
+<div class="w-full bg-primary-fixed rounded-t-lg chart-bar h-[65%]"></div>
+<div class="w-full bg-primary-fixed rounded-t-lg chart-bar h-[50%]"></div>
+<div class="w-full bg-primary rounded-t-lg chart-bar h-[84%]"></div>
+<div class="w-full bg-primary-fixed rounded-t-lg chart-bar h-[60%]"></div>
+<div class="w-full bg-primary-fixed rounded-t-lg chart-bar h-[45%]"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant text-center mt-sm">M T W T F S</p>
+</div>
+</section>
+<!-- Middle Section: Detailed Analytics & Growth -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Sales Analytics (Big Card) -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-xl rounded-[2.5rem] soft-shadow border border-outline-variant/30 min-h-[400px] flex flex-col">
+<div class="flex justify-between items-center mb-xl">
+<div>
+<h3 class="font-headline-md text-headline-md">Revenue Analytics</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Comparison between monthly projected and actual sales.</p>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-2 bg-surface-container-low rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-primary-fixed transition-colors">Weekly</button>
+<button class="px-md py-2 bg-primary text-on-primary rounded-xl font-label-md text-label-md">Monthly</button>
+</div>
+</div>
+<div class="flex-1 w-full relative flex items-end justify-between gap-lg pb-xl">
+<!-- Visual placeholder for a real chart -->
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full bg-surface-container-high rounded-xl relative overflow-hidden h-48">
+<div class="absolute bottom-0 w-full bg-primary/20 h-[40%] rounded-t-xl"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[25%] rounded-t-xl transition-all hover:opacity-80"></div>
+</div>
+<span class="text-xs text-on-surface-variant">Jan</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full bg-surface-container-high rounded-xl relative overflow-hidden h-48">
+<div class="absolute bottom-0 w-full bg-primary/20 h-[60%] rounded-t-xl"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[45%] rounded-t-xl transition-all hover:opacity-80"></div>
+</div>
+<span class="text-xs text-on-surface-variant">Feb</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full bg-surface-container-high rounded-xl relative overflow-hidden h-48">
+<div class="absolute bottom-0 w-full bg-primary/20 h-[50%] rounded-t-xl"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[35%] rounded-t-xl transition-all hover:opacity-80"></div>
+</div>
+<span class="text-xs text-on-surface-variant">Mar</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full bg-surface-container-high rounded-xl relative overflow-hidden h-48">
+<div class="absolute bottom-0 w-full bg-primary/20 h-[80%] rounded-t-xl"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[70%] rounded-t-xl transition-all hover:opacity-80"></div>
+</div>
+<span class="text-xs text-on-surface-variant">Apr</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full bg-surface-container-high rounded-xl relative overflow-hidden h-48">
+<div class="absolute bottom-0 w-full bg-primary/20 h-[90%] rounded-t-xl"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[85%] rounded-t-xl transition-all hover:opacity-80"></div>
+</div>
+<span class="text-xs text-on-surface-variant">May</span>
+</div>
+</div>
+</div>
+<!-- Top Restaurants List -->
+<div class="bg-surface-container-lowest p-xl rounded-[2.5rem] soft-shadow border border-outline-variant/30 flex flex-col">
+<div class="flex justify-between items-center mb-xl">
+<h3 class="font-headline-md text-headline-md">Top Partners</h3>
+<button class="text-primary font-label-lg text-label-lg hover:underline">View All</button>
+</div>
+<div class="space-y-lg flex-1">
+<div class="flex items-center gap-md p-md rounded-2xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-14 h-14 rounded-full overflow-hidden bg-surface-variant border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="A high-quality, professional food photography shot of a gourmet burger on a rustic wooden table with soft, natural lighting. The burger is beautifully assembled with melted cheese, fresh greens, and a toasted bun, reflecting a high-end urban gastronomy style. The background is slightly blurred with warm, ambient restaurant lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkAROgLzQR5sP3t965j7-rHzDQGU978_nxJJxqmQRowiBnfqXxeCVGZoXdbYYCkiT0feFJQ5m8lsalusQb66jbP4FGm3varwzoR8S7TKkmuvs5ivv25brVPA5T-i4kOuSmPi_3UTDK1ipzK9xHXykESTsM7K00NEWx3wGMg6jzFxLeeFNvpaKkfqCJ5jqoX7iBlgTqbZeKocxOxTvi1QHyjOjwaand-mr5PLmaZ0aVsx5mUtEo_l7zU05MTZVRO0ouljjgY1WrFbiR">
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label-lg text-label-lg truncate">Bistro de Lyon</p>
+<p class="text-xs text-on-surface-variant">428 orders this week</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">$4,200</p>
+<div class="flex items-center gap-1 justify-end text-[10px] text-green-600">
+<span class="material-symbols-outlined text-[12px]" data-original-icon="trending_up">trending_up</span>
+<span>4%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md p-md rounded-2xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-14 h-14 rounded-full overflow-hidden bg-surface-variant border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="A professional photography shot of fresh, colorful sushi rolls arranged on a black slate platter. The image features vibrant oranges of salmon, bright greens of avocado, and deep purples of ginger, presented in a minimalist, modern aesthetic. Soft lighting creates gentle highlights on the rice and fish, evoking a premium dining experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY-AEvIFTrH_ptzS_DF5zjRCaq_wCWGH_e2sOnbxh1H6n-n7_VhSMDXXfN5I8-eFhHRpHI8lju9qomcSh5u_8EGx-ErDIFgozso99wPsqePWWgLW0vLALAM65jYdp_xD84v17QK_ySJmyitcocWMa82Drc6q3FaEBqOUohUgaQJCG7vt2wQI_15FtqOK0HSp5HbkNbIepJABq-I57EP3W_ar7j76J73N628ZCQYJJkcCfacuLbh45QoDT8xMRk27CvEE0QkCmJaVrs">
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label-lg text-label-lg truncate">Sushi Zen Master</p>
+<p class="text-xs text-on-surface-variant">312 orders this week</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">$3,840</p>
+<div class="flex items-center gap-1 justify-end text-[10px] text-green-600">
+<span class="material-symbols-outlined text-[12px]" data-original-icon="trending_up">trending_up</span>
+<span>12%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md p-md rounded-2xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-14 h-14 rounded-full overflow-hidden bg-surface-variant border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="An artisanal pizza fresh from a stone oven, featuring melting mozzarella, vibrant basil leaves, and a thin, blistered crust. The lighting is warm and high-contrast, highlighting the textures of the ingredients against a dark, minimalist background. The visual style is premium and modern corporate, focusing on quality and freshness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxTSaAJ4nYvC6bCiMsNMd1-cOESgshsCn1d1eaknPZTE3WmO9HgDm_ucnPriRBuSCNH_FCzvsBWHQxd4KeY6FTJo-jsdDN00Gh8jbz9ZuajLv31Bi6XAOkqvzM5CTDNYoDYlBcGs43WKuanGvs7lUHP17Y_Ucqdsa9UvD6j2mrwtBtU2geeBI4abRrlwxIvKxVJ7fDLCyY6QJZ7ZEblDUTJb-7U3pd-tHKw_gBJLJxjxev3jinbJafaiIgk_L9QNEZjESZXjcbET5N">
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label-lg text-label-lg truncate">Napoli Hearth</p>
+<p class="text-xs text-on-surface-variant">298 orders this week</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">$3,120</p>
+<div class="flex items-center gap-1 justify-end text-[10px] text-red-600">
+<span class="material-symbols-outlined text-[12px]" data-original-icon="trending_down">trending_down</span>
+<span>2%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Orders Table -->
+<section class="bg-surface-container-lowest rounded-[2.5rem] soft-shadow border border-outline-variant/30 overflow-hidden">
+<div class="p-xl border-b border-outline-variant flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md">Recent Orders</h3>
+<div class="flex gap-md">
+<button class="px-lg py-sm bg-surface-container border border-outline-variant rounded-xl font-label-md text-label-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-sm">filter_alt</span>
+                                Filter
+                            </button>
+<button class="px-lg py-sm bg-primary text-on-primary rounded-xl font-label-md text-label-md">Export CSV</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low/50">
+<tr>
+<th class="px-xl py-lg font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Order ID</th>
+<th class="px-xl py-lg font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Customer</th>
+<th class="px-xl py-lg font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Restaurant</th>
+<th class="px-xl py-lg font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Amount</th>
+<th class="px-xl py-lg font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-xl py-lg font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-xl py-lg font-label-lg text-label-lg text-primary font-bold">#QB-82910</td>
+<td class="px-xl py-lg">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-[10px] font-bold text-on-secondary-fixed">JD</div>
+<span class="font-body-md text-body-md">John Doe</span>
+</div>
+</td>
+<td class="px-xl py-lg font-body-md text-body-md">Bistro de Lyon</td>
+<td class="px-xl py-lg font-label-lg text-label-lg">$42.50</td>
+<td class="px-xl py-lg">
+<span class="px-md py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold border border-green-200">Delivered</span>
+</td>
+<td class="px-xl py-lg text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-xl py-lg font-label-lg text-label-lg text-primary font-bold">#QB-82911</td>
+<td class="px-xl py-lg">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-[10px] font-bold text-on-primary-fixed">AS</div>
+<span class="font-body-md text-body-md">Alice Smith</span>
+</div>
+</td>
+<td class="px-xl py-lg font-body-md text-body-md">Napoli Hearth</td>
+<td class="px-xl py-lg font-label-lg text-label-lg">$28.90</td>
+<td class="px-xl py-lg">
+<span class="px-md py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold border border-yellow-200">Preparing</span>
+</td>
+<td class="px-xl py-lg text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-xl py-lg font-label-lg text-label-lg text-primary font-bold">#QB-82912</td>
+<td class="px-xl py-lg">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-[10px] font-bold text-on-tertiary-fixed">RJ</div>
+<span class="font-body-md text-body-md">Robert Johnson</span>
+</div>
+</td>
+<td class="px-xl py-lg font-body-md text-body-md">Sushi Zen Master</td>
+<td class="px-xl py-lg font-label-lg text-label-lg">$112.00</td>
+<td class="px-xl py-lg">
+<span class="px-md py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold border border-blue-200">In Transit</span>
+</td>
+<td class="px-xl py-lg text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-xl py-lg font-label-lg text-label-lg text-primary font-bold">#QB-82913</td>
+<td class="px-xl py-lg">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-[10px] font-bold text-on-secondary-fixed">EL</div>
+<span class="font-body-md text-body-md">Emma Lee</span>
+</div>
+</td>
+<td class="px-xl py-lg font-body-md text-body-md">Bistro de Lyon</td>
+<td class="px-xl py-lg font-label-lg text-label-lg">$54.10</td>
+<td class="px-xl py-lg">
+<span class="px-md py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold border border-red-200">Cancelled</span>
+</td>
+<td class="px-xl py-lg text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface w-full mt-xxl py-12 px-xxl">
+<div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="col-span-1 md:col-span-2">
+<span class="font-headline-lg text-headline-lg font-black text-primary">QuickBite</span>
+<p class="mt-md text-on-surface-variant font-body-md text-body-md max-w-sm">Empowering restaurateurs with real-time data and premium analytics to drive urban dining growth.</p>
+<p class="mt-xl font-label-lg text-label-lg text-on-surface-variant opacity-80">© 2024 QuickBite Technologies Inc.</p>
+</div>
+<div class="space-y-sm">
+<h4 class="font-label-lg text-label-lg text-primary uppercase tracking-widest mb-md">Company</h4>
+<a class="block text-on-surface-variant hover:text-primary transition-colors" href="#">About</a>
+<a class="block text-on-surface-variant hover:text-primary transition-colors" href="#">Partners</a>
+<a class="block text-on-surface-variant hover:text-primary transition-colors" href="#">Careers</a>
+</div>
+<div class="space-y-sm">
+<h4 class="font-label-lg text-label-lg text-primary uppercase tracking-widest mb-md">Support</h4>
+<a class="block text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="block text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="block text-on-surface-variant hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</footer>
+</main>
+</div>
+<!-- Floating Action Button (Supressed on Dash-->
+<button class="fixed bottom-lg right-lg w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<script>
+        // Simple micro-interactions
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate bar charts on load
+            const bars = document.querySelectorAll('.chart-bar');
+            bars.forEach(bar => {
+                const targetHeight = bar.style.height;
+                bar.style.height = '0';
+                setTimeout(() => {
+                    bar.style.height = targetHeight;
+                }, 300);
+            });
+        });
+    </script>
+</body></html>

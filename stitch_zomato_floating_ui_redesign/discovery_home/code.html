@@ -1,0 +1,362 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>QuickBite | Discover Food</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#ffb3b1",
+                    "inverse-primary": "#ffb3b1",
+                    "surface-variant": "#e5e2e1",
+                    "on-tertiary-fixed-variant": "#005227",
+                    "on-tertiary-container": "#f6fff3",
+                    "surface-tint": "#bb162c",
+                    "secondary": "#5d5f5f",
+                    "surface-container": "#f0eded",
+                    "surface-dim": "#dcd9d9",
+                    "on-surface": "#1b1b1b",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "secondary-container": "#dfe0e0",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#eae7e7",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#006b34",
+                    "on-error": "#ffffff",
+                    "primary-container": "#db313f",
+                    "tertiary-container": "#29844a",
+                    "on-surface-variant": "#5b403f",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#ffdad8",
+                    "inverse-surface": "#313030",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-secondary-container": "#616363",
+                    "on-background": "#1b1b1b",
+                    "surface-container-low": "#f6f3f2",
+                    "on-tertiary-fixed": "#00210c",
+                    "surface-bright": "#fcf9f8",
+                    "secondary-fixed": "#e2e2e2",
+                    "background": "#fcf9f8",
+                    "on-secondary-fixed-variant": "#454747",
+                    "on-primary-fixed-variant": "#92001c",
+                    "tertiary-fixed-dim": "#80da96",
+                    "on-primary-fixed": "#410007",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "outline-variant": "#e4bebc",
+                    "outline": "#8f6f6e",
+                    "on-primary": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "tertiary-fixed": "#9bf6b0",
+                    "primary": "#b7122a",
+                    "on-primary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "20px",
+                    "sm": "16px",
+                    "md": "24px",
+                    "xs": "8px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "lg": "32px",
+                    "xl": "48px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "label-sm": ["12px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fcf9f8;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-40 bg-white/80 dark:bg-black/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-container-margin py-xs w-full max-w-1200px mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="location_on">location_on</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 uppercase">Current Location <span class="material-symbols-outlined text-xs" data-icon="keyboard_arrow_down">keyboard_arrow_down</span></span>
+<span class="font-headline-sm text-headline-sm leading-tight">Downtown, SF</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10 active:scale-95 transition-transform duration-200 cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A professional close-up studio portrait of a young adult with a friendly expression, captured with high-end photographic equipment. The lighting is soft and flattering, emphasizing a clean and modern aesthetic. The background is a neutral, soft grey, focusing attention on the subject's clear skin and stylish, minimalist attire. This image represents a high-quality user profile photo for a premium digital service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd0TdE53bScD-RvKN8dTdVoxte2zCu0NnalF0TD6VIkaDe6beO_iMnHCCMnezUT6hCQ81CdQnAwUn4Ehs4qnW3N-5XVuanHn8hR_JKeHEeNrxTOsP_yWZHx_wi6Hk4rgFoPO7fNhTI1QAvmW4bGjUYoMo0lW0hrBKOC1hMf81e2LPzCKdpQpRskP0mASCpHhJOqDqeKL_lj-X3wVDmGiiMBSCKGl9DKVdFnBjozH2gu6Qj4x9MouXkNKzXOJhr5xFb6S6J47SoGq-5">
+</div>
+</div>
+</header>
+<main class="pb-24 max-w-1200px mx-auto">
+<!-- Floating Search Bar -->
+<section class="px-container-margin mt-md sticky top-[72px] z-30 pointer-events-none">
+<div class="pointer-events-auto bg-white dark:bg-surface-dim rounded-full shadow-[0px_10px_30px_rgba(0,0,0,0.08)] flex items-center px-sm py-xs gap-3 border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-md text-on-surface-variant placeholder:text-on-surface-variant/60" placeholder="Food, restaurants, and more" type="text">
+<div class="h-6 w-[1px] bg-outline-variant/30"></div>
+<span class="material-symbols-outlined text-primary" data-icon="mic">mic</span>
+</div>
+</section>
+<!-- Filter Chips -->
+<section class="mt-md px-container-margin">
+<div class="flex gap-xs overflow-x-auto hide-scrollbar py-2">
+<button class="flex items-center gap-1 px-sm py-1.5 rounded-full border border-outline-variant bg-white shadow-sm hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="font-label-md text-label-md">Sort</span>
+<span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</button>
+<button class="flex items-center gap-1 px-sm py-1.5 rounded-full border border-outline-variant bg-white shadow-sm hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="font-label-md text-label-md">Max Safety</span>
+</button>
+<button class="flex items-center gap-1 px-sm py-1.5 rounded-full border border-outline-variant bg-white shadow-sm hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="font-label-md text-label-md">Rating 4.0+</span>
+</button>
+<button class="flex items-center gap-1 px-sm py-1.5 rounded-full border border-outline-variant bg-white shadow-sm hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="font-label-md text-label-md">Fast Delivery</span>
+</button>
+<button class="flex items-center gap-1 px-sm py-1.5 rounded-full border border-outline-variant bg-white shadow-sm hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="font-label-md text-label-md">Offers</span>
+</button>
+</div>
+</section>
+<!-- Category Grid: "What's on your mind?" -->
+<section class="mt-lg">
+<div class="px-container-margin flex items-center justify-between mb-md">
+<h2 class="font-headline-md text-headline-md tracking-tight">What's on your mind?</h2>
+<button class="text-primary font-label-md text-label-md flex items-center gap-1">View all <span class="material-symbols-outlined text-sm" data-icon="arrow_forward_ios">arrow_forward_ios</span></button>
+</div>
+<div class="flex gap-md overflow-x-auto hide-scrollbar px-container-margin">
+<!-- Pizza -->
+<div class="flex flex-col items-center gap-xs flex-shrink-0 cursor-pointer active:scale-90 transition-transform">
+<div class="w-20 h-20 rounded-full bg-surface-container-low p-1 overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover rounded-full" data-alt="A macro photograph of a delicious, authentic Italian pepperoni pizza with melted mozzarella cheese, fresh basil leaves, and a thin, blistered crust. The pizza is presented on a clean white ceramic plate, illuminated by bright, appetizing morning light. The color palette is dominated by warm reds, golden yellows, and fresh greens, reflecting a vibrant and appetizing food delivery app theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXrZUfokmOwOdjeUUCB4vbt3gKE-YW9UujFoEymGlnMsac2xdErPC2hfrjfwbxgr09DeJYZSO5aQuhzYFQ1ulGrYI_GiAIMxwgNAj-2gLloHVeW6D81Y2fFvDhbgzUA8PWBh39FwOsaFJJXlrJRmNB7yqI3vRElMVO0JVYMoB0hH1w7Bs2UWGuHMTT2vEsydP8BhAHY3GbwIHa8zdUqTHXSchM3j9r5yqshdkQwd5VfPg4forRBLosAMhLP0F_wQ0krS5atp0kuYwf">
+</div>
+<span class="font-label-md text-label-md">Pizza</span>
+</div>
+<!-- Burger -->
+<div class="flex flex-col items-center gap-xs flex-shrink-0 cursor-pointer active:scale-90 transition-transform">
+<div class="w-20 h-20 rounded-full bg-surface-container-low p-1 overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover rounded-full" data-alt="A gourmet smash burger with multiple layers of juicy beef patties, melted cheddar cheese, crisp lettuce, and artisanal sauces, served in a toasted brioche bun. The lighting is sharp and professional, highlighting the textures and succulence of the ingredients. The scene is clean and modern, following a high-energy food discovery aesthetic with vibrant tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuUQC_cgQBr8fUfPpJzvMPyAw6KkPQ3oYiHj7Ttlnb7b8ThqdFRAOmjpz4Ic-g38xUARdLuYgAGYZtJza9g3YsqmhZBLpw79-C0YZA6XlObEZ9TZIqkJ69BQNDDuNmcUCkCCKfeJM8gU7DhE1U-kwg2d9wuVjF2WGG13xSa-ZIjhP0tP_g_ma7LqDBXpuwWNRvGUverT8omsGHK3OCc-EtO0--peO8Va3GI29napKYRTB6Z5A5BweEdQ2M7yCIRB4F9pbP_R7urtLC">
+</div>
+<span class="font-label-md text-label-md">Burger</span>
+</div>
+<!-- Biryani -->
+<div class="flex flex-col items-center gap-xs flex-shrink-0 cursor-pointer active:scale-90 transition-transform">
+<div class="w-20 h-20 rounded-full bg-surface-container-low p-1 overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover rounded-full" data-alt="A steaming hot plate of traditional aromatic Biryani, featuring long-grain basmati rice, tender pieces of marinated meat, saffron infusion, and garnished with fried onions and fresh cilantro. The composition is artistic and centered, with a focus on rich textures and warm colors. The bright, high-contrast lighting evokes an immediate sense of hunger and quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9OH-qbTKbVHjGkGvVxbUV_4XNFRYi0rGvDbSXyj4v_xFSzffe8jwfFp7AtxXtzYZUHYeOIXlernQPCYDzXCU1s1q_9O1y5osuUvRReOXqIgx4FTrmtW8R2a69xLshlWRqgbWgH_ONoJIOED-wGWsgQNZS4pOuJ8vwjqZTU6Z90kdv4dzQKWfRXtFBo8FiAR5k791LgcB32wcIsAibwEer5gtJXfg54YohSd5BqTsH4d-kzE2HSUfdO_WBpCCoCTd9O0JJG8U_Qpjc">
+</div>
+<span class="font-label-md text-label-md">Biryani</span>
+</div>
+<!-- Sushi -->
+<div class="flex flex-col items-center gap-xs flex-shrink-0 cursor-pointer active:scale-90 transition-transform">
+<div class="w-20 h-20 rounded-full bg-surface-container-low p-1 overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover rounded-full" data-alt="An elegant arrangement of fresh sushi rolls and nigiri on a minimalist slate platter. The salmon is bright orange, the avocado is creamy green, and the rice is pristine white. The lighting is soft yet detailed, creating a sophisticated and clean visual style. This high-end food imagery fits perfectly into a modern, corporate delivery app interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnqxfPAGZfNuddmG2pu5lx_2GDpPPP73KWD3o223z8G4nEyYRjDfjWVxL3RbPgAbHtG2lsjMqKdw0BHOMFLt7jG5wBV-CAm5MCX8WeNIbTcdynsduLNSz-FImw16WVSuU7J8qAAX7tAZ5VTs4R4KXzktJ2jf88iw-P9NZOq1Sx-nyE6mvEnZ5vCHLaicZNN5QX4TthYI7cKyyU8UsO1x_pS-UcWm9BxP6WuQn4NmfgQbdezKfitD4Ggxchm0kM8ON8pV_ZLf61j1qb">
+</div>
+<span class="font-label-md text-label-md">Sushi</span>
+</div>
+<!-- Pasta -->
+<div class="flex flex-col items-center gap-xs flex-shrink-0 cursor-pointer active:scale-90 transition-transform">
+<div class="w-20 h-20 rounded-full bg-surface-container-low p-1 overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover rounded-full" data-alt="A close-up shot of a creamy carbonara pasta dish, with al dente spaghetti twirled perfectly and topped with crispy pancetta and freshly grated parmesan cheese. The background is softly blurred to keep the focus on the appetizing meal. The color scheme features warm whites and yellows with earthy browns, maintaining a high-quality, appetising appearance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3V2PZsMNw0gpC9c3TjykzO5Sbbta5XHN5nMIiLTPcKNTXZKRhT59ftomxRMwF0aSZANyew8pd2PWGDyTfgAX2jw4fJx-wX8M97ZORlEd4agg6dpbre5J6E_3u7GxMxJzozPTNUCriUjvf7pjqCfXlMGRi4oxF8ySm6k38uzAY0YakFRHQXbjIh3NGo-nrkxyJK282H0PaQPzyQ1b4_VvC3cVOwa1lLqOqmiOLh9PJinrMKtEjeavW5hyQNOYDZmq765ZqEORHx11U">
+</div>
+<span class="font-label-md text-label-md">Pasta</span>
+</div>
+</div>
+</section>
+<!-- Restaurant Feed -->
+<section class="mt-xl px-container-margin grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<h2 class="font-headline-md text-headline-md tracking-tight col-span-full">Top picks for you</h2>
+<!-- Restaurant Card 1 -->
+<article class="bg-white rounded-[24px] overflow-hidden shadow-[0px_10px_30px_rgba(0,0,0,0.05)] group cursor-pointer transition-all duration-300 hover:translate-y-[-4px]">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A wide-angle, high-resolution shot of a vibrant poke bowl filled with fresh tuna, avocado, edamame, and colorful vegetables. The dish is presented in a modern, sustainable wooden bowl on a bright, minimalist surface. The lighting is natural and airy, creating a fresh and healthy vibe. The overall aesthetic is clean, modern, and high-energy, characteristic of a premium food app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4v__OgQsFsQpASSlgc7cNUCbE2TRQ8f3eLhlnEpiaC13oaFd6PlrWjkY1GkA8imIMxbOhiBkSs-6e9K_A-tFFvQrvm-OOGxhTs1aMnRB2R8OFtNjRn9rwUsPouiLOT9wtcFnyP7MCI3UJQLbIyNNm7eqsc1WftFUJGverutkrBpTdSsR7p_CjGJbLgCVhlgtMUzRKITSXBCJinhuEsnQukI0dtVuZLf2PLvkPGnrgFolax_k3jUHFGUJ8kBsYNeqlDtbM1a5uB1av">
+<div class="absolute top-sm right-sm z-10">
+<button class="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-primary shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="absolute bottom-sm left-sm bg-primary text-white font-label-sm text-label-sm px-2 py-1 rounded-lg">
+                        60% OFF up to $10
+                    </div>
+</div>
+<div class="p-sm">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline-sm text-headline-sm">The Poke Palace</h3>
+<div class="flex items-center gap-1 bg-tertiary/10 text-tertiary px-2 py-0.5 rounded-lg">
+<span class="font-label-md text-label-md">4.8</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-2">Healthy • Hawaiian • Seafood</p>
+<div class="flex items-center gap-xs text-on-surface-variant font-label-md">
+<span class="material-symbols-outlined text-base" data-icon="schedule">schedule</span>
+<span>25 mins</span>
+<span class="mx-1">•</span>
+<span>$2.99 Delivery</span>
+</div>
+</div>
+</article>
+<!-- Restaurant Card 2 -->
+<article class="bg-white rounded-[24px] overflow-hidden shadow-[0px_10px_30px_rgba(0,0,0,0.05)] group cursor-pointer transition-all duration-300 hover:translate-y-[-4px]">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A stunning, overhead shot of a large pepperoni pizza with extra cheese and fresh herbs, sitting on a rustic baking paper. The lighting is warm and golden, emphasizing the melty cheese and crispy crust. The background is a clean, modern kitchen environment with high-key lighting. This visual is designed to excite the viewer and promote a high-quality pizza delivery service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI0z8MjULdvuykZfkjaCajQLHUXfQqSWVJPvVvJ2x9NVKFkwqa1zprzwr4B8EmYOLqnxQmTss3EdSsXU7wlwe31Ox-Ps29HCLK7INNTJdOyuDC_P-yIVzO0-oTS9-MbQM-kxzLwBf5E110PB97crgZSrzgygYwh0B4aWrF1vOtUHBdyZjaeTDCIQLjidN0Gx-4UMrzL_USZtlFYL8aL-fKstG9R59Mg9JVcXT8ujxoeBq_xxuPKEbbzcwEYn2SjbsfNx2hZc1C_nI0">
+<div class="absolute top-sm right-sm z-10">
+<button class="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-primary shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="absolute bottom-sm left-sm bg-tertiary text-white font-label-sm text-label-sm px-2 py-1 rounded-lg">
+                        Free delivery
+                    </div>
+</div>
+<div class="p-sm">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline-sm text-headline-sm">Mario's Pizzeria</h3>
+<div class="flex items-center gap-1 bg-tertiary/10 text-tertiary px-2 py-0.5 rounded-lg">
+<span class="font-label-md text-label-md">4.5</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-2">Italian • Fast Food • Wood Fired</p>
+<div class="flex items-center gap-xs text-on-surface-variant font-label-md">
+<span class="material-symbols-outlined text-base" data-icon="schedule">schedule</span>
+<span>35 mins</span>
+<span class="mx-1">•</span>
+<span>Free Delivery</span>
+</div>
+</div>
+</article>
+<!-- Restaurant Card 3 -->
+<article class="bg-white rounded-[24px] overflow-hidden shadow-[0px_10px_30px_rgba(0,0,0,0.05)] group cursor-pointer transition-all duration-300 hover:translate-y-[-4px]">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional food photography shot of a stacked double cheeseburger with melting American cheese, red onions, and a secret house sauce on a toasted potato bun. The burger is the hero, positioned centrally with vibrant colors and sharp focus. The lighting is crisp and modern, perfect for a high-end food delivery app's restaurant feed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfywhfFp2OCGK6OE5T6NdEACiptY14DA42OcSllJnN76q4S1ZBoYBGvPyz0ShJYdKKkHMb7PhEv_SxmJTyWMacJ2S0mb1pUgoXoc9pEZqLGZ9HDS7VQiXMLAuGoV7eksxRaMpiHM_rwpbc_Nc8ty-yMt_1fz4ZK3LczdWiRpZaaalxIywKGHGYEmUjN6AsUul0h76vgYMiiNbJdmZFoIucysOAncIRl1SoWKA73Ms5G9zNnnYmaq-ImwWmefTfSanG8rxsKRLseINd">
+<div class="absolute top-sm right-sm z-10">
+<button class="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-primary shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-sm">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline-sm text-headline-sm">Grill &amp; Chill</h3>
+<div class="flex items-center gap-1 bg-tertiary/10 text-tertiary px-2 py-0.5 rounded-lg">
+<span class="font-label-md text-label-md">4.2</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-2">American • Burgers • Shakes</p>
+<div class="flex items-center gap-xs text-on-surface-variant font-label-md">
+<span class="material-symbols-outlined text-base" data-icon="schedule">schedule</span>
+<span>15 mins</span>
+<span class="mx-1">•</span>
+<span>$1.50 Delivery</span>
+</div>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-white/80 dark:bg-black/80 backdrop-blur-xl border-t border-outline-variant/30 shadow-[0px_-10px_30px_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-primary-fixed/20 rounded-xl px-4 py-1 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+<span class="font-label-sm text-label-sm">Dining</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="live_tv">live_tv</span>
+<span class="font-label-sm text-label-sm">Live</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<!-- Floating View Cart Button -->
+<div class="fixed bottom-24 right-container-margin z-40">
+<button class="bg-primary text-white flex items-center gap-2 px-md py-sm rounded-full shadow-[0px_8px_20px_rgba(183,18,42,0.3)] hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider">View Cart (2)</span>
+</button>
+</div>
+<script>
+        // Simple micro-interactions for heart buttons
+        document.querySelectorAll('button span[data-icon="favorite"], button span:contains("favorite")').forEach(btn => {
+            btn.parentElement.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const icon = btn;
+                const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
+                if (isFilled) {
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                } else {
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                }
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchContainer = searchInput.parentElement;
+        searchInput.addEventListener('focus', () => {
+            searchContainer.classList.add('ring-2', 'ring-primary/20', 'border-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchContainer.classList.remove('ring-2', 'ring-primary/20', 'border-primary');
+        });
+    </script>
+</body></html>

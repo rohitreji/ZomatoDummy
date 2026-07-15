@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="en" class="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f8efed",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#f5ecea",
+                    "surface-container-high": "#efe6e4",
+                    "primary-fixed": "#ffdad8",
+                    "surface-dim": "#e1d8d6",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#f4be4e",
+                    "on-primary-container": "#fffbff",
+                    "on-secondary-container": "#722104",
+                    "surface-container-low": "#fbf2f0",
+                    "primary-container": "#db313f",
+                    "on-secondary-fixed": "#3a0b00",
+                    "surface-variant": "#e9e1df",
+                    "on-background": "#1e1b1a",
+                    "tertiary-fixed": "#ffdea4",
+                    "tertiary-container": "#976d00",
+                    "secondary-container": "#fd8863",
+                    "outline": "#8f6f6e",
+                    "secondary": "#9f4122",
+                    "primary-fixed-dim": "#ffb3b1",
+                    "inverse-surface": "#342f2e",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#261900",
+                    "on-secondary-fixed-variant": "#7f2a0d",
+                    "on-surface-variant": "#5b403f",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary": "#785600",
+                    "surface": "#fff8f6",
+                    "surface-bright": "#fff8f6",
+                    "outline-variant": "#e4bebc",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#e9e1df",
+                    "on-primary-fixed": "#410007",
+                    "on-primary-fixed-variant": "#92001c",
+                    "background": "#fff8f6",
+                    "secondary-fixed-dim": "#ffb59e",
+                    "on-secondary": "#ffffff",
+                    "primary": "#b7122a",
+                    "secondary-fixed": "#ffdbd0",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1e1b1a",
+                    "on-tertiary-fixed-variant": "#5d4200",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#bb162c",
+                    "inverse-primary": "#ffb3b1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "sm": "8px",
+                    "base": "8px",
+                    "xxl": "48px",
+                    "gutter": "16px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["36px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="min-h-screen flex flex-col font-body-md text-body-md">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-sm">
+<div class="max-w-[1440px] mx-auto flex items-center justify-between px-6 lg:px-12 h-20">
+<div class="flex items-center gap-12">
+<a class="font-display-md text-headline-lg font-extrabold text-primary dark:text-primary-fixed tracking-tight" href="#">QuickBite</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-secondary dark:text-secondary-fixed hover:text-primary transition-colors font-label-lg text-label-lg" href="#">Browse</a>
+<a class="text-secondary dark:text-secondary-fixed hover:text-primary transition-colors font-label-lg text-label-lg" href="#">Offers</a>
+<a class="text-secondary dark:text-secondary-fixed hover:text-primary transition-colors font-label-lg text-label-lg" href="#">Support</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="location_on" data-original-icon="location_on">location_on</span>
+</button>
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-all relative">
+<span class="material-symbols-outlined" data-icon="notifications" data-original-icon="notifications">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a stylish young adult in a minimalist urban setting, soft high-key lighting, modern fashion style, neutral background with warm tones matching the brand palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWjy6WJ0X-lhYyvdmTczI7tJw5QFHj4iDQpAjpJW3Mu5Urb5k-ca4uSoejXcgeDtEkyufAf3k2uMkO0rXQDvSKO_lLWr0LMa3PotatFCc4wzFWRdcXddL6-XglUo2Dcgu-Y7edJgdtSJVhCtgkXYIg9Jy9ubUcOwDN6ArqVC7iy03rEeXM9wHB2onnzjyT2QXuJzLmUWY7cV-ceMUmYlSO1VTTIbhl_nImDgyvUF-_FUroY20OCwWHuBHpvsgHwrcLHhxWrV5hIbja">
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-32 pb-24 px-6 lg:px-12 max-w-[1440px] mx-auto w-full">
+<!-- Progress Stepper -->
+<div class="max-w-3xl mx-auto mb-16 px-4">
+<div class="flex items-center justify-between">
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold shadow-lg">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart" data-original-icon="shopping_cart">shopping_cart</span>
+</div>
+<span class="font-label-lg text-label-lg text-primary">Cart</span>
+</div>
+<div class="stepper-line active mx-4"></div>
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container border-2 border-primary text-primary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]" data-icon="location_on" data-original-icon="location_on">location_on</span>
+</div>
+<span class="font-label-lg text-label-lg text-primary">Address</span>
+</div>
+<div class="stepper-line mx-4"></div>
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-bold opacity-50">
+<span class="material-symbols-outlined text-[20px]" data-icon="payments" data-original-icon="payments">payments</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant opacity-50">Payment</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- Left Column: Cart & Address -->
+<div class="lg:col-span-8 space-y-8">
+<!-- Cart Items -->
+<section class="glass-card rounded-xl p-8">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface">Your Order</h2>
+<span class="text-on-surface-variant font-label-lg text-label-lg">3 Items</span>
+</div>
+<div class="space-y-6">
+<!-- Item 1 -->
+<div class="flex items-center gap-6 group">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A gourmet artisan burger with melting cheddar cheese, crisp lettuce, and heirloom tomatoes on a toasted brioche bun. Professional food photography style, high-end studio lighting, shallow depth of field, warm color palette, top-tier restaurant presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC05k7Q9rMmjd7NZpdnkF6DjN6UxTxVl94OO3guIWmMhOEqsT3-ts1R0-JmG7zGniXo1Pkbpsvp6A-FrLMhc61MIo_8x8-Jiwpn4ygV1_MGeaEuDjf4RmD_hXXdHLQ-F8ycvLGMR1rjAbjP6oy3XgbWGMEdxpq6EsBa8itQzvtkpG10HpYA3Wo0vktA3mLQiUwTukuI38BnsGnNi4aHgdG73TmnsV5uTrU0T4yrkkabtnUya4mlUOCzq6C61sj0Qe30SXeaE7xkuys4">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm font-semibold text-on-surface">Truffle Umami Burger</h3>
+<p class="font-label-lg text-label-lg text-primary">$18.50</p>
+</div>
+<p class="text-on-surface-variant font-body-sm text-sm mt-1">Extra truffle aioli, medium-rare</p>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center bg-surface-container rounded-full p-1 border border-outline-variant">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="remove">remove</span>
+</button>
+<span class="px-4 font-label-lg text-label-lg">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+</button>
+</div>
+<button class="text-error font-label-md text-label-md hover:underline">Remove</button>
+</div>
+</div>
+</div>
+<div class="h-px bg-outline-variant opacity-30"></div>
+<!-- Item 2 -->
+<div class="flex items-center gap-6 group">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A fresh Mediterranean bowl with grilled salmon, quinoa, sliced avocado, kalamata olives, and crumbled feta cheese. Bright natural daylight, vibrant green and orange hues, overhead angle, minimalist clean aesthetic with premium food styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3FegTBNVzgKovwuwGNmoh2bek2YukeZQfu2TOpllpSwUFxIcNKo3RFIhHio-NC4PKaRXEXkvI45q_473TOJlzqf6lBU_sEc-3Ft7eUAqn1l-qBIPAiY2DHkzQP1O2tG31bp7xcOIKPfBOMl_BbFzt4F3rrQ57l1lyB1Afb0FTQsYmVo2BqqCqKSb2mM84NdTUSJKx1NeLxsHJw6GJPkl_FmKh8jC7bhoR-7sS9Tqil8jNDfjTrpoxGAQQu2L3u63mrQR0YtQXVJ4i">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm font-semibold text-on-surface">Salmon Quinoa Zen Bowl</h3>
+<p class="font-label-lg text-label-lg text-primary">$22.00</p>
+</div>
+<p class="text-on-surface-variant font-body-sm text-sm mt-1">Lemon herb dressing on side</p>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center bg-surface-container rounded-full p-1 border border-outline-variant">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="remove">remove</span>
+</button>
+<span class="px-4 font-label-lg text-label-lg">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+</button>
+</div>
+<button class="text-error font-label-md text-label-md hover:underline">Remove</button>
+</div>
+</div>
+</div>
+<div class="h-px bg-outline-variant opacity-30"></div>
+<!-- Item 3 -->
+<div class="flex items-center gap-6 group">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Hand-crafted Italian gelato with fresh pistachio and dark chocolate swirls in a ceramic bowl. Moody, warm lighting, elegant shadows, rich textures, high-end bistro atmosphere, premium dessert styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqaqzzCpRR5V6cp6vowTp-UQzJB2gsZ7tbAOiHEMZrH6u6zlWIh2tWhIHLibzl0Co9mE3F_jYGdToVAz0MTD6NqsLscQdoHw-d8KNwZcHBmYdVLk_1tXWsPyjMmZtHGi5nZWNoS_xgCuWx62nbD96cLoJZW2eYpO3PftL_I9b0FS0fZMGny-YY6kE4IdXT6ozhxlMqegdTkPpJF7w_32fGe8Yih_3tLFW7Lbk06DjqxqYxDd54xNZ0LWGdxdyHuQXyIieQCrl9HhX1">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm font-semibold text-on-surface">Pistachio Fusion Gelato</h3>
+<p class="font-label-lg text-label-lg text-primary">$9.50</p>
+</div>
+<p class="text-on-surface-variant font-body-sm text-sm mt-1">Single scoop</p>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center bg-surface-container rounded-full p-1 border border-outline-variant">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="remove">remove</span>
+</button>
+<span class="px-4 font-label-lg text-label-lg">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+</button>
+</div>
+<button class="text-error font-label-md text-label-md hover:underline">Remove</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Delivery Address -->
+<section class="glass-card rounded-xl p-8">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface">Delivery Address</h2>
+<button class="text-primary font-label-lg text-label-lg flex items-center gap-2 btn-hover-scale">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                            Add New
+                        </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Active Address -->
+<div class="p-6 rounded-xl border-2 border-primary bg-primary/5 relative cursor-pointer">
+<div class="absolute top-4 right-4">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;" data-original-icon="check_circle">check_circle</span>
+</div>
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary" data-icon="home">home</span>
+<span class="font-label-lg text-label-lg">Home</span>
+</div>
+<p class="text-on-surface-variant font-body-md">4521 Sunset Blvd, Suite 402</p>
+<p class="text-on-surface-variant font-body-md">Los Angeles, CA 90027</p>
+</div>
+<!-- Secondary Address -->
+<div class="p-6 rounded-xl border border-outline-variant bg-surface hover:border-primary/50 transition-all cursor-pointer group">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="work">work</span>
+<span class="font-label-lg text-label-lg">Office</span>
+</div>
+<p class="text-on-surface-variant font-body-md">789 Tech Plaza, 12th Floor</p>
+<p class="text-on-surface-variant font-body-md">Santa Monica, CA 90401</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Bill Summary -->
+<aside class="lg:col-span-4 sticky top-24">
+<div class="glass-card rounded-xl p-8">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-8">Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between text-on-surface-variant">
+<span>Subtotal</span>
+<span class="text-on-surface font-semibold">$50.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Delivery Fee</span>
+<span class="text-on-surface font-semibold">$4.99</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Service Fee</span>
+<span class="text-on-surface font-semibold">$2.50</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Tax (8.5%)</span>
+<span class="text-on-surface font-semibold">$4.25</span>
+</div>
+<!-- Promo Code Inset -->
+<div class="pt-4">
+<div class="relative">
+<input class="w-full h-12 bg-surface-container-low border border-outline-variant rounded-full px-6 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-body-md" placeholder="Promo Code" type="text">
+<button class="absolute right-2 top-1.5 h-9 px-4 bg-secondary text-on-secondary rounded-full font-label-md text-label-md hover:bg-primary transition-colors btn-hover-scale">Apply</button>
+</div>
+</div>
+<div class="h-px bg-outline-variant mt-6 mb-2"></div>
+<div class="flex justify-between text-on-surface pt-4">
+<span class="font-headline-sm text-headline-md">Total</span>
+<span class="font-headline-sm text-headline-md text-primary">$61.74</span>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-4 rounded-full font-label-lg text-label-lg flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:brightness-110 transition-all btn-hover-scale">
+                        Place Order
+                        <span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward" data-original-icon="arrow_forward">arrow_forward</span>
+</button>
+<p class="text-center text-on-surface-variant text-[12px] mt-6 px-4">
+                        By placing your order, you agree to QuickBite's <a class="underline" href="#">Terms of Service</a> and <a class="underline" href="#">Privacy Policy</a>.
+                    </p>
+</div>
+<!-- Delivery Time Chip -->
+<div class="mt-6 flex items-center gap-4 p-4 bg-secondary-container/10 border border-secondary-container/20 rounded-xl">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="speed">speed</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-secondary-container">Estimated Delivery</p>
+<p class="text-secondary font-bold">25 - 35 mins</p>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface mt-auto">
+<div class="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 py-16 px-6 lg:px-12">
+<div class="col-span-2 md:col-span-1">
+<h3 class="font-headline-lg text-headline-lg font-black text-primary mb-6">QuickBite</h3>
+<p class="text-on-surface-variant font-label-md max-w-xs">Premium urban gastronomy delivered to your doorstep. Speed meets quality in every bite.</p>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-primary mb-6">Company</h4>
+<nav class="flex flex-col gap-4">
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all font-label-lg" href="#">About</a>
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all font-label-lg" href="#">Partners</a>
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all font-label-lg" href="#">Careers</a>
+</nav>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-primary mb-6">Support</h4>
+<nav class="flex flex-col gap-4">
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all font-label-lg" href="#">Help Center</a>
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all font-label-lg" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all font-label-lg" href="#">Privacy Policy</a>
+</nav>
+</div>
+<div class="col-span-2 md:col-span-1">
+<h4 class="font-label-lg text-label-lg text-primary mb-6">Newsletter</h4>
+<div class="flex gap-2">
+<input class="bg-surface-container border-none rounded-full px-4 py-2 w-full text-label-md focus:ring-1 focus:ring-primary outline-none" placeholder="Email" type="email">
+<button class="bg-primary text-on-primary p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="send">send</span>
+</button>
+</div>
+<div class="flex gap-4 mt-8">
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="public">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</a>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant/20 py-8 text-center text-on-surface-variant font-label-md">
+            © 2024 QuickBite Technologies Inc.
+        </div>
+</footer>
+<script>
+        // Micro-interactions for address selection
+        document.querySelectorAll('.address-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.address-card').forEach(c => {
+                    c.classList.remove('border-primary', 'bg-primary/5');
+                    c.classList.add('border-outline-variant', 'bg-surface');
+                    const icon = c.querySelector('.check-icon');
+                    if(icon) icon.remove();
+                });
+                
+                this.classList.add('border-primary', 'bg-primary/5');
+                this.classList.remove('border-outline-variant', 'bg-surface');
+                
+                const checkIcon = document.createElement('div');
+                checkIcon.className = 'absolute top-4 right-4 check-icon';
+                checkIcon.innerHTML = '<span class="material-symbols-outlined text-primary" style="font-variation-settings: \'FILL\' 1;">check_circle</span>';
+                this.appendChild(checkIcon);
+            });
+        });
+
+        // Simple button quantity logic
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Add ripple or visual feedback here if needed
+                const span = this.querySelector('.material-symbols-outlined');
+                if(span) {
+                    if(span.innerText === 'add') {
+                        // Logic for increment
+                    } else if (span.innerText === 'remove') {
+                        // Logic for decrement
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

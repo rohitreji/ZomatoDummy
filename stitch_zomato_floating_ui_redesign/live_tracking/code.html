@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>QuickBite | Live Order Tracking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#ffb3b1",
+                    "inverse-primary": "#ffb3b1",
+                    "surface-variant": "#e5e2e1",
+                    "on-tertiary-fixed-variant": "#005227",
+                    "on-tertiary-container": "#f6fff3",
+                    "surface-tint": "#bb162c",
+                    "secondary": "#5d5f5f",
+                    "surface-container": "#f0eded",
+                    "surface-dim": "#dcd9d9",
+                    "on-surface": "#1b1b1b",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "secondary-container": "#dfe0e0",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#eae7e7",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#006b34",
+                    "on-error": "#ffffff",
+                    "primary-container": "#db313f",
+                    "tertiary-container": "#29844a",
+                    "on-surface-variant": "#5b403f",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#ffdad8",
+                    "inverse-surface": "#313030",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-secondary-container": "#616363",
+                    "on-background": "#1b1b1b",
+                    "surface-container-low": "#f6f3f2",
+                    "on-tertiary-fixed": "#00210c",
+                    "surface-bright": "#fcf9f8",
+                    "secondary-fixed": "#e2e2e2",
+                    "background": "#fcf9f8",
+                    "on-secondary-fixed-variant": "#454747",
+                    "on-primary-fixed-variant": "#92001c",
+                    "tertiary-fixed-dim": "#80da96",
+                    "on-primary-fixed": "#410007",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "outline-variant": "#e4bebc",
+                    "outline": "#8f6f6e",
+                    "on-primary": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "tertiary-fixed": "#9bf6b0",
+                    "primary": "#b7122a",
+                    "on-primary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "20px",
+                    "sm": "16px",
+                    "md": "24px",
+                    "xs": "8px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "lg": "32px",
+                    "xl": "48px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "label-sm": ["12px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .stepper-line {
+            background: linear-gradient(to bottom, #b7122a 50%, #e5e2e1 50%);
+            background-size: 100% 200%;
+            background-position: bottom;
+            transition: background-position 0.5s ease;
+        }
+        .pulse-primary {
+            box-shadow: 0 0 0 0 rgba(183, 18, 42, 0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(183, 18, 42, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(183, 18, 42, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(183, 18, 42, 0); }
+        }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 w-full z-40 bg-white/80 dark:bg-black/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-container-margin py-xs w-full max-w-1200px mx-auto">
+<div class="flex items-center gap-xs">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile font-extrabold text-primary">QuickBite</h1>
+</div>
+<div class="flex items-center gap-sm">
+<button class="bg-surface-container px-4 py-1.5 rounded-full font-label-md text-on-surface-variant flex items-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">help_outline</span>
+                    Help
+                </button>
+</div>
+</div>
+</header>
+<main class="relative h-[calc(100vh-140px)] w-full overflow-hidden">
+<!-- Interactive Map Container -->
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full grayscale-[0.2] brightness-[1.05]" data-alt="A stylized aerial view map of Manhattan, New York, featuring clean white streets and subtle building footprints. The aesthetic is high-energy and modern, with a vibrant red delivery route path traced across the grid. Small animated icons indicate a restaurant location with a fork-and-knife symbol and a destination with a home icon, emphasizing the fast-paced delivery context." data-location="Manhattan, New York" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuACnUhD9n-6gxrGskDI214pZq0A6w4RXqBneeAs5J6VFN-UUDl0ss49JyDLrTL8AkUAQW5WAJtBUElZvwPJRawca_AybP_xfC-gCtbP_y_imTaERadqNJuQeTxHfcSbT__dyJupRXLzUAG9rdA95o_6pUeI5J-sAnaEz1bGPi4P_9jifvXih74LxhjNG0td4qXu6zQ9V7eYDQO6NcL22j5QoretGIY2OAX5fHdkjBlU3fW4BatMJHx0h-UMgzrLHIt4WWAS4_tsKWyM')">
+</div>
+<!-- Map Overlay: Delivery Path Emulation -->
+<div class="absolute inset-0 pointer-events-none">
+<svg class="w-full h-full" fill="none" viewbox="0 0 400 800" xmlns="http://www.w3.org/2000/svg">
+<path class="opacity-60" d="M100 600 C 150 500, 250 500, 300 400" stroke="#b7122a" stroke-dasharray="8 8" stroke-width="4"></path>
+<circle class="pulse-primary" cx="300" cy="400" fill="#b7122a" r="8"></circle>
+</svg>
+</div>
+</div>
+<!-- Floating Action Buttons Layer -->
+<div class="absolute top-md right-container-margin z-20 flex flex-col gap-sm">
+<button class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-on-surface hover:bg-surface-container-high active:scale-90 transition-all">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<button class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-error hover:bg-error-container active:scale-90 transition-all">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Main Tracking Card -->
+<section class="absolute bottom-0 left-0 right-0 z-30 px-container-margin pb-xl">
+<div class="max-w-[600px] mx-auto">
+<!-- Status & Stepper Card -->
+<div class="bg-white rounded-[32px] shadow-[0px_20px_50px_rgba(0,0,0,0.15)] p-md space-y-lg border border-surface-variant/20">
+<!-- Top Status Row -->
+<div class="flex justify-between items-start">
+<div class="space-y-base">
+<p class="text-primary font-label-md tracking-wider">ON THE WAY</p>
+<h2 class="font-headline-md text-headline-md text-on-surface">Arriving in 12 mins</h2>
+</div>
+<div class="bg-primary-fixed/30 p-3 rounded-2xl">
+<span class="material-symbols-outlined text-primary text-[32px]">delivery_dining</span>
+</div>
+</div>
+<!-- Stepper UI -->
+<div class="flex justify-between items-center relative">
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-surface-variant -translate-y-1/2 z-0"></div>
+<div class="absolute top-1/2 left-0 w-[66%] h-[2px] bg-primary -translate-y-1/2 z-0"></div>
+<div class="relative z-10 flex flex-col items-center gap-xs">
+<div class="w-4 h-4 rounded-full bg-primary ring-4 ring-primary-fixed"></div>
+<span class="text-label-sm font-label-sm text-on-surface">Placed</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-xs">
+<div class="w-4 h-4 rounded-full bg-primary ring-4 ring-primary-fixed"></div>
+<span class="text-label-sm font-label-sm text-on-surface">Prepared</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-xs">
+<div class="w-5 h-5 rounded-full bg-primary flex items-center justify-center ring-4 ring-primary-fixed pulse-primary">
+<span class="material-symbols-outlined text-[12px] text-white" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="text-label-sm font-label-sm text-primary font-bold">On the Way</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-xs">
+<div class="w-4 h-4 rounded-full bg-surface-variant ring-4 ring-white"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Delivered</span>
+</div>
+</div>
+<div class="h-px bg-surface-variant/30"></div>
+<!-- Delivery Partner Info -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<div class="relative">
+<img class="w-14 h-14 rounded-2xl object-cover border-2 border-white shadow-md" data-alt="A professional headshot of a friendly delivery courier wearing a branded red polo shirt and a warm, inviting smile. The lighting is bright and natural, set outdoors in a modern urban environment. The photo is high-quality with a shallow depth of field, highlighting the person's professional yet approachable demeanor within a clean light-mode UI context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm0baB8Y49d81kNekFhTHsqarH64DsTWZYGTtUJOIHKc0-ezos6D4J7HEFvv6d4jtvBsf8ahE-WkIqpyi-xk9n4vntxDR2do3yRLvz8v3E9azjIxmWb7UXsMWJqDizwaiCu7nO8sG_HsUdNavdesZjeUhI3ZjrTEWwYxo9X5Rv1fDucmxULYG8V22Weg_ety4gje8sXISNchaFZLD6qK5h8ruWukyvaiGpY-RK4-XwelJBFk296iweo5FuXYHKH30XkyiRkJynyBms"/>
+<div class="absolute -bottom-1 -right-1 bg-tertiary text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold flex items-center gap-0.5">
+                                    4.9 <span class="material-symbols-outlined text-[10px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Marco Rossi</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Your delivery partner</p>
+</div>
+</div>
+<div class="flex gap-xs">
+<button class="w-12 h-12 bg-surface-container rounded-2xl flex items-center justify-center text-on-surface hover:bg-surface-variant transition-colors active:scale-90">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<button class="w-12 h-12 bg-primary text-white rounded-2xl flex items-center justify-center shadow-lg shadow-primary/30 hover:bg-primary-container transition-all active:scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">call</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Glassmorphism Shell) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-white/80 dark:bg-black/80 backdrop-blur-xl border-t border-outline-variant/30 shadow-[0px_-10px_30px_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-sm text-label-sm">Dining</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-primary-fixed/20 rounded-xl px-4 py-1 hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">live_tv</span>
+<span class="font-label-sm text-label-sm">Live</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for the "Live" navigation tab
+        document.addEventListener('DOMContentLoaded', () => {
+            const liveTab = document.querySelector('nav a:nth-child(3)');
+            if (liveTab) {
+                // Subtle pulse to indicate active tracking
+                setInterval(() => {
+                    liveTab.classList.toggle('opacity-90');
+                }, 1000);
+            }
+            
+            // Simulation of arrival time countdown (visual only)
+            let mins = 12;
+            const timerText = document.querySelector('h2');
+            if (timerText) {
+                setInterval(() => {
+                    if (Math.random() > 0.9) { // Low probability of "ticking" for demo feel
+                        mins = Math.max(1, mins - 1);
+                        timerText.textContent = `Arriving in ${mins} mins`;
+                    }
+                }, 10000);
+            }
+        });
+    </script>
+</body></html>

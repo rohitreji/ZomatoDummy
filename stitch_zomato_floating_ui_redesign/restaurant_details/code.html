@@ -1,0 +1,473 @@
+<!DOCTYPE html><html lang="en" class="scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f8efed",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#f5ecea",
+                        "surface-container-high": "#efe6e4",
+                        "primary-fixed": "#ffdad8",
+                        "surface-dim": "#e1d8d6",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#f4be4e",
+                        "on-primary-container": "#fffbff",
+                        "on-secondary-container": "#722104",
+                        "surface-container-low": "#fbf2f0",
+                        "primary-container": "#db313f",
+                        "on-secondary-fixed": "#3a0b00",
+                        "surface-variant": "#e9e1df",
+                        "on-background": "#1e1b1a",
+                        "tertiary-fixed": "#ffdea4",
+                        "tertiary-container": "#976d00",
+                        "secondary-container": "#fd8863",
+                        "outline": "#8f6f6e",
+                        "secondary": "#9f4122",
+                        "primary-fixed-dim": "#ffb3b1",
+                        "inverse-surface": "#342f2e",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#261900",
+                        "on-secondary-fixed-variant": "#7f2a0d",
+                        "on-surface-variant": "#5b403f",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary": "#785600",
+                        "surface": "#fff8f6",
+                        "surface-bright": "#fff8f6",
+                        "outline-variant": "#e4bebc",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e9e1df",
+                        "on-primary-fixed": "#410007",
+                        "on-primary-fixed-variant": "#92001c",
+                        "background": "#fff8f6",
+                        "secondary-fixed-dim": "#ffb59e",
+                        "on-secondary": "#ffffff",
+                        "primary": "#b7122a",
+                        "secondary-fixed": "#ffdbd0",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1e1b1a",
+                        "on-tertiary-fixed-variant": "#5d4200",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#bb162c",
+                        "inverse-primary": "#ffb3b1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "xxl": "20px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "base": "8px",
+                        "xxl": "48px",
+                        "gutter": "16px",
+                        "container-max-width": "1280px",
+                        "margin-desktop": "48px",
+                        "section-gap": "64px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 shadow-sm bg-surface/80 backdrop-blur-md transition-all duration-300">
+<div class="max-w-container-max-width mx-auto flex items-center justify-between px-margin-desktop h-20">
+<div class="flex items-center gap-xl">
+<a href="#" class="font-display-md text-headline-lg font-extrabold text-primary tracking-tighter">QuickBite</a>
+<nav class="hidden md:flex items-center gap-lg">
+<a href="#" class="font-label-lg text-primary font-bold border-b-2 border-primary pb-1">Browse</a>
+<a href="#" class="font-label-lg text-on-surface-variant hover:text-primary transition-colors">Offers</a>
+<a href="#" class="font-label-lg text-on-surface-variant hover:text-primary transition-colors">Support</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden lg:flex items-center bg-surface-container-low px-md py-2 rounded-full border border-outline-variant w-64 group focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-outline">search</span>
+<input type="text" placeholder="Search dishes..." class="bg-transparent border-none focus:ring-0 text-sm ml-2 w-full">
+</div>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-original-icon="location_on">location_on</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-original-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="flex items-center gap-2 bg-primary text-white px-lg py-2 rounded-full font-label-lg hover:bg-primary-container transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm" data-original-icon="shopping_cart">shopping_cart</span>
+                    Cart
+                </button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="A close-up professional headshot of a sophisticated urban diner with warm lighting and a soft focus background of a high-end restaurant interior. The style is modern, cinematic, and polished." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATUFCgG6dHjDTTJPtu71tzN5AnjkVdIOK63Ys8vrK9llIPsdF_hdoir7LW9waZPpDPsiGwhBiVSbEgTGGgAgvyK5xqZD2iEqsGP8VoDwGLZpwiY0WSM6DM5mROIUes_MZE75jht84tckNnTyK-zsrUJgJhc9efB0aV9vz2DikJ42YTnbacQsIeB-tckYkY8PgLPCA1YLcBhnoPbXtu_rWf-bmP8TNZANmcIE85NtfRGMud4E6JcQBPLG_kFFRmslRpBDvidrL3tp5e">
+</div>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<!-- Cinematic Hero Section -->
+<section class="relative h-[614px] min-h-[500px] w-full overflow-hidden">
+<div class="absolute inset-0">
+<img class="w-full h-full object-cover transform scale-105 hover:scale-100 transition-transform duration-[10s]" data-alt="A breathtaking, cinematic wide-angle photograph of 'The Gourmet Kitchen' restaurant interior at dusk. High ceilings, industrial-chic pendant lights, lush indoor plants, and a bustling open kitchen. The lighting is warm and amber, creating a luxurious and inviting atmosphere with rich wood textures and marble surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY6_epMPHoOWbw5Z7kceY5hrzk_KKemjl-jZmn4rPBvj0HM1Gh6dBakul7Bw8Jg6Aq2PUds7a1yl9FUUykFFcL_9DPUwZK6Ns7zFXkJolZ3shVbP3ZRWtBe0bUa2SdVFZXvNzbP0cXKydlWH8jpPqFyIsw72v3dBMC2j1zJjkEOTuh8FV8hz4gBfW1Y69cWefoAimrMzA__YyfE-a3pFDsOZlijgBtSWr2EuWPaS2YV8AMlodIcpV-ioImbY1Eh-R6j18Qw6Cm5-nH">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+</div>
+<!-- Floating Restaurant Info Card -->
+<div class="absolute -bottom-16 left-margin-desktop right-margin-desktop max-w-container-max-width mx-auto">
+<div class="glass-card p-xl rounded-xxl shadow-premium flex flex-col md:flex-row items-center md:items-end justify-between gap-lg">
+<div class="flex flex-col gap-xs">
+<div class="flex items-center gap-sm">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">Michelin Selection</span>
+<div class="flex items-center text-primary">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold ml-1">4.9</span>
+<span class="text-on-surface-variant font-normal ml-1">(1.2k+ Reviews)</span>
+</div>
+</div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface">The Gourmet Kitchen</h1>
+<p class="text-on-surface-variant font-body-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-original-icon="restaurant">restaurant</span>
+                            Modern Italian-Fusion • 25-35 min • $$$
+                        </p>
+</div>
+<div class="flex gap-md">
+<button class="bg-surface-container-highest p-4 rounded-xxl hover:bg-outline-variant transition-colors group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:scale-110 transition-transform">favorite</span>
+</button>
+<button class="bg-surface-container-highest p-4 rounded-xxl hover:bg-outline-variant transition-colors group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:scale-110 transition-transform">share</span>
+</button>
+<button class="bg-primary text-white px-xl py-4 rounded-xxl font-label-lg hover:shadow-lg transition-all active:scale-95">
+                            Book a Table
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Area -->
+<div class="max-w-container-max-width mx-auto px-margin-desktop mt-32 mb-section-gap">
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Left: Content & Tabs -->
+<div class="flex-1">
+<!-- Navigation Tabs -->
+<div class="flex items-center gap-xl border-b border-outline-variant mb-xl sticky top-20 bg-surface z-40 py-4 hide-scrollbar overflow-x-auto">
+<button class="font-label-lg text-primary border-b-2 border-primary pb-2 whitespace-nowrap">Overview</button>
+<button class="font-label-lg text-on-surface-variant hover:text-primary transition-colors pb-2 whitespace-nowrap">Menu</button>
+<button class="font-label-lg text-on-surface-variant hover:text-primary transition-colors pb-2 whitespace-nowrap">Reviews</button>
+<button class="font-label-lg text-on-surface-variant hover:text-primary transition-colors pb-2 whitespace-nowrap">Photos</button>
+<button class="font-label-lg text-on-surface-variant hover:text-primary transition-colors pb-2 whitespace-nowrap">About</button>
+</div>
+<!-- Menu Sections -->
+<div class="space-y-xl">
+<!-- Featured/Bestsellers -->
+<div class="flex items-center justify-between">
+<h2 class="font-headline-lg text-on-surface">Chef's Recommendations</h2>
+<button class="text-primary font-label-lg flex items-center gap-1 hover:underline">
+                                View Full Menu <span class="material-symbols-outlined text-sm" data-original-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Menu Item 1 -->
+<div class="group bg-surface-container-lowest rounded-xxl overflow-hidden shadow-sm hover:shadow-premium transition-all duration-300 border border-transparent hover:border-outline-variant/30">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A gourmet presentation of Truffle Tagliolini, featuring fresh pasta strands coated in a creamy parmesan sauce, topped with generous shavings of black truffle and a sprinkle of micro-herbs. Warm, soft lighting on a dark slate plate, emphasizing the rich textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATzmFKEEMvwJa-HscN5ModNiz4r_Z43u4J8DB_5p0baPP_vR5LlUskUkdHSyOeqoEyGYKG8sm07_ElccJHm2AgJMrOSqtfQg0s49g8OAhV-IBgi-49ICIJoidj0_42LQJ9WGWpnhZNvkJzCRWVyVmcP5JuH9TCfPh4quxTlOxdNO7WO82aNGeGYbo2M03T6gPWCS-IeCyF-y8qHHfyW-uRJIVzoxSyNbN9D2pjYslvp_tZSAfMfkLBLD8aepzIICp_c6lwb9rgDCly">
+<div class="absolute top-4 right-4 glass-card px-3 py-1 rounded-full text-primary font-bold text-xs flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;" data-original-icon="auto_awesome">auto_awesome</span>
+                                        Bestseller
+                                    </div>
+</div>
+<div class="p-lg flex flex-col justify-between h-[180px]">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-on-surface">Truffle Tagliolini</h3>
+<span class="font-bold text-primary">$28.00</span>
+</div>
+<p class="text-on-surface-variant text-sm line-clamp-2">Handmade ribbon pasta, seasonal black truffle, parmigiano-reggiano emulsion, and wild mushrooms.</p>
+</div>
+<button class="mt-4 w-full flex items-center justify-center gap-2 border-2 border-primary text-primary font-label-lg py-2 rounded-full hover:bg-primary hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg" data-original-icon="add_shopping_cart">add_shopping_cart</span>
+                                        Add to Cart
+                                    </button>
+</div>
+</div>
+<!-- Menu Item 2 -->
+<div class="group bg-surface-container-lowest rounded-xxl overflow-hidden shadow-sm hover:shadow-premium transition-all duration-300 border border-transparent hover:border-outline-variant/30">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A perfectly seared Wagyu Beef Slider on a brioche bun with caramelized onions, Gruyère cheese, and a side of crispy gold truffle fries. Presented on a modern white ceramic plate with vibrant lighting highlighting the juicy meat and shiny bun." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8Pb3xxulLgWoStVYKH8dm6UIuDQ0f7XXSMIpWnCRVqTG6Yvgp7mCiZpR9AOEgOSxy39z2x8S9qrNSf2AAc97mXVFXxSHcHYYZE8H-NYlH2qD72ot8aj750iU-IMEoUeOwwcV_sE4P0dWV5aJyXKLahKEC0a09OoxbxF-JbLbWI3WHfnbMxpZdAkmN6R2FO1NlOKtzCPack1MDtuzWNrXFY9ZKXmdP24DpDB-oMKyH2IZAUxgXkyUVRsSYdtamoo1aVPu2yXWYudBP">
+<div class="absolute top-4 right-4 glass-card px-3 py-1 rounded-full text-secondary font-bold text-xs flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;" data-original-icon="local_fire_department">local_fire_department</span>
+                                        Popular
+                                    </div>
+</div>
+<div class="p-lg flex flex-col justify-between h-[180px]">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-on-surface">Signature Wagyu Slider</h3>
+<span class="font-bold text-primary">$19.50</span>
+</div>
+<p class="text-on-surface-variant text-sm line-clamp-2">A5 Wagyu beef, truffle aioli, aged gruyère, and caramelized shallots on a toasted milk bun.</p>
+</div>
+<button class="mt-4 w-full flex items-center justify-center gap-2 border-2 border-primary text-primary font-label-lg py-2 rounded-full hover:bg-primary hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg" data-original-icon="add_shopping_cart">add_shopping_cart</span>
+                                        Add to Cart
+                                    </button>
+</div>
+</div>
+<!-- Menu Item 3 -->
+<div class="group bg-surface-container-lowest rounded-xxl overflow-hidden shadow-sm hover:shadow-premium transition-all duration-300 border border-transparent hover:border-outline-variant/30">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Vibrant Burrata Salad with heirloom tomatoes, fresh basil leaves, balsamic glaze swirls, and a sprinkle of sea salt. The creamy center of the burrata is slightly visible. Shot from a top-down angle on a light wooden table with natural morning light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXWBQWSQwaxybWSNCSzMXLOu_gXp5V7jOR5qHr2FXfqWr73uKGOdXwgumVpfYtqChfCB_5n_on28n25ZoPSGxIANRmWKRMyay64FlkWGOtX6XUq6XHbNeduzFaWx9_t8qlgG4im5rgzk959LrHE3cy3_ACt6sqh4li8QmaR-4cWrvdSkGV6NU9XF5f6osuEo4MsGIszGGUYRpL84UD_Vqyvxi9q7Ao4a_wWiAD7LQ-MzN_MiRmNB_zfEX6PSkNgLI2ZAzq1-SXUB37">
+<div class="absolute top-4 right-4 glass-card px-3 py-1 rounded-full text-primary-container font-bold text-xs flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-xs">eco</span>
+                                        Vegetarian
+                                    </div>
+</div>
+<div class="p-lg flex flex-col justify-between h-[180px]">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-on-surface">Heirloom Burrata</h3>
+<span class="font-bold text-primary">$22.00</span>
+</div>
+<p class="text-on-surface-variant text-sm line-clamp-2">Creamy burrata, heirloom tomatoes, balsamic reduction, basil oil, and toasted focaccia.</p>
+</div>
+<button class="mt-4 w-full flex items-center justify-center gap-2 border-2 border-primary text-primary font-label-lg py-2 rounded-full hover:bg-primary hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg" data-original-icon="add_shopping_cart">add_shopping_cart</span>
+                                        Add to Cart
+                                    </button>
+</div>
+</div>
+<!-- Menu Item 4 -->
+<div class="group bg-surface-container-lowest rounded-xxl overflow-hidden shadow-sm hover:shadow-premium transition-all duration-300 border border-transparent hover:border-outline-variant/30">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Artisanal Pan-Seared Salmon with a crispy skin, served on a bed of lemon-infused quinoa and charred asparagus. Delicate microgreens garnish the fish. The lighting is crisp and bright, highlighting the flaky texture of the salmon." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrDz6j0GW54NCD8Yfw45eU8hiefJwGTu7bJgc30xzl0ZjaIu0ejBEwy63xsBbXrKZ6GpaEIUwK9GoLJ3q2aiogSyghLFLMlreCJMRzK8a-qz7XgKX7-tL9OtD4072juyXBkyDqteRfoEjpI5GYrbflQ09Pbvb313kCcayrqREtt7BDsGqEGoRcV18YaBZKoMC6NU80uZg_Gi2Az1Je_E1V2cnKM6uUqHDu0UOZVzcnH-aXfL73qANK4Oc_g7c4fIP0MzbEj0hwUatf">
+</div>
+<div class="p-lg flex flex-col justify-between h-[180px]">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-on-surface">Crispy Atlantic Salmon</h3>
+<span class="font-bold text-primary">$34.00</span>
+</div>
+<p class="text-on-surface-variant text-sm line-clamp-2">Pan-seared salmon, lemon-dill beurre blanc, roasted baby potatoes, and grilled asparagus.</p>
+</div>
+<button class="mt-4 w-full flex items-center justify-center gap-2 border-2 border-primary text-primary font-label-lg py-2 rounded-full hover:bg-primary hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg" data-original-icon="add_shopping_cart">add_shopping_cart</span>
+                                        Add to Cart
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Sticky Cart Summary -->
+<aside class="w-full lg:w-[380px]">
+<div class="sticky top-24 bg-surface-container-low rounded-xxl p-xl border border-outline-variant/30 shadow-premium">
+<div class="flex items-center justify-between mb-xl">
+<h3 class="font-headline-md text-on-surface">Your Order</h3>
+<span class="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+</div>
+<!-- Cart Items -->
+<div class="space-y-lg mb-xl">
+<div class="flex items-center gap-md">
+<div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up of Truffle Tagliolini." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC32etstXFW_SBIbAuvxy8I1PDthkNCaKS5RCwWBf2b_HQ5IN3E0zZlqhFuHURZlf3N02jFPwxp_iJeu29mer0YNA3sK5kDoWqfL0awOMZTyCr1YfFGnEpZYIuVKpZZjtCGlzjYlAtaz7AphSolsCxGXHxriXVgmke5VgRwL6tP09WD8KvP_KbEx8UfiIwAQbiMJfCHuNmNavEupfPrygN8REIMJ3-cQuWnNICjLuBMI2888plANLVYmu4V-3duVSOa6wsnufndp8u1">
+</div>
+<div class="flex-1">
+<div class="flex justify-between font-label-lg text-on-surface">
+<span>Truffle Tagliolini</span>
+<span>$28.00</span>
+</div>
+<div class="flex items-center gap-3 mt-1">
+<button class="w-6 h-6 rounded-full border border-outline flex items-center justify-center text-on-surface-variant hover:bg-outline-variant transition-colors">-</button>
+<span class="text-sm font-medium">1</span>
+<button class="w-6 h-6 rounded-full border border-outline flex items-center justify-center text-on-surface-variant hover:bg-outline-variant transition-colors">+</button>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up of Signature Wagyu Slider." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7jOqJ1guhBG3w6Ju37zN80eelpX12jNqCpQuwPBx7aGV-wVCLyiJAH7bCwPhoBxI_wgEeCMgh4A3CQtImyLWE9JDo8NUOsg_YfQPj--Wx01qlg6T7UNyTwo__ATRH0NDfEgDNT919OgxfyH_4HdT_HRG1J169QkKiRYxpst9SHMkmEKevAoqjbc8NObfjcvyneNjukSf0Yx64dwdZkCovh89YsKdiwe-6qLlR4yhl4IBJlO5A1Mvlqbv5kR4av3M48n6j12oCYSeA">
+</div>
+<div class="flex-1">
+<div class="flex justify-between font-label-lg text-on-surface">
+<span>Signature Wagyu Slider</span>
+<span>$19.50</span>
+</div>
+<div class="flex items-center gap-3 mt-1">
+<button class="w-6 h-6 rounded-full border border-outline flex items-center justify-center text-on-surface-variant hover:bg-outline-variant transition-colors">-</button>
+<span class="text-sm font-medium">1</span>
+<button class="w-6 h-6 rounded-full border border-outline flex items-center justify-center text-on-surface-variant hover:bg-outline-variant transition-colors">+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Summary -->
+<div class="border-t border-outline-variant pt-lg space-y-md">
+<div class="flex justify-between text-on-surface-variant font-label-lg">
+<span>Subtotal</span>
+<span>$47.50</span>
+</div>
+<div class="flex justify-between text-on-surface-variant font-label-lg">
+<span>Delivery Fee</span>
+<span class="text-primary font-bold">Free</span>
+</div>
+<div class="flex justify-between text-on-surface font-headline-md pt-md">
+<span>Total</span>
+<span>$47.50</span>
+</div>
+</div>
+<!-- CTA -->
+<button class="w-full mt-xl bg-primary text-white py-4 rounded-xxl font-label-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:translate-y-0">
+                            Proceed to Checkout
+                        </button>
+<p class="text-center text-on-surface-variant text-[11px] mt-md px-md">
+                            By placing your order, you agree to our Terms of Service and Privacy Policy.
+                        </p>
+</div>
+</aside>
+</div>
+</div>
+<!-- Location & Contact (Asymmetric Layout) -->
+<section class="max-w-container-max-width mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-xl items-center mb-section-gap">
+<div class="lg:col-span-5 flex flex-col gap-lg">
+<h2 class="font-display-lg text-headline-lg text-on-surface">Find Us Here</h2>
+<p class="text-body-lg text-on-surface-variant">Located in the heart of the design district, our flagship restaurant offers an escape from the urban rush into a world of curated flavors.</p>
+<div class="space-y-md">
+<div class="flex items-center gap-md">
+<div class="bg-primary/10 p-3 rounded-xl text-primary">
+<span class="material-symbols-outlined" data-original-icon="location_on">location_on</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">123 Gastronomy Lane</p>
+<p class="text-on-surface-variant text-sm">Downtown, Creative District</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="bg-primary/10 p-3 rounded-xl text-primary">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Open Daily</p>
+<p class="text-on-surface-variant text-sm">11:00 AM - 11:00 PM</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7 rounded-xxl overflow-hidden h-[400px] shadow-premium group">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover" data-alt="A stylized, minimalist map illustration of a high-end city district, rendered in muted pastels and primary color accents. The map highlights the restaurant's location with a vibrant primary red pin icon, surrounded by sleek building silhouettes and green park areas." data-location="New York City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz4UnVUQvHf6BhQKzIn6lCBEYFnd9q9Lh_KOrL0JfhH2U88L9UA4QLNKo83wSpKbkCYoh2D-eNW9IvMMHSHAL2UHd5Gm53XN7VdwDLXzO-gxFwZ0U7vNIbYP7pimx6UTvrFhMTY6n4_gMH21wksqqR2kLNLQXAQcc8zczXxKmjw_Yqr8A2g7-r_6XYeoMzEMHjH89CwBF-CaNXDizXtyUmzI3L5IAWC4whzA8Gg0mKKGzc1ATHpm7JKgdCMQ3XaM2TQAWkcmYYaMe-">
+<div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface-container-highest">
+<div class="max-w-container-max-width mx-auto grid grid-cols-2 md:grid-cols-4 gap-gutter py-16 px-margin-desktop">
+<div class="col-span-2 md:col-span-1">
+<h2 class="font-headline-lg text-primary font-black mb-md">QuickBite</h2>
+<p class="text-on-surface-variant text-sm pr-lg">Revolutionizing urban dining through high-speed quality and curated culinary experiences since 2024.</p>
+<div class="flex gap-md mt-lg">
+<a class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">public</span></a>
+<a class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">chat</span></a>
+<a class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">alternate_email</span></a>
+</div>
+</div>
+<div>
+<h4 class="font-label-lg text-primary mb-md uppercase tracking-widest">Explore</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-primary transition-all text-sm" href="#">About Us</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-all text-sm" href="#">Partners</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-all text-sm" href="#">Careers</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-all text-sm" href="#">Sustainability</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-lg text-primary mb-md uppercase tracking-widest">Support</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-primary transition-all text-sm" href="#">Help Center</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-all text-sm" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-all text-sm" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-all text-sm" href="#">Refund Policy</a></li>
+</ul>
+</div>
+<div class="col-span-2 md:col-span-1">
+<h4 class="font-label-lg text-primary mb-md uppercase tracking-widest">Download Our App</h4>
+<p class="text-on-surface-variant text-sm mb-lg">Get the best dining experience on the go.</p>
+<div class="flex flex-col gap-sm">
+<button class="bg-on-background text-surface px-lg py-3 rounded-xl flex items-center gap-3 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">android</span>
+<div class="text-left"><p class="text-[10px] uppercase opacity-60">Get it on</p><p class="text-sm font-bold">Google Play</p></div>
+</button>
+<button class="bg-on-background text-surface px-lg py-3 rounded-xl flex items-center gap-3 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-original-icon="apple">apps</span>
+<div class="text-left"><p class="text-[10px] uppercase opacity-60">Download on the</p><p class="text-sm font-bold">App Store</p></div>
+</button>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant/30 py-8 px-margin-desktop max-w-container-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="text-on-surface-variant text-sm">© 2024 QuickBite Technologies Inc. All rights reserved.</p>
+<div class="flex gap-xl">
+<span class="text-on-surface-variant text-xs hover:text-primary cursor-pointer">Sitemap</span>
+<span class="text-on-surface-variant text-xs hover:text-primary cursor-pointer">Security</span>
+<span class="text-on-surface-variant text-xs hover:text-primary cursor-pointer">Accessibility</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('h-16', 'bg-surface/95');
+                header.classList.remove('h-20', 'bg-surface/80');
+            } else {
+                header.classList.add('h-20', 'bg-surface/80');
+                header.classList.remove('h-16', 'bg-surface/95');
+            }
+        });
+
+        // Add to cart buttons interaction
+        const addButtons = document.querySelectorAll('button:has(span:contains("add_shopping_cart"))');
+        addButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.innerHTML = '<span class="material-symbols-outlined text-lg">check</span> Added';
+                btn.classList.add('bg-primary', 'text-white');
+                setTimeout(() => {
+                    btn.innerHTML = '<span class="material-symbols-outlined text-lg">add_shopping_cart</span> Add to Cart';
+                    btn.classList.remove('bg-primary', 'text-white');
+                }, 2000);
+            });
+        });
+        
+        // Manual polyfill for :contains selector in script
+        function contains(selector, text) {
+            var elements = document.querySelectorAll(selector);
+            return Array.from(elements).filter(function(element) {
+                return RegExp(text).test(element.textContent);
+            });
+        }
+    </script>
+</body></html>
