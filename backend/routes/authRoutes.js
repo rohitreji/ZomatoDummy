@@ -1,8 +1,9 @@
 const express = require("express");
-
 const router = express.Router();
 
-const {
+
+const { 
+    registerUser,
     loginUser,
     logoutUser,
     changePassword,
@@ -12,13 +13,58 @@ const {
 
 const { protect } = require("../middleware/authMiddleware");
 
-// Public routes
-router.post("/login",           loginUser);
-router.post("/forgot-password", forgotPassword);
-router.put("/reset-password/:token", resetPassword);
+const validate = require("../middleware/validate");
 
-// Private routes (require valid JWT)
-router.post("/logout",          protect, logoutUser);
-router.put("/change-password",  protect, changePassword);
+const {
+    validateRegister,
+    validateLogin,
+    validateChangePassword,
+    validateForgotPassword,
+    validateResetPassword,
+} = require("../validators/authValidators");
+
+// Public
+router.post(
+    "/register",
+    validateRegister,
+    validate,
+    registerUser
+);
+
+router.post(
+    "/login",
+    validateLogin,
+    validate,
+    loginUser
+);
+
+router.post(
+    "/forgot-password",
+    validateForgotPassword,
+    validate,
+    forgotPassword
+);
+
+router.put(
+    "/reset-password/:token",
+    validateResetPassword,
+    validate,
+    resetPassword
+);
+
+// Private
+router.post(
+    "/logout",
+    protect,
+    logoutUser
+);
+
+router.put(
+    "/change-password",
+    protect,
+    validateChangePassword,
+    validate,
+    changePassword
+);
 
 module.exports = router;
