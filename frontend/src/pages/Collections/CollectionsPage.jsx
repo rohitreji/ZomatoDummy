@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CollectionCard from '../../components/CollectionCard/CollectionCard';
-import { getCollections } from '../../services/api';
-
+import { getCategories } from "../../api/categoryApi";
 const CollectionsPage = () => {
   const navigate = useNavigate();
   const [collections, setCollections] = useState([]);
