@@ -4,6 +4,7 @@ import { ShoppingBag, ArrowRight, Plus, Minus, Trash2, Ticket, Check } from 'luc
 import { useCart } from '../../hooks/useCart';
 import Button from '../../components/Button/Button';
 import { motion } from 'framer-motion';
+import { getCouponByCode } from '../../api/couponApi';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -25,15 +26,54 @@ const Cart = () => {
 
   const [promoInput, setPromoInput] = useState('');
   const [promoError, setPromoError] = useState('');
+  const [promoLoading, setPromoLoading] = useState(false);
 
-  const handleApplyPromo = (e) => {
+  const handleApplyPromo = async (e) => {
     e.preventDefault();
-    if (promoInput.trim().toLowerCase() === 'zomato60') {
-      applyPromo(promoInput);
-      setPromoError('');
+    const code = promoInput.trim();
+    if (!code) return;
+
+    setPromoLoading(true);
+    setPromoError('');
+
+    try {
+      const res = await getCouponByCode(code);
+      const coupon = res.data.coupon;
+
+      if (!coupon.isActive) {
+        setPromoError('This coupon is no longer active.');
+        return;
+      }
+      if (new Date(coupon.expiryDate) < new Date()) {
+        setPromoError('This coupon has expired.');
+        return;
+      }
+      if (coupon.minimumOrderAmount > 0 && subtotal < coupon.minimumOrderAmount) {
+        setPromoError(`Min. order ₹${coupon.minimumOrderAmount} required for this coupon.`);
+        return;
+      }
+
+      // Compute discount amount
+      let discount = 0;
+      if (coupon.discountType === 'Percentage') {
+        discount = (subtotal * coupon.discountValue) / 100;
+        if (coupon.maximumDiscount > 0) {
+          discount = Math.min(discount, coupon.maximumDiscount);
+        }
+      } else {
+        // Flat discount
+        discount = coupon.discountValue;
+      }
+      discount = Number(discount.toFixed(2));
+
+      // Dispatch to CartContext with validated code and computed amount
+      applyPromo(coupon.code, discount);
       setPromoInput('');
-    } else {
-      setPromoError('Invalid promo code. Try "ZOMATO60"');
+    } catch (err) {
+      const msg = err?.response?.data?.message;
+      setPromoError(msg === 'Coupon not found' ? 'Invalid promo code.' : (msg || 'Failed to validate coupon.'));
+    } finally {
+      setPromoLoading(false);
     }
   };
 
@@ -162,18 +202,18 @@ const Cart = () => {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Promo Code (ZOMATO60)"
+                  placeholder="Enter promo code"
                   value={promoInput}
                   onChange={(e) => setPromoInput(e.target.value)}
-                  disabled={!!promoCode}
+                  disabled={!!promoCode || promoLoading}
                   className="w-full h-12 bg-surface-container-low border border-outline-variant rounded-full pl-6 pr-24 outline-none text-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:opacity-50"
                 />
                 <button
                   type="submit"
-                  disabled={!promoInput || !!promoCode}
+                  disabled={!promoInput || !!promoCode || promoLoading}
                   className="absolute right-2 top-1.5 h-9 px-4 bg-secondary text-white rounded-full font-bold text-label-md hover:bg-primary transition-colors disabled:opacity-50 select-none flex items-center justify-center"
                 >
-                  Apply
+                  {promoLoading ? '...' : 'Apply'}
                 </button>
               </div>
               {promoError && (

@@ -8,7 +8,7 @@
     "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rohit Reji",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Mail, Lock, User, UserPlus, UtensilsCrossed } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import Input from '../../components/Input/Input';
@@ -8,13 +8,20 @@ import { motion } from 'framer-motion';
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const location = useLocation();
+  const { signup, isAuthenticated, loading: authLoading } = useAuth();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      navigate('/', { replace: true });
+    }
+  }, [authLoading, isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,9 +30,10 @@ const Signup = () => {
 
     try {
       await signup(name, email, password);
-      navigate('/');
+      navigate(location.state?.from?.pathname || '/', { replace: true });
     } catch (err) {
-      setError(err.message || 'Registration failed');
+      const errorMessage = err?.response?.data?.message || err?.message || 'Registration failed';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
