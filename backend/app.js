@@ -1,5 +1,5 @@
-const cors       = require("cors");
-const express    = require("express");
+const cors = require("cors");
+const express = require("express");
 
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
@@ -14,6 +14,10 @@ const addressRoutes = require("./routes/addressRoutes");
 const wishlistRoutes = require("./routes/wishlistRoutes");
 const coupenRoutes = require("./routes/coupenRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const categoryRoutes = require('./routes/categoryRoutes');
+const collectionRoutes = require('./routes/collectionRoutes');
+const offerRoutes = require('./routes/offerRoutes');
+
 
 
 
@@ -27,17 +31,20 @@ app.use(express.json());
 
 // ── Routes ────────────────────────────────────────────────────────────────────
 app.use("/api/users", userRoutes);
-app.use("/api/auth",  authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/restaurants", restaurantRoutes);
 app.use("/api/menu", menuRoutes);
-app.use("/api/order",orderRoutes);
-app.use("/api/review",reviewRoutes);
-app.use("/api/cart",cartRoutes);
-app.use("/api/payment",paymentRoutes);
-app.use("/api/address",addressRoutes);
-app.use("/api/wishlist",wishlistRoutes);
-app.use("/api/coupen",coupenRoutes);
-app.use("/api/admin",adminRoutes)
+app.use("/api/order", orderRoutes);
+app.use("/api/review", reviewRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/payment", paymentRoutes);
+app.use("/api/address", addressRoutes);
+app.use("/api/wishlist", wishlistRoutes);
+app.use("/api/coupen", coupenRoutes);
+app.use("/api/admin", adminRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/collections', collectionRoutes);
+app.use('/api/offers', offerRoutes);
 
 
 // ── Health Check ──────────────────────────────────────────────────────────────
