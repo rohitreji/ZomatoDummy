@@ -104,15 +104,15 @@ const TrendingRestaurants = () => {
           {restaurants.map((restaurant) => (
             <RestaurantCard
               key={restaurant._id}
-              id={restaurant._id}
+              id={restaurant._id || restaurant.id}
               image={restaurant.image}
               name={restaurant.name}
               rating={restaurant.rating}
-              deliveryTime={restaurant.deliveryTime}
-              price={restaurant.price}
+              deliveryTime={restaurant.deliveryTime || `${restaurant.openingTime || '--'} - ${restaurant.closingTime || '--'}`}
+              price={restaurant.price || 'Budget'}
               cuisine={restaurant.cuisine}
-              offer={restaurant.offer}
-              distance={restaurant.distance}
+              offer={restaurant.offer || restaurant.discount || ''}
+              distance={restaurant.distance || restaurant.city || 'Nearby'}
             />
           ))}
         </div>

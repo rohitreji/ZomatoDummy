@@ -22,9 +22,15 @@ const RestaurantCard = ({
     setIsLiked(!isLiked);
   };
 
+  const cuisineText = Array.isArray(cuisine)
+    ? cuisine.filter(Boolean).join(' • ')
+    : cuisine
+      ? String(cuisine)
+      : 'Restaurant';
+
   return (
     <motion.article
-      onClick={() => navigate(`/restaurant/${id}`)}
+      onClick={() => (id ? navigate(`/restaurant/${id}`) : null)}
       whileHover={{ y: -6 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       className="bg-white rounded-3xl overflow-hidden border border-outline-variant/30 shadow-card hover:shadow-premium group cursor-pointer transition-all duration-300 w-full"
@@ -76,7 +82,7 @@ const RestaurantCard = ({
           </div>
 
           <p className="text-on-surface-variant text-body-sm line-clamp-1 mb-4">
-            {cuisine.join(' • ')}
+            {cuisineText}
           </p>
         </div>
 

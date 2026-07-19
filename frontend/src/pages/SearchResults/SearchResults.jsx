@@ -6,16 +6,16 @@ import { RestaurantSkeleton } from '../../components/Loader/Loader';
 import { searchRestaurants } from '../../api/restaurantApi';
 
 const SearchResults = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   const categoryId = searchParams.get('c') || '';
   const collectionTitle = searchParams.get('col') || '';
 
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  // Filter active states
-  const [sortBy, setSortBy] = useState('rating'); // rating, deliveryTime
+  const [error, setError] = useState('');
+
+  const [sortBy, setSortBy] = useState('rating');
   const [minRating, setMinRating] = useState(false);
   const [fastDelivery, setFastDelivery] = useState(false);
   const [hasOffers, setHasOffers] = useState(false);
@@ -23,11 +23,13 @@ const SearchResults = () => {
   useEffect(() => {
     let isMounted = true;
 
-    setLoading(true);
-    const fetchQuery = query || categoryId || collectionTitle;
+    const fetchResults = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        const fetchQuery = query || categoryId || collectionTitle;
+        const response = await searchRestaurants(fetchQuery);
 
-    searchRestaurants(fetchQuery)
-      .then((response) => {
         if (!isMounted) return;
 
         const data = response?.data?.restaurants || response?.data || [];
@@ -64,17 +66,19 @@ const SearchResults = () => {
         }
 
         setRestaurants(results);
-      })
-      .catch(() => {
+      } catch (err) {
         if (isMounted) {
           setRestaurants([]);
+          setError('Failed to load search results. Please try again later.');
         }
-      })
-      .finally(() => {
+      } finally {
         if (isMounted) {
           setLoading(false);
         }
-      });
+      }
+    };
+
+    fetchResults();
 
     return () => {
       isMounted = false;
@@ -145,6 +149,11 @@ const SearchResults = () => {
           {Array.from({ length: 6 }).map((_, idx) => (
             <RestaurantSkeleton key={idx} />
           ))}
+        </div>
+      ) : error ? (
+        <div className="text-center py-20 bg-white rounded-3xl border border-outline-variant/20 flex flex-col items-center gap-2">
+          <SlidersHorizontal size={48} className="text-on-surface-variant/40 animate-pulse" />
+          <p className="text-error text-body-sm">{error}</p>
         </div>
       ) : restaurants.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-3xl border border-outline-variant/20 flex flex-col items-center gap-2">

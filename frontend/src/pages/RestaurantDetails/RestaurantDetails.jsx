@@ -19,6 +19,7 @@ const RestaurantDetails = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('Menu');
   const [liked, setLiked] = useState(false);
   const { user, isAuthenticated } = useAuth();
@@ -33,8 +34,19 @@ const RestaurantDetails = () => {
     let isMounted = true;
 
     const fetchRestaurantData = async () => {
+      if (!id) {
+        setRestaurant(null);
+        setMenuItems([]);
+        setReviews([]);
+        setError('Restaurant could not be found.');
+        setLoading(false);
+        return;
+      }
+
       setLoading(true);
+      setError('');
       setMenuItems([]);
+      setReviews([]);
 
       const [restaurantResult, menuResult, reviewsResult] = await Promise.allSettled([
         getRestaurantById(id),
@@ -53,7 +65,8 @@ const RestaurantDetails = () => {
       setReviews(reviewsResult.status === 'fulfilled' ? reviewsResult.value?.data?.reviews || [] : []);
 
       if (!restaurantData) {
-        navigate('/');
+        setError('Restaurant could not be found.');
+        return;
       }
     };
 
@@ -70,7 +83,20 @@ const RestaurantDetails = () => {
 
   if (loading) return <Loader fullPage />;
 
+  if (!restaurant) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-16 text-center">
+        <p className="text-error text-body-lg">{error || 'Restaurant could not be found.'}</p>
+      </div>
+    );
+  }
+
   const tabs = ['Overview', 'Menu', 'Reviews', 'Photos', 'About'];
+  const cuisineText = Array.isArray(restaurant?.cuisine)
+    ? restaurant.cuisine.filter(Boolean).join(' • ')
+    : restaurant?.cuisine || 'Restaurant';
+  const reviewsCount = restaurant?.reviewsCount || reviews.length;
+  const imageSrc = restaurant?.image || restaurant?.imageUrl || '';
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
@@ -106,7 +132,7 @@ const RestaurantDetails = () => {
       <section className="relative h-[450px] md:h-[550px] w-full overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={restaurant.image}
+            src={imageSrc}
             alt={restaurant.name}
             className="w-full h-full object-cover transform scale-102"
           />
@@ -131,7 +157,7 @@ const RestaurantDetails = () => {
                   <Star size={16} fill="currentColor" className="mr-1" />
                   <span>{restaurant.rating}</span>
                   <span className="text-on-surface-variant font-medium ml-1">
-                    ({restaurant.reviewsCount} Reviews)
+                    ({reviewsCount} Reviews)
                   </span>
                 </div>
               </div>
@@ -139,11 +165,11 @@ const RestaurantDetails = () => {
                 {restaurant.name}
               </h1>
               <p className="text-on-surface-variant text-body-md flex items-center gap-2">
-                <span>{restaurant.cuisine.join(' • ')}</span>
+                <span>{cuisineText}</span>
                 <span>•</span>
-                <span>{restaurant.deliveryTime}</span>
+                <span>{restaurant.deliveryTime || '30-45 min'}</span>
                 <span>•</span>
-                <span>{restaurant.price}</span>
+                <span>{restaurant.price || 'Budget'}</span>
               </p>
             </div>
 
@@ -231,7 +257,7 @@ const RestaurantDetails = () => {
                                 {item.name}
                               </h3>
                               <span className="font-bold text-primary text-headline-sm select-none">
-                                ${item.price.toFixed(2)}
+                                ${(Number(item.price) || 0).toFixed(2)}
                               </span>
                             </div>
                             <p className="text-on-surface-variant text-body-sm line-clamp-2">
@@ -259,7 +285,7 @@ const RestaurantDetails = () => {
                               </div>
                             ) : (
                               <button
-                                onClick={() => addItem({ ...item, id: item._id || item.id, restaurantId: restaurant.id, restaurantName: restaurant.name })}
+                                onClick={() => addItem({ ...item, id: item._id || item.id, restaurantId: restaurant._id || restaurant.id, restaurantName: restaurant.name })}
                                 className="w-full flex items-center justify-center gap-2 border-2 border-primary text-primary font-display font-extrabold py-2 rounded-full hover:bg-primary hover:text-white transition-all active:scale-95"
                               >
                                 <ShoppingCart size={16} />

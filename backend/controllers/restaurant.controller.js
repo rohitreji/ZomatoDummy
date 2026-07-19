@@ -1,4 +1,5 @@
 const Restaurant = require("../models/restaurant");
+const Collection = require("../models/collection");
 
 
 //------------------------------------CREATE RESTURANT--------------------------------------------------
@@ -102,7 +103,7 @@ const deleteRestaurant = async(req,res) => {
 
         });
     }
-    catch{error} {
+    catch(error) {
         console.error("Error while deleting Restaurant:",error)
         res.status(500).json({
             success: false,
@@ -114,30 +115,73 @@ const deleteRestaurant = async(req,res) => {
 //------------------------------------SEARCHING--------------------------------------------------
 const searchRestaurant = async (req,res) => {
     try{
-        const{name,city,cuisine} = req.query;
+        const { name, city, cuisine, q } = req.query;
 
         let filter = {};
 
-        if (name) {
-            filter.name = {$regex: name, $options: "i"};
-        }
+        // If q is provided, or if name, city, and cuisine are identical, it's a general search keyword
+        if (q || (name && name === city && city === cuisine)) {
+            const searchVal = q || name;
+            
+            const searchFilter = [
+                { name: { $regex: searchVal, $options: "i" } },
+                { city: { $regex: searchVal, $options: "i" } },
+                { cuisine: { $regex: searchVal, $options: "i" } }
+            ];
 
-        if (city) {
-            filter.city = {$regex: city, $options: "i"};
-        }
+            // Also check if searchVal matches any collection title
+            const matchedCollections = await Collection.find({
+                title: { $regex: searchVal, $options: "i" }
+            });
 
-        if (cuisine) {
-            filter.cuisine = {$regex: cuisine, $options: "i"};
-        }
-console.log("Query:", req.query);
-console.log("Filter:", filter);
-        const restaurants = await Restaurant.find(filter);
+            let collectionRestaurantIds = [];
+            if (matchedCollections && matchedCollections.length > 0) {
+                matchedCollections.forEach(col => {
+                    if (col.restaurants && col.restaurants.length > 0) {
+                        collectionRestaurantIds.push(...col.restaurants);
+                    }
+                });
+            }
 
-        res.status(200).json({
-    success: true,
-    count: restaurants.length,
-    restaurants
-        });
+            let queryFilter;
+            if (collectionRestaurantIds.length > 0) {
+                queryFilter = {
+                    $or: [
+                        ...searchFilter,
+                        { _id: { $in: collectionRestaurantIds } }
+                    ]
+                };
+            } else {
+                queryFilter = { $or: searchFilter };
+            }
+
+            const restaurants = await Restaurant.find(queryFilter);
+
+            res.status(200).json({
+                success: true,
+                count: restaurants.length,
+                restaurants
+            });
+        } else {
+            // Otherwise, specific filters (AND logic)
+            if (name) {
+                filter.name = { $regex: name, $options: "i" };
+            }
+            if (city) {
+                filter.city = { $regex: city, $options: "i" };
+            }
+            if (cuisine) {
+                filter.cuisine = { $regex: cuisine, $options: "i" };
+            }
+
+            const restaurants = await Restaurant.find(filter);
+
+            res.status(200).json({
+                success: true,
+                count: restaurants.length,
+                restaurants
+            });
+        }
     }
     catch(error)
     {
@@ -163,7 +207,7 @@ const updateRestaurant = async (req, res) => {
             }
         );
 
-        if(!updateRestaurant)
+        if(!updatedRestaurant)
         {
             return res.status(404).json({
                 success: false,
@@ -173,7 +217,7 @@ const updateRestaurant = async (req, res) => {
         }
 
         res.status(200).json({
-            returnxsuccess: true,
+            success: true,
             message:"Restaurant updated",
             restaurant: updatedRestaurant
         });

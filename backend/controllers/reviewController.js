@@ -1,4 +1,20 @@
 const Review = require('../models/review');
+const Restaurant = require('../models/restaurant');
+
+const updateRestaurantRating = async (restaurantId) => {
+  try {
+    const reviews = await Review.find({ restaurant: restaurantId });
+    if (reviews.length > 0) {
+      const avgRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+      const roundedRating = Math.round(avgRating * 10) / 10;
+      await Restaurant.findByIdAndUpdate(restaurantId, { rating: roundedRating });
+    } else {
+      await Restaurant.findByIdAndUpdate(restaurantId, { rating: 0 });
+    }
+  } catch (error) {
+    console.error("Error updating restaurant rating:", error);
+  }
+};
 
 // @desc    Create a new review
 // @route   POST /api/reviews
@@ -13,6 +29,8 @@ exports.createReview = async (req, res) => {
       rating,
       comment,
     });
+
+    await updateRestaurantRating(restaurant);
 
     const populatedReview = await Review.findById(review._id)
       .populate('user', 'name')
@@ -132,6 +150,8 @@ exports.updateReview = async (req, res) => {
       .populate('user', 'name')
       .populate('restaurant', 'name');
 
+    await updateRestaurantRating(review.restaurant);
+
     res.status(200).json({
       success: true,
       message: 'Review updated successfully',
@@ -159,7 +179,10 @@ exports.deleteReview = async (req, res) => {
       });
     }
 
+    const restaurantId = review.restaurant;
     await review.deleteOne();
+
+    await updateRestaurantRating(restaurantId);
 
     res.status(200).json({
       success: true,

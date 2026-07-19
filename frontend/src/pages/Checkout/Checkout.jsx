@@ -8,6 +8,8 @@ import Modal from '../../components/Modal/Modal';
 import Input from '../../components/Input/Input';
 import { motion } from 'framer-motion';
 import { getAddressesByUser, createAddress, deleteAddress } from '../../api/addressApi';
+import { createOrder } from '../../api/orderApi';
+import { createPayment } from '../../api/paymentApi';
 
 // Map addressType string → lucide icon
 const addressIcon = (type) => {
@@ -44,6 +46,8 @@ const Checkout = () => {
   const [formError, setFormError] = useState('');
   const [formSaving, setFormSaving] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
+  const [placingOrder, setPlacingOrder] = useState(false);
+  const [checkoutError, setCheckoutError] = useState('');
 
   // Fetch user's saved addresses from backend
   useEffect(() => {
@@ -63,8 +67,61 @@ const Checkout = () => {
       .finally(() => setAddressesLoading(false));
   }, [user]);
 
-  const handlePlaceOrder = () => {
-    setSuccessModalOpen(true);
+  const handlePlaceOrder = async () => {
+    if (!activeAddress) return;
+    setPlacingOrder(true);
+    setCheckoutError('');
+
+    try {
+      const selectedAddressDoc = addresses.find((a) => a._id === activeAddress);
+      const deliveryAddressStr = selectedAddressDoc
+        ? `${selectedAddressDoc.fullName || ''} (${selectedAddressDoc.phone || ''}), ${selectedAddressDoc.houseNo || ''} ${selectedAddressDoc.street || ''}, ${selectedAddressDoc.city || ''}, ${selectedAddressDoc.state || ''} - ${selectedAddressDoc.pincode || ''}`.trim()
+        : '';
+
+      const items = cart.map((item) => ({
+        menuItem: item.id || item._id,
+        quantity: item.quantity,
+      }));
+
+      const paymentMethodMapped = activePayment === 'cash' ? 'Cash on Delivery' : 'Card';
+      const paymentStatusMapped = activePayment === 'cash' ? 'Pending' : 'Paid';
+
+      // 1. Create the order
+      const orderRes = await createOrder({
+        user: user._id,
+        restaurant: cart[0].restaurantId,
+        items,
+        totalAmount: total,
+        paymentMethod: paymentMethodMapped,
+        paymentStatus: paymentStatusMapped,
+        deliveryAddress: deliveryAddressStr,
+      });
+
+      const orderData = orderRes?.data?.order;
+      if (!orderData?._id) {
+        throw new Error('Order creation response did not contain an order ID.');
+      }
+
+      // 2. Create the payment record
+      await createPayment({
+        order: orderData._id,
+        user: user._id,
+        amount: total,
+        paymentMethod: paymentMethodMapped,
+        paymentStatus: paymentStatusMapped,
+        transactionId: `TXN${Date.now()}${Math.random().toString(36).substr(2, 5).toUpperCase()}`,
+      });
+
+      // 3. Show Success Modal
+      setSuccessModalOpen(true);
+    } catch (err) {
+      console.error('Checkout failed:', err);
+      setCheckoutError(
+        err?.response?.data?.message || err.message || 'An error occurred while placing your order. Please try again.'
+      );
+    } finally {
+      setPlacingOrder(false);
+    }
   };
 
   const handleModalClose = () => {
@@ -317,10 +374,14 @@ const Checkout = () => {
               onClick={handlePlaceOrder}
               className="w-full flex items-center justify-center gap-2"
               icon={<ArrowRight size={18} />}
-              disabled={!activeAddress}
+              disabled={!activeAddress || placingOrder}
+              loading={placingOrder}
             >
               Place Order
             </Button>
+            {checkoutError && (
+              <p className="text-label-sm text-error font-semibold mt-2 text-center">{checkoutError}</p>
+            )}
             {!activeAddress && !addressesLoading && (
               <p className="text-label-sm text-on-surface-variant/60 text-center mt-2">
                 Select a delivery address to continue

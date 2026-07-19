@@ -1,13 +1,31 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CollectionCard from '../../components/CollectionCard/CollectionCard';
-import { getCategories } from "../../api/categoryApi";
+import { getCollections } from '../../api/collectionApi';
+
 const CollectionsPage = () => {
   const navigate = useNavigate();
   const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    getCollections().then(setCollections);
+    const fetchCollections = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        const response = await getCollections();
+        setCollections(response?.data?.collections || []);
+      } catch (err) {
+        console.error('Failed to load collections:', err);
+        setError('Failed to load collections. Please try again later.');
+        setCollections([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCollections();
   }, []);
 
   return (
@@ -21,17 +39,25 @@ const CollectionsPage = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-        {collections.map((col) => (
-          <CollectionCard
-            key={col.id}
-            title={col.title}
-            count={col.count}
-            image={col.image}
-            onClick={() => navigate(`/search?col=${encodeURIComponent(col.title)}`)}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <div className="text-center py-12 text-on-surface-variant text-body-sm">Loading collections...</div>
+      ) : error ? (
+        <div className="text-center py-12 text-error text-body-sm">{error}</div>
+      ) : collections.length === 0 ? (
+        <div className="text-center py-12 text-on-surface-variant text-body-sm">No collections available right now.</div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          {collections.map((col) => (
+            <CollectionCard
+              key={col._id || col.id}
+              title={col.title}
+              count={col.restaurants?.length || 0}
+              image={col.image}
+              onClick={() => navigate(`/search?col=${encodeURIComponent(col.title)}`)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
