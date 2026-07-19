@@ -2,15 +2,16 @@ import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import CategoryChip from '../../components/CategoryChip/CategoryChip';
-import { getCategories } from '../../services/api';
-
+import { getCategories } from "../../api/categoryApi";
 const Categories = () => {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getCategories().then(setCategories);
+    getCategories().then((response) => {
+      setCategories(response.data.categories || []);
+    });
   }, []);
 
   const handleScroll = (direction) => {

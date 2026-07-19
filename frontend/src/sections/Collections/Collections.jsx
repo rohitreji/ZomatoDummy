@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CollectionCard from '../../components/CollectionCard/CollectionCard';
-import { getCollections } from '../../services/api';
-
+import { getCollections } from "../../api/collectionApi";
 const Collections = () => {
   const navigate = useNavigate();
   const [collections, setCollections] = useState([]);
 
   useEffect(() => {
-    getCollections().then(setCollections);
+    getCollections().then((response) => {
+      setCollections(response.data.collections || []);
+    });
   }, []);
 
   const handleCollectionClick = (title) => {

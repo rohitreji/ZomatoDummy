@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Mail, Lock, LogIn, UtensilsCrossed } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import Input from '../../components/Input/Input';
@@ -8,12 +8,19 @@ import { motion } from 'framer-motion';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const location = useLocation();
+  const { login, isAuthenticated, loading: authLoading } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      navigate('/', { replace: true });
+    }
+  }, [authLoading, isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,9 +29,10 @@ const Login = () => {
 
     try {
       await login(email, password);
-      navigate('/');
+      navigate(location.state?.from?.pathname || '/', { replace: true });
     } catch (err) {
-      setError(err.message || 'Invalid email or password');
+      const errorMessage = err?.response?.data?.message || err?.message || 'Invalid email or password';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -90,9 +98,9 @@ const Login = () => {
           />
 
           <div className="text-right">
-            <a href="#" className="text-label-sm text-primary font-bold hover:underline select-none">
+            <Link to="/forgot-password" className="text-label-sm text-primary font-bold hover:underline select-none">
               Forgot Password?
-            </a>
+            </Link>
           </div>
 
           <Button

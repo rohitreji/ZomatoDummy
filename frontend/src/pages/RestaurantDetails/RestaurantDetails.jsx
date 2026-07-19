@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Star, Clock, Heart, Share2, Plus, Minus, ShoppingCart, ShieldCheck } from 'lucide-react';
 import { useCart } from '../../hooks/useCart';
-import { getRestaurant } from '../../services/api';
+import { getRestaurantById } from '../../api/restaurantApi';
+import { getMenuByRestaurant } from '../../api/menuApi';
+import { getReviewsByRestaurant, createReview } from '../../api/reviewApi';
+import { useAuth } from '../../hooks/useAuth';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
+import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import { motion } from 'framer-motion';
 
 const RestaurantDetails = () => {
@@ -12,20 +16,83 @@ const RestaurantDetails = () => {
   const navigate = useNavigate();
   const { cart, addItem, incrementQuantity, decrementQuantity, subtotal, total, deliveryFee } = useCart();
   const [restaurant, setRestaurant] = useState(null);
+  const [menuItems, setMenuItems] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('Menu');
   const [liked, setLiked] = useState(false);
+  const { user, isAuthenticated } = useAuth();
+
+  // Review form state
+  const [reviewRating, setReviewRating] = useState(5);
+  const [reviewComment, setReviewComment] = useState('');
+  const [submittingReview, setSubmittingReview] = useState(false);
+  const [reviewError, setReviewError] = useState('');
 
   useEffect(() => {
-    getRestaurant(id)
-      .then(setRestaurant)
-      .catch(() => navigate('/'))
-      .finally(() => setLoading(false));
+    let isMounted = true;
+
+    const fetchRestaurantData = async () => {
+      setLoading(true);
+      setMenuItems([]);
+
+      const [restaurantResult, menuResult, reviewsResult] = await Promise.allSettled([
+        getRestaurantById(id),
+        getMenuByRestaurant(id),
+        getReviewsByRestaurant(id),
+      ]);
+
+      if (!isMounted) return;
+
+      const restaurantData = restaurantResult.status === 'fulfilled'
+        ? restaurantResult.value?.data?.restaurant || restaurantResult.value?.data || null
+        : null;
+
+      setRestaurant(restaurantData);
+      setMenuItems(menuResult.status === 'fulfilled' ? menuResult.value?.data?.menuItems || [] : []);
+      setReviews(reviewsResult.status === 'fulfilled' ? reviewsResult.value?.data?.reviews || [] : []);
+
+      if (!restaurantData) {
+        navigate('/');
+      }
+    };
+
+    fetchRestaurantData().finally(() => {
+      if (isMounted) {
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, [id, navigate]);
 
   if (loading) return <Loader fullPage />;
 
   const tabs = ['Overview', 'Menu', 'Reviews', 'Photos', 'About'];
+
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+    if (!isAuthenticated) return;
+    setSubmittingReview(true);
+    setReviewError('');
+    try {
+      const res = await createReview({
+        user: user._id,
+        restaurant: id,
+        rating: reviewRating,
+        comment: reviewComment,
+      });
+      setReviews([res.data.review, ...reviews]);
+      setReviewComment('');
+      setReviewRating(5);
+    } catch (err) {
+      setReviewError(err?.response?.data?.message || 'Failed to submit review');
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
 
   // Check if item is in cart
   const getItemQuantity = (itemId) => {
@@ -131,23 +198,28 @@ const RestaurantDetails = () => {
                   Recommended Dishes
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {restaurant.menu.map((item) => {
-                    const qty = getItemQuantity(item.id);
-                    return (
-                      <div
-                        key={item.id}
-                        className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md border border-outline-variant/20 hover:border-outline-variant/40 transition-all duration-300 flex flex-col justify-between h-[360px]"
-                      >
+                {menuItems.length === 0 ? (
+                  <div className="rounded-3xl border border-dashed border-outline-variant/40 bg-white p-8 text-center text-on-surface-variant">
+                    <p className="text-body-md font-medium">No menu items are available for this restaurant right now.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {menuItems.map((item) => {
+                      const qty = getItemQuantity(item._id || item.id);
+                      return (
+                        <div
+                          key={item._id || item.id}
+                          className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md border border-outline-variant/20 hover:border-outline-variant/40 transition-all duration-300 flex flex-col justify-between h-[360px]"
+                        >
                         <div className="h-40 overflow-hidden relative bg-surface-container">
                           <img
                             src={item.image}
                             alt={item.name}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                           />
-                          {item.isBestseller && (
+                          {item.rating > 0 && (
                             <span className="absolute top-4 right-4 glass-pill px-3 py-1 text-primary font-bold text-label-sm shadow-sm flex items-center gap-1">
-                              ★ Bestseller
+                              ★ {item.rating.toFixed(1)}
                             </span>
                           )}
                         </div>
@@ -172,14 +244,14 @@ const RestaurantDetails = () => {
                             {qty > 0 ? (
                               <div className="flex items-center justify-between bg-primary text-white rounded-full p-1 border border-primary max-w-[140px]">
                                 <button
-                                  onClick={() => decrementQuantity(item.id)}
+                                  onClick={() => decrementQuantity(item._id || item.id)}
                                   className="w-8 h-8 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors"
                                 >
                                   <Minus size={16} />
                                 </button>
                                 <span className="font-bold text-body-md select-none">{qty}</span>
                                 <button
-                                  onClick={() => incrementQuantity(item.id)}
+                                  onClick={() => incrementQuantity(item._id || item.id)}
                                   className="w-8 h-8 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors"
                                 >
                                   <Plus size={16} />
@@ -187,7 +259,7 @@ const RestaurantDetails = () => {
                               </div>
                             ) : (
                               <button
-                                onClick={() => addItem({ ...item, restaurantId: restaurant.id, restaurantName: restaurant.name })}
+                                onClick={() => addItem({ ...item, id: item._id || item.id, restaurantId: restaurant.id, restaurantName: restaurant.name })}
                                 className="w-full flex items-center justify-center gap-2 border-2 border-primary text-primary font-display font-extrabold py-2 rounded-full hover:bg-primary hover:text-white transition-all active:scale-95"
                               >
                                 <ShoppingCart size={16} />
@@ -199,7 +271,80 @@ const RestaurantDetails = () => {
                       </div>
                     );
                   })}
+                  </div>
+                )}
+              </div>
+            ) : activeTab === 'Reviews' ? (
+              <div className="space-y-8">
+                <div className="flex items-center justify-between">
+                  <h2 className="font-display text-headline-lg font-extrabold text-on-surface">
+                    Customer Reviews
+                  </h2>
+                  <span className="bg-primary/10 text-primary px-3 py-1 rounded-full font-bold text-label-sm">
+                    {reviews.length} Reviews
+                  </span>
                 </div>
+
+                {/* Review submission form */}
+                {isAuthenticated ? (
+                  <form onSubmit={handleSubmitReview} className="bg-surface-container-lowest p-6 rounded-3xl border border-outline-variant/30 shadow-sm">
+                    <h3 className="font-bold text-body-lg text-on-surface mb-4">Write a Review</h3>
+                    
+                    <div className="flex items-center gap-2 mb-4">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setReviewRating(star)}
+                          className={`p-1 transition-colors ${reviewRating >= star ? 'text-yellow-500' : 'text-outline-variant'}`}
+                        >
+                          <Star size={24} fill="currentColor" />
+                        </button>
+                      ))}
+                    </div>
+
+                    <textarea
+                      value={reviewComment}
+                      onChange={(e) => setReviewComment(e.target.value)}
+                      placeholder="What did you like or dislike?"
+                      className="w-full bg-surface-container-low border border-outline-variant rounded-xl p-4 outline-none text-body-md text-on-surface resize-none h-24 mb-4 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                      required
+                    />
+
+                    {reviewError && <p className="text-error text-label-sm mb-4">{reviewError}</p>}
+
+                    <div className="flex justify-end">
+                      <Button type="submit" variant="primary" loading={submittingReview} disabled={!reviewComment.trim()}>
+                        Post Review
+                      </Button>
+                    </div>
+                  </form>
+                ) : (
+                  <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/30 text-center">
+                    <p className="text-on-surface-variant text-body-md mb-4">Please log in to leave a review.</p>
+                    <Button variant="outline" onClick={() => navigate('/login')}>Log In to Review</Button>
+                  </div>
+                )}
+
+                {/* Review List */}
+                {reviews.length === 0 ? (
+                  <div className="rounded-3xl border border-dashed border-outline-variant/40 bg-white p-8 text-center text-on-surface-variant">
+                    <p className="text-body-md font-medium">No reviews yet. Be the first to review!</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {reviews.map((rev) => (
+                      <ReviewCard
+                        key={rev._id}
+                        name={rev.user?.name || 'Anonymous User'}
+                        role="Foodie"
+                        rating={rev.rating}
+                        comment={rev.comment}
+                        avatar={null}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             ) : (
               <div className="bg-white rounded-3xl p-8 border border-outline-variant/30 text-center text-on-surface-variant">

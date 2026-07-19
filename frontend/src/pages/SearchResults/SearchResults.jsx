@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { SlidersHorizontal, Star, Award, Flame } from 'lucide-react';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import { RestaurantSkeleton } from '../../components/Loader/Loader';
-import { searchRestaurants } from '../../services/api';
+import { searchRestaurants } from '../../api/restaurantApi';
 
 const SearchResults = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,34 +21,64 @@ const SearchResults = () => {
   const [hasOffers, setHasOffers] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    // Find matched records from api service
-    const fetchQuery = query || categoryId || collectionTitle;
-    searchRestaurants(fetchQuery)
-      .then((data) => {
-        let results = [...data];
+    let isMounted = true;
 
-        // Apply local filter overrides
+    setLoading(true);
+    const fetchQuery = query || categoryId || collectionTitle;
+
+    searchRestaurants(fetchQuery)
+      .then((response) => {
+        if (!isMounted) return;
+
+        const data = response?.data?.restaurants || response?.data || [];
+        let results = Array.isArray(data) ? [...data] : [];
+
+        results = results.map((restaurant) => ({
+          ...restaurant,
+          id: restaurant._id || restaurant.id,
+          cuisine: Array.isArray(restaurant.cuisine)
+            ? restaurant.cuisine
+            : restaurant.cuisine
+              ? [restaurant.cuisine]
+              : ['Restaurant'],
+          deliveryTime: restaurant.deliveryTime || `${restaurant.openingTime || '--'} - ${restaurant.closingTime || '--'}`,
+          price: restaurant.price || 'Budget',
+          distance: restaurant.distance || restaurant.city || 'Nearby',
+          offer: restaurant.offer || restaurant.discount || restaurant.coupon || '',
+        }));
+
         if (minRating) {
-          results = results.filter((r) => r.rating >= 4.5);
+          results = results.filter((r) => Number(r.rating || 0) >= 4.5);
         }
         if (fastDelivery) {
-          results = results.filter((r) => parseInt(r.deliveryTime) <= 25);
+          results = results.filter((r) => Number(r.deliveryTime || 0) <= 25);
         }
         if (hasOffers) {
-          results = results.filter((r) => !!r.offer);
+          results = results.filter((r) => !!(r.offer || r.discount || r.coupon));
         }
 
-        // Apply sort
         if (sortBy === 'rating') {
-          results.sort((a, b) => b.rating - a.rating);
+          results.sort((a, b) => Number(b.rating || 0) - Number(a.rating || 0));
         } else if (sortBy === 'deliveryTime') {
-          results.sort((a, b) => parseInt(a.deliveryTime) - parseInt(b.deliveryTime));
+          results.sort((a, b) => Number(a.deliveryTime || 0) - Number(b.deliveryTime || 0));
         }
 
         setRestaurants(results);
       })
-      .finally(() => setLoading(false));
+      .catch(() => {
+        if (isMounted) {
+          setRestaurants([]);
+        }
+      })
+      .finally(() => {
+        if (isMounted) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, [query, categoryId, collectionTitle, sortBy, minRating, fastDelivery, hasOffers]);
 
   return (

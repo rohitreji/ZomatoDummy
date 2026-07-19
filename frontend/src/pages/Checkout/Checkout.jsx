@@ -1,38 +1,69 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle, Home, Briefcase, MapPin, ArrowRight, ShieldCheck, ShoppingBag } from 'lucide-react';
+import { CheckCircle, Home, Briefcase, MapPin, ArrowRight, ShieldCheck, ShoppingBag, Trash2, Plus } from 'lucide-react';
 import { useCart } from '../../hooks/useCart';
+import { useAuth } from '../../hooks/useAuth';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
+import Input from '../../components/Input/Input';
 import { motion } from 'framer-motion';
+import { getAddressesByUser, createAddress, deleteAddress } from '../../api/addressApi';
+
+// Map addressType string → lucide icon
+const addressIcon = (type) => {
+  if (type === 'Work') return <Briefcase size={18} />;
+  if (type === 'Other') return <MapPin size={18} />;
+  return <Home size={18} />;
+};
+
+const EMPTY_FORM = {
+  fullName: '',
+  phone: '',
+  houseNo: '',
+  street: '',
+  landmark: '',
+  city: '',
+  state: '',
+  pincode: '',
+  addressType: 'Home',
+  isDefault: false,
+};
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { cart, total, subtotal, deliveryFee, tax, serviceFee, promoDiscount, clearCart } = useCart();
 
-  const [activeAddress, setActiveAddress] = useState('home');
+  const [addresses, setAddresses] = useState([]);
+  const [addressesLoading, setAddressesLoading] = useState(true);
+  const [activeAddress, setActiveAddress] = useState(null);
   const [activePayment, setActivePayment] = useState('card');
   const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [formData, setFormData] = useState(EMPTY_FORM);
+  const [formError, setFormError] = useState('');
+  const [formSaving, setFormSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
 
-  const addresses = [
-    {
-      id: 'home',
-      label: 'Home',
-      icon: <Home size={18} />,
-      line1: '4521 Sunset Blvd, Suite 402',
-      line2: 'Los Angeles, CA 90027',
-    },
-    {
-      id: 'office',
-      label: 'Office',
-      icon: <Briefcase size={18} />,
-      line1: '789 Tech Plaza, 12th Floor',
-      line2: 'Santa Monica, CA 90401',
-    },
-  ];
+  // Fetch user's saved addresses from backend
+  useEffect(() => {
+    if (!user?._id) {
+      setAddressesLoading(false);
+      return;
+    }
+    getAddressesByUser(user._id)
+      .then((res) => {
+        const list = res.data.addresses || [];
+        setAddresses(list);
+        // Pre-select default address or first one
+        const def = list.find((a) => a.isDefault) || list[0];
+        if (def) setActiveAddress(def._id);
+      })
+      .catch((err) => console.error('Failed to load addresses:', err))
+      .finally(() => setAddressesLoading(false));
+  }, [user]);
 
   const handlePlaceOrder = () => {
-    // Open Success confirmation dialog
     setSuccessModalOpen(true);
   };
 
@@ -40,6 +71,47 @@ const Checkout = () => {
     setSuccessModalOpen(false);
     clearCart();
     navigate('/orders');
+  };
+
+  const handleFormChange = (field) => (e) => {
+    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+  };
+
+  const handleAddAddress = async (e) => {
+    e.preventDefault();
+    setFormError('');
+    setFormSaving(true);
+    try {
+      const res = await createAddress({ ...formData, user: user._id });
+      const newAddr = res.data.address;
+      setAddresses((prev) => [newAddr, ...prev]);
+      if (!activeAddress) setActiveAddress(newAddr._id);
+      setFormData(EMPTY_FORM);
+      setAddModalOpen(false);
+    } catch (err) {
+      setFormError(
+        err?.response?.data?.message || 'Failed to save address. Please try again.'
+      );
+    } finally {
+      setFormSaving(false);
+    }
+  };
+
+  const handleDeleteAddress = async (id, e) => {
+    e.stopPropagation();
+    setDeletingId(id);
+    try {
+      await deleteAddress(id);
+      setAddresses((prev) => prev.filter((a) => a._id !== id));
+      if (activeAddress === id) {
+        const remaining = addresses.filter((a) => a._id !== id);
+        setActiveAddress(remaining[0]?._id || null);
+      }
+    } catch (err) {
+      console.error('Failed to delete address:', err);
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   if (cart.length === 0) {
@@ -93,37 +165,64 @@ const Checkout = () => {
               <h2 className="font-display text-headline-lg font-extrabold text-on-surface">
                 Delivery Address
               </h2>
-              <button className="text-primary font-display text-label-lg font-bold flex items-center gap-1 hover:underline">
+              <button
+                onClick={() => { setFormData(EMPTY_FORM); setFormError(''); setAddModalOpen(true); }}
+                className="text-primary font-display text-label-lg font-bold flex items-center gap-1 hover:underline"
+              >
                 + Add New
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {addresses.map((addr) => {
-                const isActive = activeAddress === addr.id;
-                return (
-                  <div
-                    key={addr.id}
-                    onClick={() => setActiveAddress(addr.id)}
-                    className={`p-6 rounded-2xl border-2 cursor-pointer relative transition-all duration-200 select-none
-                      ${isActive ? 'border-primary bg-primary/5 shadow-sm' : 'border-outline-variant bg-white hover:border-primary/50'}
-                    `}
-                  >
-                    {isActive && (
-                      <div className="absolute top-4 right-4 text-primary">
-                        <CheckCircle size={20} fill="currentColor" className="text-white" />
+            {addressesLoading ? (
+              <div className="text-center py-6 text-on-surface-variant text-body-sm">
+                Loading addresses...
+              </div>
+            ) : addresses.length === 0 ? (
+              <div className="text-center py-8 text-on-surface-variant/60 flex flex-col items-center gap-2">
+                <MapPin size={32} className="stroke-[1.5]" />
+                <p className="text-body-sm font-medium">No saved addresses. Add one to continue.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {addresses.map((addr) => {
+                  const isActive = activeAddress === addr._id;
+                  return (
+                    <div
+                      key={addr._id}
+                      onClick={() => setActiveAddress(addr._id)}
+                      className={`p-6 rounded-2xl border-2 cursor-pointer relative transition-all duration-200 select-none group
+                        ${isActive ? 'border-primary bg-primary/5 shadow-sm' : 'border-outline-variant bg-white hover:border-primary/50'}
+                      `}
+                    >
+                      {isActive && (
+                        <div className="absolute top-4 right-4 text-primary">
+                          <CheckCircle size={20} fill="currentColor" className="text-white" />
+                        </div>
+                      )}
+
+                      {/* Delete button — visible on hover when not active-selected indicator area */}
+                      {!isActive && (
+                        <button
+                          onClick={(e) => handleDeleteAddress(addr._id, e)}
+                          disabled={deletingId === addr._id}
+                          className="absolute top-4 right-4 w-7 h-7 rounded-full bg-white border border-outline-variant/40 flex items-center justify-center text-on-surface-variant hover:text-error hover:border-error/40 transition-colors opacity-0 group-hover:opacity-100 disabled:opacity-30"
+                          title="Delete address"
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      )}
+
+                      <div className="flex items-center gap-2.5 mb-3 font-display font-bold text-body-lg text-on-surface capitalize">
+                        <span className="text-primary">{addressIcon(addr.addressType)}</span>
+                        <span>{addr.addressType}</span>
                       </div>
-                    )}
-                    <div className="flex items-center gap-2.5 mb-3 font-display font-bold text-body-lg text-on-surface capitalize">
-                      <span className="text-primary">{addr.icon}</span>
-                      <span>{addr.label}</span>
+                      <p className="text-on-surface-variant text-body-sm">{addr.houseNo}, {addr.street}</p>
+                      <p className="text-on-surface-variant text-body-sm">{addr.city}, {addr.state} – {addr.pincode}</p>
                     </div>
-                    <p className="text-on-surface-variant text-body-sm">{addr.line1}</p>
-                    <p className="text-on-surface-variant text-body-sm">{addr.line2}</p>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Payment Option Selection box */}
@@ -218,9 +317,15 @@ const Checkout = () => {
               onClick={handlePlaceOrder}
               className="w-full flex items-center justify-center gap-2"
               icon={<ArrowRight size={18} />}
+              disabled={!activeAddress}
             >
               Place Order
             </Button>
+            {!activeAddress && !addressesLoading && (
+              <p className="text-label-sm text-on-surface-variant/60 text-center mt-2">
+                Select a delivery address to continue
+              </p>
+            )}
           </div>
         </aside>
 
@@ -239,6 +344,123 @@ const Checkout = () => {
             Track Order
           </Button>
         </div>
+      </Modal>
+
+      {/* Add Address Modal */}
+      <Modal isOpen={addModalOpen} onClose={() => setAddModalOpen(false)} title="Add New Address">
+        <form onSubmit={handleAddAddress} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Input
+              id="addr-fullName"
+              label="Full Name"
+              placeholder="Rohit Reji"
+              value={formData.fullName}
+              onChange={handleFormChange('fullName')}
+              required
+            />
+            <Input
+              id="addr-phone"
+              label="Phone"
+              placeholder="+91 98765 43210"
+              value={formData.phone}
+              onChange={handleFormChange('phone')}
+              required
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Input
+              id="addr-houseNo"
+              label="House / Flat No."
+              placeholder="A-101"
+              value={formData.houseNo}
+              onChange={handleFormChange('houseNo')}
+              required
+            />
+            <Input
+              id="addr-street"
+              label="Street / Area"
+              placeholder="MG Road"
+              value={formData.street}
+              onChange={handleFormChange('street')}
+              required
+            />
+          </div>
+
+          <Input
+            id="addr-landmark"
+            label="Landmark (optional)"
+            placeholder="Near City Mall"
+            value={formData.landmark}
+            onChange={handleFormChange('landmark')}
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Input
+              id="addr-city"
+              label="City"
+              placeholder="Bengaluru"
+              value={formData.city}
+              onChange={handleFormChange('city')}
+              required
+            />
+            <Input
+              id="addr-state"
+              label="State"
+              placeholder="Karnataka"
+              value={formData.state}
+              onChange={handleFormChange('state')}
+              required
+            />
+            <Input
+              id="addr-pincode"
+              label="Pincode"
+              placeholder="560001"
+              value={formData.pincode}
+              onChange={handleFormChange('pincode')}
+              required
+            />
+          </div>
+
+          {/* Address Type selector — matches existing border/bg pattern */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-label-lg font-bold text-on-surface-variant select-none">
+              Address Type
+            </label>
+            <div className="flex gap-3">
+              {['Home', 'Work', 'Other'].map((type) => (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => setFormData((prev) => ({ ...prev, addressType: type }))}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 text-label-lg font-bold transition-all
+                    ${formData.addressType === type
+                      ? 'border-primary bg-primary/5 text-primary'
+                      : 'border-outline-variant text-on-surface-variant hover:border-primary/50'
+                    }`}
+                >
+                  {addressIcon(type)}
+                  {type}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {formError && (
+            <p className="text-label-sm text-error font-medium px-1">{formError}</p>
+          )}
+
+          <Button
+            type="submit"
+            variant="primary"
+            className="w-full mt-2"
+            loading={formSaving}
+            disabled={formSaving}
+            icon={<Plus size={16} />}
+          >
+            Save Address
+          </Button>
+        </form>
       </Modal>
     </div>
   );

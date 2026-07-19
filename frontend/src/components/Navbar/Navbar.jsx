@@ -93,7 +93,27 @@ const Navbar = () => {
 
           {/* Authentication Controls */}
           {isAuthenticated ? (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              {user?.role === 'admin' && (
+                <button
+                  onClick={() => navigate('/admin')}
+                  className="px-4 py-2 text-primary hover:bg-primary/10 rounded-full transition-all text-label-lg font-bold"
+                >
+                  Admin Panel
+                </button>
+              )}
+              <button
+                onClick={() => navigate('/orders')}
+                className="px-4 py-2 text-on-surface-variant hover:text-primary hover:bg-white/50 rounded-full transition-all text-label-lg"
+              >
+                Orders
+              </button>
+              <button
+                onClick={() => navigate('/wishlist')}
+                className="px-4 py-2 text-on-surface-variant hover:text-primary hover:bg-white/50 rounded-full transition-all text-label-lg"
+              >
+                Wishlist
+              </button>
               <button
                 onClick={() => navigate('/profile')}
                 className="flex items-center gap-2 px-4 py-2 border border-outline-variant/30 text-on-surface hover:bg-surface-container rounded-full transition-all"
@@ -227,6 +247,37 @@ const Navbar = () => {
                         </p>
                         <p className="text-label-sm text-on-surface-variant/70">{user.email}</p>
                       </div>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      {user?.role === 'admin' && (
+                        <button
+                          onClick={() => {
+                            navigate('/admin');
+                            setMobileMenuOpen(false);
+                          }}
+                          className="w-full py-3 border border-primary/40 bg-primary/5 text-primary hover:bg-primary/10 rounded-full font-bold transition-all text-label-lg"
+                        >
+                          Admin Panel
+                        </button>
+                      )}
+                      <button
+                        onClick={() => {
+                          navigate('/orders');
+                          setMobileMenuOpen(false);
+                        }}
+                        className="w-full py-3 border border-outline-variant/40 hover:border-primary text-on-surface-variant hover:text-primary rounded-full font-bold transition-all text-label-lg"
+                      >
+                        Orders
+                      </button>
+                      <button
+                        onClick={() => {
+                          navigate('/wishlist');
+                          setMobileMenuOpen(false);
+                        }}
+                        className="w-full py-3 border border-outline-variant/40 hover:border-primary text-on-surface-variant hover:text-primary rounded-full font-bold transition-all text-label-lg"
+                      >
+                        Wishlist
+                      </button>
                     </div>
                     <button
                       onClick={handleLogout}

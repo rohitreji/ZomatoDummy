@@ -59,10 +59,8 @@ function cartReducer(state, action) {
     }
 
     case 'APPLY_PROMO': {
-      if (action.payload.toLowerCase() === 'zomato60') {
-        return { ...state, promoCode: 'ZOMATO60', promoDiscount: 10 };
-      }
-      return state;
+      // code and discount are pre-validated by the API in Cart.jsx
+      return { ...state, promoCode: action.payload.code, promoDiscount: action.payload.discount };
     }
 
     case 'REMOVE_PROMO': {
@@ -114,7 +112,7 @@ export const CartProvider = ({ children }) => {
   const removeItem = (id) => dispatch({ type: 'REMOVE_ITEM', payload: id });
   const incrementQuantity = (id) => dispatch({ type: 'INCREMENT', payload: id });
   const decrementQuantity = (id) => dispatch({ type: 'DECREMENT', payload: id });
-  const applyPromo = (code) => dispatch({ type: 'APPLY_PROMO', payload: code });
+  const applyPromo = (code, discount) => dispatch({ type: 'APPLY_PROMO', payload: { code, discount } });
   const removePromo = () => dispatch({ type: 'REMOVE_PROMO' });
   const clearCart = () => dispatch({ type: 'CLEAR_CART' });
 

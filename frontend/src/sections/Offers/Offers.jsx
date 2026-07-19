@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import OfferCard from '../../components/OfferCard/OfferCard';
-import { getOffers } from '../../services/api';
+import { getOffers } from "../../api/offerApi";
 
 const Offers = () => {
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
-    getOffers().then(setOffers);
+    getOffers().then((response) => {
+      setOffers(response.data.offers || []);
+    });
   }, []);
-
   return (
     <section className="py-12 max-w-7xl mx-auto px-6 overflow-hidden">
       <div className="mb-8">
