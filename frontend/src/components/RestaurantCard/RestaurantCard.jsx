@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Star, Heart, Clock, Tag } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { getRestaurantCover, handleImageError, DEFAULT_FOOD_IMAGE } from '../../utils/imageAssets';
 
 const RestaurantCard = ({
   id,
@@ -27,6 +28,7 @@ const RestaurantCard = ({
     : cuisine
       ? String(cuisine)
       : 'Restaurant';
+  const resolvedImage = getRestaurantCover({ name, cuisine: cuisineText, image }, DEFAULT_FOOD_IMAGE);
 
   return (
     <motion.article
@@ -38,10 +40,11 @@ const RestaurantCard = ({
       {/* Image Wrap */}
       <div className="relative h-48 md:h-56 w-full overflow-hidden bg-surface-container">
         <img
-          src={image}
+          src={resolvedImage}
           alt={name}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
+          onError={(event) => handleImageError(event, DEFAULT_FOOD_IMAGE)}
         />
 
         {/* Floating Heart / Like Button */}

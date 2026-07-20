@@ -10,6 +10,7 @@ import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import { motion } from 'framer-motion';
+import { getRestaurantCover, getMenuItemImage, getAvatar, handleImageError, DEFAULT_FOOD_IMAGE, DEFAULT_AVATAR } from '../../utils/imageAssets';
 
 const RestaurantDetails = () => {
   const { id } = useParams();
@@ -96,7 +97,8 @@ const RestaurantDetails = () => {
     ? restaurant.cuisine.filter(Boolean).join(' • ')
     : restaurant?.cuisine || 'Restaurant';
   const reviewsCount = restaurant?.reviewsCount || reviews.length;
-  const imageSrc = restaurant?.image || restaurant?.imageUrl || '';
+  const imageSrc = getRestaurantCover(restaurant, DEFAULT_FOOD_IMAGE);
+  const resolvedAvatar = getAvatar(restaurant?.owner?.avatar || restaurant?.avatar || restaurant?.logo, DEFAULT_AVATAR, restaurant?.name || 'restaurant');
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
@@ -135,6 +137,8 @@ const RestaurantDetails = () => {
             src={imageSrc}
             alt={restaurant.name}
             className="w-full h-full object-cover transform scale-102"
+            loading="lazy"
+            onError={(event) => handleImageError(event, DEFAULT_FOOD_IMAGE)}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         </div>
@@ -232,6 +236,7 @@ const RestaurantDetails = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {menuItems.map((item) => {
                       const qty = getItemQuantity(item._id || item.id);
+                      const itemImage = getMenuItemImage(item, DEFAULT_FOOD_IMAGE);
                       return (
                         <div
                           key={item._id || item.id}
@@ -239,9 +244,11 @@ const RestaurantDetails = () => {
                         >
                         <div className="h-40 overflow-hidden relative bg-surface-container">
                           <img
-                            src={item.image}
+                            src={itemImage}
                             alt={item.name}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            loading="lazy"
+                            onError={(event) => handleImageError(event, DEFAULT_FOOD_IMAGE)}
                           />
                           {item.rating > 0 && (
                             <span className="absolute top-4 right-4 glass-pill px-3 py-1 text-primary font-bold text-label-sm shadow-sm flex items-center gap-1">

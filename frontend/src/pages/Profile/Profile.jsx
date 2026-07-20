@@ -7,6 +7,7 @@ import Modal from '../../components/Modal/Modal';
 import Input from '../../components/Input/Input';
 import { updateUser } from '../../api/userApi';
 import { changePassword } from '../../api/authApi';
+import { getAvatar, handleImageError, DEFAULT_AVATAR } from '../../utils/imageAssets';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -92,12 +93,20 @@ const Profile = () => {
     { label: 'Settings', icon: <Settings size={18} />, path: '#', desc: 'Configure notifications and password' },
   ];
 
+  const avatarSrc = getAvatar(user?.avatar, DEFAULT_AVATAR, user?.name || 'profile');
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-8 mt-4">
       {/* Profile Overview Header Card */}
       <div className="glass-card rounded-[32px] p-8 border border-outline-variant/30 shadow-premium flex flex-col sm:flex-row items-center gap-6 mb-8 text-center sm:text-left">
         <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/25 shadow-md flex-shrink-0">
-          <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
+          <img
+            src={avatarSrc}
+            alt={user.name}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            onError={(event) => handleImageError(event, DEFAULT_AVATAR)}
+          />
         </div>
         <div className="flex-grow">
           <span className="px-3.5 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-label-sm font-black uppercase tracking-wider select-none">
