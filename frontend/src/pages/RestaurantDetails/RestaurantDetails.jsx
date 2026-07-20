@@ -6,6 +6,7 @@ import { getRestaurantById } from '../../api/restaurantApi';
 import { getMenuByRestaurant } from '../../api/menuApi';
 import { getReviewsByRestaurant, createReview } from '../../api/reviewApi';
 import { useAuth } from '../../hooks/useAuth';
+import { useWishlist } from '../../context/WishlistContext';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 import ReviewCard from '../../components/ReviewCard/ReviewCard';
@@ -22,7 +23,8 @@ const RestaurantDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('Menu');
-  const [liked, setLiked] = useState(false);
+  const { isWishlisted, toggleWishlist } = useWishlist();
+  const liked = isWishlisted(id);
   const { user, isAuthenticated } = useAuth();
 
   // Review form state
@@ -180,7 +182,7 @@ const RestaurantDetails = () => {
             {/* Quick Share / Like Action buttons */}
             <div className="flex gap-3 w-full md:w-auto">
               <button
-                onClick={() => setLiked(!liked)}
+                onClick={() => toggleWishlist(id)}
                 className="bg-surface-container-highest p-3.5 rounded-2xl hover:bg-outline-variant/30 transition-colors group active:scale-95 flex-grow sm:flex-grow-0 flex justify-center"
               >
                 <Heart size={20} className={liked ? 'text-primary fill-current' : 'text-on-surface-variant'} />

@@ -156,11 +156,37 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+// @desc    Get Orders By Restaurant
+// @route   GET /api/order/restaurant/:restaurantId
+// @access  Public
+const getOrdersByRestaurant = async (req, res) => {
+  try {
+    const orders = await Order.find({
+      restaurant: req.params.restaurantId,
+    })
+      .populate("user", "name email")
+      .populate("restaurant", "name")
+      .populate("items.menuItem", "name price");
+
+    res.status(200).json({
+      success: true,
+      count: orders.length,
+      orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createOrder,
   getOrders,
   getOrderById,
   getOrdersByUser,
+  getOrdersByRestaurant,
   updateOrder,
   deleteOrder,
 };

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Star, Heart, Clock, Tag } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getRestaurantCover, handleImageError, DEFAULT_FOOD_IMAGE } from '../../utils/imageAssets';
+import { useWishlist } from '../../context/WishlistContext';
 
 const RestaurantCard = ({
   id,
@@ -16,11 +17,12 @@ const RestaurantCard = ({
   distance,
 }) => {
   const navigate = useNavigate();
-  const [isLiked, setIsLiked] = useState(false);
+  const { isWishlisted, toggleWishlist } = useWishlist();
+  const isLiked = isWishlisted(id);
 
   const handleLike = (e) => {
     e.stopPropagation();
-    setIsLiked(!isLiked);
+    toggleWishlist(id);
   };
 
   const cuisineText = Array.isArray(cuisine)

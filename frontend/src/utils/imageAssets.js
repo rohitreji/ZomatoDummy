@@ -19,23 +19,38 @@ const CATEGORY_IMAGES = {
 };
 
 const COLLECTION_IMAGES = {
-  'trending this week': 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1400&q=80',
-  'best cafes': 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1400&q=80',
-  'luxury dining': 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=80',
-  'rooftop restaurants': 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1400&q=80',
-  'romantic dining': 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80',
-  'family restaurants': 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80',
-  nightlife: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1400&q=80',
-  'buffet specials': 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1400&q=80',
+  'trending': 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1400&q=80',
+  'cafe': 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1400&q=80',
+  'luxury': 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=80',
+  'rooftop': 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1400&q=80',
+  'romantic': 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80',
+  'family': 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80',
+  'nightlife': 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1400&q=80',
+  'buffet': 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1400&q=80',
+  'pizza': 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80',
+  'budget': 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1400&q=80',
+  'rated': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80',
+  'top': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80',
 };
 
+const COLLECTION_IMAGE_POOL = Object.values(COLLECTION_IMAGES);
+
 const RESTAURANT_COVERS = [
-  'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1400&q=80',
   'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80',
   'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=1400&q=80',
+  'https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1400&q=80',
 ];
 
 const RESTAURANT_AVATARS = [
@@ -54,7 +69,7 @@ const MENU_ITEM_IMAGES = {
   sushi: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80',
   taco: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80',
   dessert: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80',
-  coffee: 'https://images.unsplash.com/photo-1495474472287-4c7edcad34c5?auto=format&fit=crop&w=800&q=80',
+  coffee: 'https://images.unsplash.com/photo-1495474472287-4c71bcdd2085?auto=format&fit=crop&w=800&q=80',
 };
 
 const AVATAR_POOL = [
@@ -96,25 +111,25 @@ export const getCategoryImage = (name, fallback = DEFAULT_FOOD_IMAGE) => {
 };
 
 export const getCollectionImage = (title, fallback = DEFAULT_FOOD_IMAGE) => {
-  return getLookupImage(title, COLLECTION_IMAGES, fallback);
+  const text = normalize(title || '').toLowerCase();
+  
+  if (text.includes('pizza')) return COLLECTION_IMAGES.pizza;
+  if (text.includes('trending')) return COLLECTION_IMAGES.trending;
+  if (text.includes('family')) return COLLECTION_IMAGES.family;
+  if (text.includes('luxury')) return COLLECTION_IMAGES.luxury;
+  if (text.includes('night') || text.includes('late')) return COLLECTION_IMAGES.nightlife;
+  if (text.includes('budget') || text.includes('eat')) return COLLECTION_IMAGES.budget;
+  if (text.includes('rate') || text.includes('top')) return COLLECTION_IMAGES.rated;
+  if (text.includes('cafe') || text.includes('culture')) return COLLECTION_IMAGES.cafe;
+  if (text.includes('roof')) return COLLECTION_IMAGES.rooftop;
+  if (text.includes('romantic')) return COLLECTION_IMAGES.romantic;
+
+  return getSeededValue(title || '', COLLECTION_IMAGE_POOL, fallback);
 };
 
 export const getRestaurantCover = (restaurant, fallback = DEFAULT_FOOD_IMAGE) => {
-  const existing = normalize(restaurant?.image || restaurant?.imageUrl || fallback);
-  if (existing && existing !== fallback) return existing;
-  const combined = `${restaurant?.name || ''} ${restaurant?.cuisine || ''}`;
-  if (combined) {
-    const text = normalize(combined).toLowerCase();
-    if (text.includes('pizza')) return getLookupImage('pizza', CATEGORY_IMAGES, fallback);
-    if (text.includes('burger')) return getLookupImage('burger', CATEGORY_IMAGES, fallback);
-    if (text.includes('biryani')) return getLookupImage('biryani', CATEGORY_IMAGES, fallback);
-    if (text.includes('chinese')) return getLookupImage('chinese', CATEGORY_IMAGES, fallback);
-    if (text.includes('south')) return getLookupImage('south indian', CATEGORY_IMAGES, fallback);
-    if (text.includes('north')) return getLookupImage('north indian', CATEGORY_IMAGES, fallback);
-    if (text.includes('dessert')) return getLookupImage('desserts', CATEGORY_IMAGES, fallback);
-    if (text.includes('ice')) return getLookupImage('ice cream', CATEGORY_IMAGES, fallback);
-    if (text.includes('tea') || text.includes('coffee')) return getLookupImage('coffee', CATEGORY_IMAGES, fallback);
-  }
+  const existing = normalize(restaurant?.image || restaurant?.imageUrl || '');
+  if (existing && existing !== fallback && existing !== 'undefined') return existing;
   return getSeededValue(restaurant?.name || restaurant?.id || '', RESTAURANT_COVERS, fallback);
 };
 

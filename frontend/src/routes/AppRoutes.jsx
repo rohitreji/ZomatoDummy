@@ -15,6 +15,7 @@ import Checkout from '../pages/Checkout/Checkout';
 import Orders from '../pages/Orders/Orders';
 import Profile from '../pages/Profile/Profile';
 import AdminDashboard from '../pages/AdminDashboard/AdminDashboard';
+import RestaurantDashboard from '../pages/RestaurantDashboard/RestaurantDashboard';
 import Login from '../pages/Login/Login';
 import Signup from '../pages/Signup/Signup';
 import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
@@ -43,6 +44,7 @@ const AppRoutes = () => {
         <Route path="orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
         <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+        <Route path="owner" element={<ProtectedRoute><RestaurantDashboard /></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

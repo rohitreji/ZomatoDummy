@@ -10,6 +10,10 @@ import AdminRestaurants from './AdminRestaurants';
 import AdminMenu from './AdminMenu';
 import AdminOrders from './AdminOrders';
 import AdminCoupons from './AdminCoupons';
+import AdminCategories from './AdminCategories';
+import AdminCollections from './AdminCollections';
+import AdminOffers from './AdminOffers';
+import AdminReviews from './AdminReviews';
 
 const AdminDashboard = () => {
   const { user, token, isAuthenticated, loading: authLoading } = useAuth();
@@ -72,7 +76,11 @@ const AdminDashboard = () => {
     { key: 'restaurants', label: 'Restaurants' },
     { key: 'menu', label: 'Menu' },
     { key: 'orders', label: 'Orders' },
+    { key: 'categories', label: 'Categories' },
+    { key: 'collections', label: 'Collections' },
+    { key: 'offers', label: 'Offers' },
     { key: 'coupons', label: 'Coupons' },
+    { key: 'reviews', label: 'Reviews' },
   ];
 
   return (
@@ -149,7 +157,11 @@ const AdminDashboard = () => {
         {activeTab === 'restaurants' && <AdminRestaurants token={token} />}
         {activeTab === 'menu' && <AdminMenu token={token} />}
         {activeTab === 'orders' && <AdminOrders token={token} />}
+        {activeTab === 'categories' && <AdminCategories token={token} />}
+        {activeTab === 'collections' && <AdminCollections token={token} />}
+        {activeTab === 'offers' && <AdminOffers token={token} />}
         {activeTab === 'coupons' && <AdminCoupons token={token} />}
+        {activeTab === 'reviews' && <AdminReviews token={token} />}
       </div>
     </div>
   );

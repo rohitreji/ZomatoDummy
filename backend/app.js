@@ -3,7 +3,7 @@ const express = require("express");
 
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
-const restaurantRoutes = require("./routes/restaurant.Routes");
+const restaurantRoutes = require("./routes/restaurantRoutes");
 
 const menuRoutes = require("./routes/menuRoutes");
 const orderRoutes = require("./routes/orderRoutes");

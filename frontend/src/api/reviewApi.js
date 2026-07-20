@@ -15,3 +15,7 @@ export const getReviewsByRestaurant = (restaurantId) =>
 // Get a single review by ID
 export const getReviewById = (id) =>
     api.get(`/review/${id}`);
+
+// Delete a review by ID
+export const deleteReview = (id, token) =>
+    api.delete(`/review/${id}`, { headers: { Authorization: `Bearer ${token}` } });

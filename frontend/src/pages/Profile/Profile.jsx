@@ -5,7 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
 import Input from '../../components/Input/Input';
-import { updateUser } from '../../api/userApi';
+import { updateUser, getUserById } from '../../api/userApi';
 import { changePassword } from '../../api/authApi';
 import { getAvatar, handleImageError, DEFAULT_AVATAR } from '../../utils/imageAssets';
 
@@ -34,6 +34,19 @@ const Profile = () => {
       navigate('/login');
     }
   }, [isAuthenticated, navigate]);
+
+  React.useEffect(() => {
+    if (!user?._id) return;
+    getUserById(user._id)
+      .then((res) => {
+        const fetchedUser = res.data;
+        updateUserProfile(fetchedUser);
+        setProfileData({ name: fetchedUser.name || '', email: fetchedUser.email || '' });
+      })
+      .catch((err) => {
+        console.error('Failed to fetch user details from backend:', err);
+      });
+  }, [user?._id]);
 
   if (!user) return null;
 
@@ -93,7 +106,7 @@ const Profile = () => {
     { label: 'Settings', icon: <Settings size={18} />, path: '#', desc: 'Configure notifications and password' },
   ];
 
-  const avatarSrc = getAvatar(user?.avatar, DEFAULT_AVATAR, user?.name || 'profile');
+  const avatarSrc = getAvatar(user?.avatar || user?.profilePhoto || user?.image, DEFAULT_AVATAR, user?.name || 'profile');
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-8 mt-4">

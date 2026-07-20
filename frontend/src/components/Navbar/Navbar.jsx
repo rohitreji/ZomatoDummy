@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ShoppingCart, LogOut, Menu, X, MapPin, User, UtensilsCrossed } from 'lucide-react';
+import { ShoppingCart, LogOut, Menu, X, MapPin, User, UtensilsCrossed, ChevronDown } from 'lucide-react';
 import { useScrollDirection } from '../../hooks/useScrollDirection';
 import { useCart } from '../../hooks/useCart';
 import { useAuth } from '../../hooks/useAuth';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getAvatar, DEFAULT_AVATAR } from '../../utils/imageAssets';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Navbar = () => {
   const { itemCount } = useCart();
   const { user, isAuthenticated, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const navLinks = [
     { label: 'Browse', path: '/' },
@@ -93,43 +95,77 @@ const Navbar = () => {
 
           {/* Authentication Controls */}
           {isAuthenticated ? (
-            <div className="flex items-center gap-2">
-              {user?.role === 'admin' && (
+            <div className="flex items-center gap-4 relative">
+              <div className="relative">
                 <button
-                  onClick={() => navigate('/admin')}
-                  className="px-4 py-2 text-primary hover:bg-primary/10 rounded-full transition-all text-label-lg font-bold"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center gap-2 px-4 py-2 border border-outline-variant/30 text-on-surface hover:bg-surface-container rounded-full transition-all select-none"
                 >
-                  Admin Panel
+                  <div className="w-6 h-6 rounded-full overflow-hidden border border-primary/20">
+                    <img src={getAvatar(user.avatar || user.profilePhoto || user.image, DEFAULT_AVATAR, user.name)} alt={user.name} className="w-full h-full object-cover" />
+                  </div>
+                  <span className="font-bold text-label-lg capitalize">{user.name}</span>
+                  <ChevronDown size={14} className={`text-on-surface-variant transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
-              )}
-              <button
-                onClick={() => navigate('/orders')}
-                className="px-4 py-2 text-on-surface-variant hover:text-primary hover:bg-white/50 rounded-full transition-all text-label-lg"
-              >
-                Orders
-              </button>
-              <button
-                onClick={() => navigate('/wishlist')}
-                className="px-4 py-2 text-on-surface-variant hover:text-primary hover:bg-white/50 rounded-full transition-all text-label-lg"
-              >
-                Wishlist
-              </button>
-              <button
-                onClick={() => navigate('/profile')}
-                className="flex items-center gap-2 px-4 py-2 border border-outline-variant/30 text-on-surface hover:bg-surface-container rounded-full transition-all"
-              >
-                <div className="w-6 h-6 rounded-full overflow-hidden border border-primary/20">
-                  <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
-                </div>
-                <span className="font-bold text-label-lg capitalize">{user.name}</span>
-              </button>
-              <button
-                onClick={handleLogout}
-                className="p-2.5 text-on-surface-variant hover:text-primary hover:bg-white/50 rounded-full transition-all"
-                title="Logout"
-              >
-                <LogOut size={18} />
-              </button>
+
+                <AnimatePresence>
+                  {dropdownOpen && (
+                    <>
+                      {/* Invisible backdrop to close dropdown on click outside */}
+                      <div className="fixed inset-0 z-10" onClick={() => setDropdownOpen(false)} />
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute right-0 mt-2 w-52 bg-white rounded-2xl border border-outline-variant/35 shadow-premium p-2.5 z-20"
+                      >
+                        {user?.role === 'admin' && (
+                          <button
+                            onClick={() => { setDropdownOpen(false); navigate('/admin'); }}
+                            className="w-full text-left px-4 py-2.5 hover:bg-primary/5 hover:text-primary rounded-xl font-bold text-label-md transition-colors text-primary flex items-center gap-2"
+                          >
+                            Admin Panel
+                          </button>
+                        )}
+                        {user?.role === 'restaurantOwner' && (
+                          <button
+                            onClick={() => { setDropdownOpen(false); navigate('/owner'); }}
+                            className="w-full text-left px-4 py-2.5 hover:bg-primary/5 hover:text-primary rounded-xl font-bold text-label-md transition-colors text-primary flex items-center gap-2"
+                          >
+                            Owner Panel
+                          </button>
+                        )}
+                        <button
+                          onClick={() => { setDropdownOpen(false); navigate('/profile'); }}
+                          className="w-full text-left px-4 py-2.5 hover:bg-surface-container hover:text-on-surface rounded-xl font-bold text-label-md transition-colors flex items-center gap-2 text-on-surface-variant"
+                        >
+                          Profile Settings
+                        </button>
+                        <button
+                          onClick={() => { setDropdownOpen(false); navigate('/orders'); }}
+                          className="w-full text-left px-4 py-2.5 hover:bg-surface-container hover:text-on-surface rounded-xl font-bold text-label-md transition-colors flex items-center gap-2 text-on-surface-variant"
+                        >
+                          Your Orders
+                        </button>
+                        <button
+                          onClick={() => { setDropdownOpen(false); navigate('/wishlist'); }}
+                          className="w-full text-left px-4 py-2.5 hover:bg-surface-container hover:text-on-surface rounded-xl font-bold text-label-md transition-colors flex items-center gap-2 text-on-surface-variant"
+                        >
+                          Wishlist
+                        </button>
+                        <div className="border-t border-outline-variant/10 my-1.5" />
+                        <button
+                          onClick={() => { setDropdownOpen(false); handleLogout(); }}
+                          className="w-full text-left px-4 py-2.5 text-error hover:bg-error/5 rounded-xl font-bold text-label-md transition-colors flex items-center gap-2"
+                        >
+                          <LogOut size={16} />
+                          <span>Log Out</span>
+                        </button>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           ) : (
             <div className="flex items-center gap-2">
@@ -239,7 +275,7 @@ const Navbar = () => {
                       className="flex items-center gap-3 cursor-pointer group"
                     >
                       <div className="w-10 h-10 rounded-full overflow-hidden border border-primary/20">
-                        <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
+                        <img src={getAvatar(user.avatar || user.profilePhoto || user.image, DEFAULT_AVATAR, user.name)} alt={user.name} className="w-full h-full object-cover" />
                       </div>
                       <div>
                         <p className="font-bold text-body-md group-hover:text-primary transition-colors capitalize">
@@ -258,6 +294,17 @@ const Navbar = () => {
                           className="w-full py-3 border border-primary/40 bg-primary/5 text-primary hover:bg-primary/10 rounded-full font-bold transition-all text-label-lg"
                         >
                           Admin Panel
+                        </button>
+                      )}
+                      {user?.role === 'restaurantOwner' && (
+                        <button
+                          onClick={() => {
+                            navigate('/owner');
+                            setMobileMenuOpen(false);
+                          }}
+                          className="w-full py-3 border border-primary/40 bg-primary/5 text-primary hover:bg-primary/10 rounded-full font-bold transition-all text-label-lg"
+                        >
+                          Owner Panel
                         </button>
                       )}
                       <button

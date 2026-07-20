@@ -13,3 +13,9 @@ export const searchRestaurants = (query) => {
 };
 
 export const getRestaurantsByOwner = (ownerId) => api.get(`/restaurants/owner/${ownerId}`);
+
+export const createRestaurant = (data) => api.post('/restaurants', data);
+
+export const updateRestaurant = (id, data) => api.put(`/restaurants/${id}`, data);
+
+export const deleteRestaurant = (id) => api.delete(`/restaurants/${id}`);
