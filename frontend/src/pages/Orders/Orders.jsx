@@ -5,6 +5,7 @@ import Button from '../../components/Button/Button';
 import { getOrdersByUser } from '../../api/orderApi';
 import { useAuth } from '../../hooks/useAuth';
 import Loader from '../../components/Loader/Loader';
+import { formatCurrency } from '../../utils/currency';
 
 const Orders = () => {
   const navigate = useNavigate();
@@ -153,7 +154,7 @@ const Orders = () => {
                 <div className="text-left md:text-right">
                   <p className="text-on-surface-variant text-label-lg font-bold">Total Amount</p>
                   <p className="font-display text-headline-sm font-black text-primary">
-                    ${(order.totalAmount || 0).toFixed(2)}
+                    {formatCurrency(order.totalAmount || 0)}
                   </p>
                 </div>
 

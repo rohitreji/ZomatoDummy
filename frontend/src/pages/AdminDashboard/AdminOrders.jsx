@@ -5,6 +5,7 @@ import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
 import Input from '../../components/Input/Input';
+import { formatCurrency } from '../../utils/currency';
 
 const AdminOrders = ({ token }) => {
   const [orders, setOrders] = useState([]);
@@ -131,7 +132,7 @@ const AdminOrders = ({ token }) => {
                     {order.restaurant?.name || 'Unknown'}
                   </td>
                   <td className="py-4 text-body-md font-bold text-primary">
-                    ₹{order.totalAmount}
+                    {formatCurrency(order.totalAmount)}
                   </td>
                   <td className="py-4 space-y-1">
                     <div className={`px-2 py-0.5 inline-block rounded-md text-label-sm font-bold w-max ${getStatusColor(order.orderStatus)}`}>
@@ -167,7 +168,7 @@ const AdminOrders = ({ token }) => {
                 <p className="text-on-surface-variant text-label-sm mt-1">{new Date(selectedOrder.createdAt).toLocaleString()}</p>
               </div>
               <div className="text-right">
-                <p className="font-bold text-headline-sm text-primary">₹{selectedOrder.totalAmount}</p>
+                <p className="font-bold text-headline-sm text-primary">{formatCurrency(selectedOrder.totalAmount)}</p>
                 <span className={`px-2 py-0.5 rounded-md text-label-sm font-bold ${getStatusColor(selectedOrder.paymentStatus)} mt-1 inline-block`}>
                   {selectedOrder.paymentStatus} ({selectedOrder.paymentMethod})
                 </span>
@@ -200,7 +201,7 @@ const AdminOrders = ({ token }) => {
                       </div>
                       <p className="font-bold text-body-md capitalize">{item.menuItem?.name || 'Unknown Item'}</p>
                     </div>
-                    <p className="font-bold text-body-md text-on-surface-variant">₹{item.menuItem?.price ? item.menuItem.price * item.quantity : 0}</p>
+                    <p className="font-bold text-body-md text-on-surface-variant">{formatCurrency(item.menuItem?.price ? item.menuItem.price * item.quantity : 0)}</p>
                   </div>
                 ))}
               </div>

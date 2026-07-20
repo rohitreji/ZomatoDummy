@@ -5,6 +5,7 @@ import { useCart } from '../../hooks/useCart';
 import Button from '../../components/Button/Button';
 import { motion } from 'framer-motion';
 import { getCouponByCode } from '../../api/couponApi';
+import { formatCurrency } from '../../utils/currency';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -33,6 +34,11 @@ const Cart = () => {
     const code = promoInput.trim();
     if (!code) return;
 
+    if (promoCode) {
+      setPromoError('A coupon is already applied. Remove it first.');
+      return;
+    }
+
     setPromoLoading(true);
     setPromoError('');
 
@@ -53,17 +59,32 @@ const Cart = () => {
         return;
       }
 
+      const payableBeforeDiscount = subtotal + deliveryFee + serviceFee + tax;
+      const minPayable = 1;
+
+      if (payableBeforeDiscount <= minPayable) {
+        setPromoError(`Your cart total is already at or below the minimum payable amount of ₹${minPayable}.`);
+        return;
+      }
+
       // Compute discount amount
       let discount = 0;
       if (coupon.discountType === 'Percentage') {
         discount = (subtotal * coupon.discountValue) / 100;
-        if (coupon.maximumDiscount > 0) {
-          discount = Math.min(discount, coupon.maximumDiscount);
-        }
       } else {
         // Flat discount
         discount = coupon.discountValue;
       }
+
+      if (coupon.maximumDiscount > 0) {
+        discount = Math.min(discount, coupon.maximumDiscount);
+      }
+
+      // Cap the discount so final total doesn't fall below minPayable
+      if (payableBeforeDiscount - discount < minPayable) {
+        discount = payableBeforeDiscount - minPayable;
+      }
+      discount = Math.max(0, discount);
       discount = Number(discount.toFixed(2));
 
       // Dispatch to CartContext with validated code and computed amount
@@ -150,7 +171,7 @@ const Cart = () => {
                           </p>
                         </div>
                         <span className="font-bold text-primary text-body-lg">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          {formatCurrency(item.price * item.quantity)}
                         </span>
                       </div>
                     </div>
@@ -241,35 +262,35 @@ const Cart = () => {
             <div className="space-y-3.5 text-on-surface-variant text-label-lg font-bold border-b border-outline-variant/20 pb-4">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span className="text-on-surface">${subtotal.toFixed(2)}</span>
+                <span className="text-on-surface">{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Delivery Fee</span>
                 {deliveryFee === 0 ? (
                   <span className="text-tertiary">Free</span>
                 ) : (
-                  <span className="text-on-surface">${deliveryFee.toFixed(2)}</span>
+                  <span className="text-on-surface">{formatCurrency(deliveryFee)}</span>
                 )}
               </div>
               <div className="flex justify-between">
                 <span>Service Fee</span>
-                <span className="text-on-surface">${serviceFee.toFixed(2)}</span>
+                <span className="text-on-surface">{formatCurrency(serviceFee)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Tax (8.5%)</span>
-                <span className="text-on-surface">${tax.toFixed(2)}</span>
+                <span className="text-on-surface">{formatCurrency(tax)}</span>
               </div>
               {promoDiscount > 0 && (
                 <div className="flex justify-between text-tertiary">
                   <span>Coupon Discount</span>
-                  <span>-${promoDiscount.toFixed(2)}</span>
+                  <span>-{formatCurrency(promoDiscount)}</span>
                 </div>
               )}
             </div>
 
             <div className="flex justify-between text-headline-sm text-on-surface font-black pt-4">
               <span>Total</span>
-              <span className="text-primary">${total.toFixed(2)}</span>
+              <span className="text-primary">{formatCurrency(total)}</span>
             </div>
 
             <Button

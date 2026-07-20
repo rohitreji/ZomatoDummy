@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import { getAddressesByUser, createAddress, deleteAddress } from '../../api/addressApi';
 import { createOrder } from '../../api/orderApi';
 import { createPayment } from '../../api/paymentApi';
+import { formatCurrency } from '../../utils/currency';
 
 // Map addressType string → lucide icon
 const addressIcon = (type) => {
@@ -357,35 +358,35 @@ const Checkout = () => {
             <div className="space-y-3.5 text-on-surface-variant text-label-lg font-bold border-b border-outline-variant/20 pb-4">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span className="text-on-surface">${subtotal.toFixed(2)}</span>
+                <span className="text-on-surface">{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Delivery Fee</span>
                 {deliveryFee === 0 ? (
                   <span className="text-tertiary">Free</span>
                 ) : (
-                  <span className="text-on-surface">${deliveryFee.toFixed(2)}</span>
+                  <span className="text-on-surface">{formatCurrency(deliveryFee)}</span>
                 )}
               </div>
               <div className="flex justify-between">
                 <span>Service Fee</span>
-                <span className="text-on-surface">${serviceFee.toFixed(2)}</span>
+                <span className="text-on-surface">{formatCurrency(serviceFee)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Tax</span>
-                <span className="text-on-surface">${tax.toFixed(2)}</span>
+                <span className="text-on-surface">{formatCurrency(tax)}</span>
               </div>
               {promoDiscount > 0 && (
                 <div className="flex justify-between text-tertiary">
                   <span>Discount</span>
-                  <span>-${promoDiscount.toFixed(2)}</span>
+                  <span>-{formatCurrency(promoDiscount)}</span>
                 </div>
               )}
             </div>
 
             <div className="flex justify-between text-headline-sm text-on-surface font-black pt-4 mb-6">
               <span>Total</span>
-              <span className="text-primary">${total.toFixed(2)}</span>
+              <span className="text-primary">{formatCurrency(total)}</span>
             </div>
 
             <Button

@@ -3,6 +3,7 @@ import { ShoppingBag, Clock, MapPin, Phone, User, CheckCircle, XCircle } from 'l
 import api from '../../api/axios';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
+import { formatCurrency } from '../../utils/currency';
 
 const OwnerOrders = ({ restaurantId }) => {
   const [orders, setOrders] = useState([]);
@@ -126,7 +127,7 @@ const OwnerOrders = ({ restaurantId }) => {
                 <div className="flex flex-col justify-between items-end gap-4 border-t md:border-t-0 border-outline-variant/10 pt-4 md:pt-0">
                   <div className="text-right">
                     <p className="text-label-sm font-bold text-on-surface-variant">Total Amount</p>
-                    <p className="font-display text-headline-sm font-black text-primary">${(order.totalAmount || 0).toFixed(2)}</p>
+                    <p className="font-display text-headline-sm font-black text-primary">{formatCurrency(order.totalAmount)}</p>
                   </div>
 
                   <div className="flex flex-wrap gap-2 justify-end">

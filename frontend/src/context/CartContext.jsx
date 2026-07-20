@@ -6,7 +6,7 @@ const CART_STORAGE_KEY = 'zomato_cart';
 
 const initialState = {
   items: [],
-  deliveryFee: 4.99,
+  deliveryFee: 49,
   promoDiscount: 0,
   promoCode: '',
 };
@@ -102,9 +102,9 @@ export const CartProvider = ({ children }) => {
 
   // Derived values
   const subtotal = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const serviceFee = subtotal > 0 ? 2.50 : 0;
-  const tax = Number((subtotal * 0.085).toFixed(2));
-  const deliveryFee = subtotal > 30 ? 0 : (subtotal > 0 ? state.deliveryFee : 0);
+  const serviceFee = subtotal > 0 ? 25 : 0;
+  const tax = Number((subtotal * 0.05).toFixed(2));
+  const deliveryFee = subtotal > 499 ? 0 : (subtotal > 0 ? state.deliveryFee : 0);
   const total = Number((subtotal + deliveryFee + serviceFee + tax - state.promoDiscount).toFixed(2));
   const itemCount = state.items.reduce((count, item) => count + item.quantity, 0);
 

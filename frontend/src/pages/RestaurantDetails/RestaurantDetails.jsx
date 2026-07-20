@@ -12,6 +12,7 @@ import Button from '../../components/Button/Button';
 import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import { motion } from 'framer-motion';
 import { getRestaurantCover, getMenuItemImage, getAvatar, handleImageError, DEFAULT_FOOD_IMAGE, DEFAULT_AVATAR } from '../../utils/imageAssets';
+import { formatCurrency } from '../../utils/currency';
 
 const RestaurantDetails = () => {
   const { id } = useParams();
@@ -32,6 +33,7 @@ const RestaurantDetails = () => {
   const [reviewComment, setReviewComment] = useState('');
   const [submittingReview, setSubmittingReview] = useState(false);
   const [reviewError, setReviewError] = useState('');
+  const [reviewSuccess, setReviewSuccess] = useState('');
 
   useEffect(() => {
     let isMounted = true;
@@ -107,6 +109,7 @@ const RestaurantDetails = () => {
     if (!isAuthenticated) return;
     setSubmittingReview(true);
     setReviewError('');
+    setReviewSuccess('');
     try {
       const res = await createReview({
         user: user._id,
@@ -114,9 +117,22 @@ const RestaurantDetails = () => {
         rating: reviewRating,
         comment: reviewComment,
       });
-      setReviews([res.data.review, ...reviews]);
+      const newReview = res.data.review;
+      const newReviews = [newReview, ...reviews];
+      setReviews(newReviews);
       setReviewComment('');
       setReviewRating(5);
+      setReviewSuccess('Review posted successfully!');
+
+      // Update local restaurant rating & reviews count
+      if (newReviews.length > 0) {
+        const avg = newReviews.reduce((sum, r) => sum + Number(r.rating || 0), 0) / newReviews.length;
+        const rounded = Math.round(avg * 10) / 10;
+        setRestaurant((prev) => ({
+          ...prev,
+          rating: rounded,
+        }));
+      }
     } catch (err) {
       setReviewError(err?.response?.data?.message || 'Failed to submit review');
     } finally {
@@ -266,7 +282,7 @@ const RestaurantDetails = () => {
                                 {item.name}
                               </h3>
                               <span className="font-bold text-primary text-headline-sm select-none">
-                                ${(Number(item.price) || 0).toFixed(2)}
+                                {formatCurrency(item.price)}
                               </span>
                             </div>
                             <p className="text-on-surface-variant text-body-sm line-clamp-2">
@@ -330,7 +346,7 @@ const RestaurantDetails = () => {
                         <button
                           key={star}
                           type="button"
-                          onClick={() => setReviewRating(star)}
+                          onClick={() => { setReviewRating(star); setReviewSuccess(''); }}
                           className={`p-1 transition-colors ${reviewRating >= star ? 'text-yellow-500' : 'text-outline-variant'}`}
                         >
                           <Star size={24} fill="currentColor" />
@@ -340,13 +356,14 @@ const RestaurantDetails = () => {
 
                     <textarea
                       value={reviewComment}
-                      onChange={(e) => setReviewComment(e.target.value)}
+                      onChange={(e) => { setReviewComment(e.target.value); setReviewSuccess(''); }}
                       placeholder="What did you like or dislike?"
                       className="w-full bg-surface-container-low border border-outline-variant rounded-xl p-4 outline-none text-body-md text-on-surface resize-none h-24 mb-4 focus:ring-2 focus:ring-primary/20 focus:border-primary"
                       required
                     />
 
                     {reviewError && <p className="text-error text-label-sm mb-4">{reviewError}</p>}
+                    {reviewSuccess && <p className="text-green-600 font-bold text-label-sm mb-4">{reviewSuccess}</p>}
 
                     <div className="flex justify-end">
                       <Button type="submit" variant="primary" loading={submittingReview} disabled={!reviewComment.trim()}>
@@ -418,7 +435,7 @@ const RestaurantDetails = () => {
                             {item.name}
                           </p>
                           <p className="text-label-sm text-primary font-bold">
-                            ${(item.price * item.quantity).toFixed(2)}
+                            {formatCurrency(item.price * item.quantity)}
                           </p>
                         </div>
                         <div className="flex items-center bg-surface-container rounded-full p-0.5 border border-outline-variant/50">
@@ -444,19 +461,19 @@ const RestaurantDetails = () => {
                   <div className="border-t border-outline-variant/20 pt-4 space-y-2.5 text-on-surface-variant text-label-lg font-bold">
                     <div className="flex justify-between">
                       <span>Subtotal</span>
-                      <span className="text-on-surface">${subtotal.toFixed(2)}</span>
+                      <span className="text-on-surface">{formatCurrency(subtotal)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Delivery Fee</span>
                       {deliveryFee === 0 ? (
                         <span className="text-tertiary">Free</span>
                       ) : (
-                        <span className="text-on-surface">${deliveryFee.toFixed(2)}</span>
+                        <span className="text-on-surface">{formatCurrency(deliveryFee)}</span>
                       )}
                     </div>
                     <div className="flex justify-between border-t border-outline-variant/20 pt-4 text-headline-sm text-on-surface font-extrabold">
                       <span>Total</span>
-                      <span className="text-primary">${total.toFixed(2)}</span>
+                      <span className="text-primary">{formatCurrency(total)}</span>
                     </div>
                   </div>
 

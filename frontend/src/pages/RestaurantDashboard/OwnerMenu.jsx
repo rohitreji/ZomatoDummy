@@ -5,6 +5,7 @@ import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
 import Input from '../../components/Input/Input';
+import { formatCurrency } from '../../utils/currency';
 
 const OwnerMenu = ({ restaurantId, token }) => {
   const [menuItems, setMenuItems] = useState([]);
@@ -171,7 +172,7 @@ const OwnerMenu = ({ restaurantId, token }) => {
                     </div>
                   </td>
                   <td className="py-4 text-body-sm text-on-surface-variant capitalize">{item.category}</td>
-                  <td className="py-4 text-body-sm text-on-surface-variant font-medium text-primary">${item.price}</td>
+                  <td className="py-4 text-body-sm text-on-surface-variant font-medium text-primary">{formatCurrency(item.price)}</td>
                   <td className="py-4 text-body-sm text-on-surface-variant font-medium">{item.discount || 0}%</td>
                   <td className="py-4">
                     <span className={`flex items-center gap-1 text-label-sm font-bold ${item.isAvailable ? 'text-green-600' : 'text-red-500'}`}>
@@ -214,7 +215,7 @@ const OwnerMenu = ({ restaurantId, token }) => {
                   <div className={`w-3 h-3 rounded-full ${selectedItem.isVeg ? 'bg-green-500' : 'bg-red-500'}`} />
                   <p className="font-bold text-headline-sm capitalize">{selectedItem.name}</p>
                 </div>
-                <p className="text-on-surface-variant">${selectedItem.price} {selectedItem.discount > 0 && <span className="text-error font-medium ml-2 text-label-sm">({selectedItem.discount}% OFF)</span>}</p>
+                <p className="text-on-surface-variant">{formatCurrency(selectedItem.price)} {selectedItem.discount > 0 && <span className="text-error font-medium ml-2 text-label-sm">({selectedItem.discount}% OFF)</span>}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 border-t border-outline-variant/20 pt-4">
@@ -252,7 +253,7 @@ const OwnerMenu = ({ restaurantId, token }) => {
           <Input label="Image URL" value={formData.image} onChange={(e) => setFormData({...formData, image: e.target.value})} />
 
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Price ($)" type="number" step="0.01" min="0" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} required />
+            <Input label="Price (₹)" type="number" step="0.01" min="0" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} required />
             <Input label="Discount (%)" type="number" min="0" max="100" value={formData.discount} onChange={(e) => setFormData({...formData, discount: e.target.value})} />
           </div>
 

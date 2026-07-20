@@ -7,6 +7,7 @@ import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
 import Input from '../../components/Input/Input';
+import { formatCurrency } from '../../utils/currency';
 
 const AdminMenu = ({ token }) => {
   const [menuItems, setMenuItems] = useState([]);
@@ -184,7 +185,7 @@ const AdminMenu = ({ token }) => {
                     </div>
                   </td>
                   <td className="py-4 text-body-sm text-on-surface-variant capitalize">{item.category}</td>
-                  <td className="py-4 text-body-sm text-on-surface-variant font-medium text-primary">₹{item.price}</td>
+                  <td className="py-4 text-body-sm text-on-surface-variant font-medium text-primary">{formatCurrency(item.price)}</td>
                   <td className="py-4 text-body-sm text-on-surface-variant truncate max-w-[150px]">
                     {getRestaurantName(item.restaurant)}
                   </td>
@@ -229,7 +230,7 @@ const AdminMenu = ({ token }) => {
                   <div className={`w-3 h-3 rounded-full ${selectedItem.isVeg ? 'bg-green-500' : 'bg-red-500'}`} />
                   <p className="font-bold text-headline-sm capitalize">{selectedItem.name}</p>
                 </div>
-                <p className="text-on-surface-variant">₹{selectedItem.price} {selectedItem.discount > 0 && <span className="text-error font-medium ml-2 text-label-sm">({selectedItem.discount}% OFF)</span>}</p>
+                <p className="text-on-surface-variant">{formatCurrency(selectedItem.price)} {selectedItem.discount > 0 && <span className="text-error font-medium ml-2 text-label-sm">({selectedItem.discount}% OFF)</span>}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 border-t border-outline-variant/20 pt-4">
