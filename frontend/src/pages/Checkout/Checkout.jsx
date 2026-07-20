@@ -73,15 +73,34 @@ const Checkout = () => {
     setCheckoutError('');
 
     try {
+      if (!user?._id) {
+        throw new Error('Please log in before placing an order.');
+      }
+
+      if (!cart.length) {
+        throw new Error('Your cart is empty.');
+      }
+
       const selectedAddressDoc = addresses.find((a) => a._id === activeAddress);
       const deliveryAddressStr = selectedAddressDoc
         ? `${selectedAddressDoc.fullName || ''} (${selectedAddressDoc.phone || ''}), ${selectedAddressDoc.houseNo || ''} ${selectedAddressDoc.street || ''}, ${selectedAddressDoc.city || ''}, ${selectedAddressDoc.state || ''} - ${selectedAddressDoc.pincode || ''}`.trim()
         : '';
 
-      const items = cart.map((item) => ({
-        menuItem: item.id || item._id,
-        quantity: item.quantity,
-      }));
+      if (!deliveryAddressStr) {
+        throw new Error('Please select or add a delivery address.');
+      }
+
+      const restaurantId = cart[0]?.restaurantId || cart[0]?.restaurant || cart[0]?.restaurant_id || '';
+      const items = cart
+        .map((item) => ({
+          menuItem: item.id || item._id || item.menuItem || '',
+          quantity: Number(item.quantity) || 1,
+        }))
+        .filter((item) => item.menuItem);
+
+      if (!restaurantId || !items.length) {
+        throw new Error('Your cart is missing restaurant or item details.');
+      }
 
       const paymentMethodMapped = activePayment === 'cash' ? 'Cash on Delivery' : 'Card';
       const paymentStatusMapped = activePayment === 'cash' ? 'Pending' : 'Paid';
@@ -89,9 +108,9 @@ const Checkout = () => {
       // 1. Create the order
       const orderRes = await createOrder({
         user: user._id,
-        restaurant: cart[0].restaurantId,
+        restaurant: restaurantId,
         items,
-        totalAmount: total,
+        totalAmount: Number(total) || 0,
         paymentMethod: paymentMethodMapped,
         paymentStatus: paymentStatusMapped,
         deliveryAddress: deliveryAddressStr,
