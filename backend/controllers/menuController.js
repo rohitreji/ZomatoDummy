@@ -25,7 +25,7 @@ const createMenuItem = async (req, res) => {
 // @access Public
 const getMenuItems = async (req, res) => {
   try {
-    const menuItems = await Menu.find().populate("restaurant", "name city");
+    const menuItems = await Menu.find().populate("restaurant", "name city").lean();
 
     return res.status(200).json({
       success: true,
@@ -45,10 +45,9 @@ const getMenuItems = async (req, res) => {
 // @access Public
 const getMenuItemById = async (req, res) => {
   try {
-    const menuItem = await Menu.findById(req.params.id).populate(
-      "restaurant",
-      "name city"
-    );
+    const menuItem = await Menu.findById(req.params.id)
+      .populate("restaurant", "name city")
+      .lean();
 
     if (!menuItem) {
       return res.status(404).json({
@@ -76,7 +75,7 @@ const getMenuByRestaurant = async (req, res) => {
   try {
     const menuItems = await Menu.find({
       restaurant: req.params.restaurantId,
-    });
+    }).lean();
 
     return res.status(200).json({
       success: true,
