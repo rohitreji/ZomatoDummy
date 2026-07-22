@@ -7,13 +7,13 @@ const createMenuItem = async (req, res) => {
   try {
     const menuItem = await Menu.create(req.body);
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "Menu item created successfully",
       menuItem,
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
       message: error.message,
     });
@@ -27,13 +27,13 @@ const getMenuItems = async (req, res) => {
   try {
     const menuItems = await Menu.find().populate("restaurant", "name city");
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       count: menuItems.length,
       menuItems,
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
@@ -57,12 +57,12 @@ const getMenuItemById = async (req, res) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       menuItem,
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
@@ -78,13 +78,13 @@ const getMenuByRestaurant = async (req, res) => {
       restaurant: req.params.restaurantId,
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       count: menuItems.length,
       menuItems,
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
@@ -112,13 +112,13 @@ const updateMenuItem = async (req, res) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Menu item updated successfully",
       menuItem: updatedMenuItem,
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
       message: error.message,
     });
@@ -139,12 +139,12 @@ const deleteMenuItem = async (req, res) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Menu item deleted successfully",
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
